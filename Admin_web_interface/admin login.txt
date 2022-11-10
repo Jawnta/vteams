@@ -1,0 +1,14 @@
+title Administrative web interface
+actor Admin
+participant WebInterface
+participant API
+participant Database
+
+Admin->WebInterface: Login
+alt Authentication
+API->Database: Verification
+Database-->>API: Return status
+API->Admin: Logged in
+else
+API->Admin: Incorrect username or password
+end

@@ -1,0 +1,27 @@
+title Administrative web interface
+
+actor Admin
+participant WebInterface
+participant Map
+participant API
+participant Database
+
+Admin->WebInterface: View Map
+WebInterface->Map:
+Map->+API:
+
+API->Database: Get data
+Database-->>API: Return data
+API-->>Map:
+deactivate API
+
+note over Admin,WebInterface: View:\nBikes,\nParked Bikes,\nParkingzones,\nChargingzones\nCustomers
+Admin->+WebInterface:
+WebInterface->+API: Request data
+API->+Database: Request data
+Database-->API: Response
+deactivate Database
+alt Response
+API-->WebInterface: Data
+else
+API-->WebInterface: Error
