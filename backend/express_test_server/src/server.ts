@@ -16,9 +16,14 @@ export class Api {
     };
 
     createRoutes = () => {
-        this.app.get("/", (request: Request, response: Response) => {
-            response.send("Hello world");
+
+        //Stad_1
+        this.app.get("/bikes/:city", (request: Request, response: Response) => {
+            return get_bikes(req.body.city);
         });
+
+        //Stad_2
+        //routes....
 
     };
 }
