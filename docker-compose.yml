@@ -1,0 +1,34 @@
+version: "3"
+
+services:
+    api:
+        image: "api"
+        container_name: "api_server"
+        ports:
+            - "8080:1337"
+        environment:
+            - NODE_ENV=development
+        restart: "always"
+    adminClient:
+        image: "admin_client"
+        container_name: "admin_client"
+        ports:
+            - "8880:1338"
+    userMobileClient:
+        image: "user_mobile_client"
+        container_name: "user_mobile_client"
+        environment:
+            - NODE_ENV=development
+        tty: true
+        ports:
+            - '19006:19006'
+            - '19001:19001'
+            - '19002:19002'
+        volumes:
+            - "./frontend/userMobileClient/app/:/opt/app"
+            - notused:/opt/userMobileClient/app/node_modules
+        healthcheck:
+            disable: true
+
+volumes:
+  notused:
