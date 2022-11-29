@@ -46,6 +46,18 @@ DELIMITER ;
 
 -- Delete charging station
 -- DELETE chargingstations/:chargingStationId
+DROP PROCEDURE IF EXISTS delete_charging_station;
+
+DELIMITER ;;
+CREATE PROCEDURE delete_charging_station(
+    s_id INT
+)
+BEGIN
+    DELETE FROM charging_station WHERE id = s_id;
+END
+;;
+
+DELIMITER ;
 
 -- Get charging station by id
 -- GET chargingstations/:chargingStationId

@@ -74,6 +74,18 @@ END
 
 -- Delete specific scooter
 -- DELETE scooters/:scooterId
+DROP PROCEDURE IF EXISTS delete_scooter;
+
+DELIMITER ;;
+CREATE PROCEDURE delete_scooter(
+    s_id INT
+)
+BEGIN
+    DELETE FROM scooter WHERE id = s_id;
+END
+;;
+
+DELIMITER ;
 
 -- Get specific scooter
 -- GET scooters/:scooterId

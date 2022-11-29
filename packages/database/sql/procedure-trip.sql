@@ -53,6 +53,18 @@ DELIMITER ;
 
 -- Delete trip
 -- DELETE /trips/:tripId
+DROP PROCEDURE IF EXISTS delete_trip;
+
+DELIMITER ;;
+CREATE PROCEDURE delete_trip(
+    t_id INT
+)
+BEGIN
+    DELETE FROM trip WHERE id = t_id;
+END
+;;
+
+DELIMITER ;
 
 
 -- Get trips for user

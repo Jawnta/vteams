@@ -18,6 +18,18 @@ DELIMITER ;
 
 -- Delete user
 -- DELETE /users/:userId
+DROP PROCEDURE IF EXISTS delete_user;
+
+DELIMITER ;;
+CREATE PROCEDURE delete_user(
+    u_id INT
+)
+BEGIN
+    DELETE FROM user WHERE id = i_id;
+END
+;;
+
+DELIMITER ;
 
 -- Get specific user
 -- GET /users/:userId

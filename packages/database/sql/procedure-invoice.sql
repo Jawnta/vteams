@@ -19,6 +19,18 @@ DELIMITER ;
 
 -- Delete invoice
 -- DELETE invoices/:invoiceId
+DROP PROCEDURE IF EXISTS delete_invoice;
+
+DELIMITER ;;
+CREATE PROCEDURE delete_invoice(
+    i_id INT
+)
+BEGIN
+    DELETE FROM invoice WHERE id = i_id;
+END
+;;
+
+DELIMITER ;
 
 
 -- Update invoice

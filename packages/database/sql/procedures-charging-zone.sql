@@ -47,6 +47,18 @@ DELIMITER ;
 
 -- Delete charging zone
 -- DELETE chargingzones/:chargingZoneId
+DROP PROCEDURE IF EXISTS delete_charging_zone;
+
+DELIMITER ;;
+CREATE PROCEDURE delete_charging_zone(
+    z_id INT
+)
+BEGIN
+    DELETE FROM charging_zone WHERE id = z_id;
+END
+;;
+
+DELIMITER ;
 
 
 -- Update charging zone

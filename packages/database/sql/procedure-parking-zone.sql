@@ -41,6 +41,18 @@ DELIMITER ;
 
 -- Delete specific parkingzone
 -- DELETE /parkingzones/:parkingZoneId
+DROP PROCEDURE IF EXISTS delete_parking_zone;
+
+DELIMITER ;;
+CREATE PROCEDURE delete_parking_zone(
+    z_id INT
+)
+BEGIN
+    DELETE FROM parking_zone WHERE id = z_id;
+END
+;;
+
+DELIMITER ;
 
 -- Get spcific parkingzone
 -- GET /parkingzones/:parkingZoneId
