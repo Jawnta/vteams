@@ -4,29 +4,17 @@ services:
     api:
         image: "api"
         container_name: "api_server"
-        build: "./api_test/"
         ports:
-            - "8080:3000"
-        environment:
-            - NODE_ENV=development
-        volumes:
-            - "./api_test/:/api"
+            - "8080:1337"
         restart: "always"
     adminClient:
         image: "admin_client"
         container_name: "admin_client"
-        environment:
-            - WATCHPACK_POLLING=true
-        build: "./adminClient/"
-        volumes:
-            - "./adminClient/:/adminClient"
         ports:
             - "8880:1338"
     userMobileClient:
         image: "user_mobile_client"
         container_name: "user_mobile_client"
-        environment:
-            - NODE_ENV=development
         tty: true
         ports:
             - '19006:19006'
