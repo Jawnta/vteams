@@ -4,13 +4,13 @@ services:
     api:
         image: "api"
         container_name: "api_server"
-        build: "./api_test/"
+        build: "./api/"
         ports:
             - "8080:3000"
         environment:
             - NODE_ENV=development
         volumes:
-            - "./api_test/:/api"
+            - "./api/:/api"
         restart: "always"
     adminClient:
         image: "admin_client"
