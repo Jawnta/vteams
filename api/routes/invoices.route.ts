@@ -1,15 +1,12 @@
 import express from 'express';
 import { invoices } from '../services/invoices';
+import {InvoiceInterface} from "../interfaces/invoiceInterface";
 const router = express.Router();
-import { UserInterface } from "../interfaces/userInterface";
+
 
 router.get('/', async (req, res, next) => {
-    let options = {
-    };
-
-
     try {
-        const result = await invoices.getInvoices(options);
+        const result = await invoices.getInvoices();
         res.status(result.status || 200).send(result.data);
     }
     catch (err) {
@@ -20,13 +17,10 @@ router.get('/', async (req, res, next) => {
 });
 
 router.post('/', async (req, res, next) => {
-    let options = {
-    };
-
-    options.invoice = req.body;
+    const data: InvoiceInterface[] = req.body;
 
     try {
-        const result = await invoices.postInvoices(options);
+        const result = await invoices.postInvoices(data);
         res.status(result.status || 200).send(result.data);
     }
     catch (err) {
@@ -37,13 +31,11 @@ router.post('/', async (req, res, next) => {
 });
 
 router.get('/:invoiceId', async (req, res, next) => {
-    let options = {
-        "invoiceId": req.params.invoiceId,
-    };
 
+    const invoiceId: number = +req.params.invoiceId;
 
     try {
-        const result = await invoices.getInvoiceId(options);
+        const result = await invoices.getInvoiceId(invoiceId);
         res.status(result.status || 200).send(result.data);
     }
     catch (err) {
@@ -54,14 +46,16 @@ router.get('/:invoiceId', async (req, res, next) => {
 });
 
 router.put('/:invoiceId', async (req, res, next) => {
-    let options = {
-        "invoiceId": req.params.invoiceId,
-    };
 
-    options.invoice = req.body;
+    const invoice: InvoiceInterface[] = req.body;
+    const data = {
+        invoiceId: +req.params.invoiceId,
+        invoice: invoice
+    }
+
 
     try {
-        const result = await invoices.putInvoiceId(options);
+        const result = await invoices.putInvoiceId(data);
         res.status(result.status || 200).send(result.data);
     }
     catch (err) {
@@ -72,13 +66,11 @@ router.put('/:invoiceId', async (req, res, next) => {
 });
 
 router.delete('/:invoiceId', async (req, res, next) => {
-    let options = {
-        "invoiceId": req.params.invoiceId,
-    };
 
+    const invoiceId: number = +req.params.invoiceId;
 
     try {
-        const result = await invoices.deleteInvoiceId(options);
+        const result = await invoices.deleteInvoiceId(invoiceId);
         res.status(result.status || 200).send(result.data);
     }
     catch (err) {

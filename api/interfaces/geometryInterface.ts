@@ -1,6 +1,6 @@
 type Coordinates = [number];
 
-interface Geometry {
+export interface GeometryInterface {
     type: string,
     coordinates: Coordinates
 }
