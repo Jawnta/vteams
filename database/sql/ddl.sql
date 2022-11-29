@@ -1,5 +1,6 @@
 SOURCE create.sql;
--- SOURCE views.sql;
--- SOURCE procedures.sql;
--- SOURCE functions.sql;
+-- SOURCE trigger.sql;
+-- SOURCE procedure.sql;
+-- SOURCE view.sql;
+-- SOURCE function.sql;
 
