@@ -1,36 +1,35 @@
 import { UserInterface } from "../interfaces/userInterface";
 export const users = {
-    /**
+  /**
      *
 
 
      */
-    getUsers: async () => {
+  getUsers: async () => {
+    // Implement your business logic here...
+    //
+    // Return all 2xx and 4xx as follows:
+    //
+    // return {
+    //   status: 'statusCode',
+    //   data: 'response'
+    // }
 
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
+    // If an error happens during your business logic implementation,
+    // you can throw it as follows:
+    //
+    // throw new Error('<Error message>'); // this will result in a 500
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+    const data: UserInterface[] = [],
+      status = 200;
 
-        const data: UserInterface[] = [],
-            status: number = 200;
+    return {
+      status: status,
+      data: data,
+    };
+  },
 
-        return {
-            status: status,
-            data: data
-        };
-    },
-
-    /**
+  /**
      *
 
      * @param options.creditCurrent credit balance
@@ -45,62 +44,60 @@ export const users = {
      * @param options.tokenLogin token for authentication
 
      */
-    postUsers: async (options: UserInterface) => {
+  postUsers: async (options: UserInterface) => {
+    // Implement your business logic here...
+    //
+    // Return all 2xx and 4xx as follows:
+    //
+    // return {
+    //   status: 'statusCode',
+    //   data: 'response'
+    // }
 
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
+    // If an error happens during your business logic implementation,
+    // you can throw it as follows:
+    //
+    // throw new Error('<Error message>'); // this will result in a 500
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+    const data = {};
+    const status = 201;
 
-        const data = {}
-        const status = 201;
+    return {
+      status: status,
+      data: data,
+    };
+  },
 
-        return {
-            status: status,
-            data: data
-        };
-    },
-
-    /**
+  /**
      *
      * @param userId The unique identifier of the user
 
      */
-    getUserId: async (userId: number) => {
+  getUserId: async (userId: number) => {
+    // Implement your business logic here...
+    //
+    // Return all 2xx and 4xx as follows:
+    //
+    // return {
+    //   status: 'statusCode',
+    //   data: 'response'
+    // }
 
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
+    // If an error happens during your business logic implementation,
+    // you can throw it as follows:
+    //
+    // throw new Error('<Error message>'); // this will result in a 500
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+    const data: {} = {},
+      status = 200;
 
-        const data: {} = {},
-            status: number = 200;
+    return {
+      status: status,
+      data: data,
+    };
+  },
 
-        return {
-            status: status,
-            data: data
-        };
-    },
-
-    /**
+  /**
      *
      * @param options.userId The unique identifier of the user
      * @param options.user.creditCurrent credit balance
@@ -115,124 +112,120 @@ export const users = {
      * @param options.user.tokenLogin token for authentication
 
      */
-    putUserId: async (options: { userId: number; user: UserInterface[] }) => {
+  putUserId: async (options: { userId: number; user: UserInterface[] }) => {
+    // Implement your business logic here...
+    //
+    // Return all 2xx and 4xx as follows:
+    //
+    // return {
+    //   status: 'statusCode',
+    //   data: 'response'
+    // }
 
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
+    // If an error happens during your business logic implementation,
+    // you can throw it as follows:
+    //
+    // throw new Error('<Error message>'); // this will result in a 500
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+    const data = {},
+      status = 200;
 
-        const data = {},
-            status: number = 200;
+    return {
+      status: status,
+      data: data,
+    };
+  },
 
-        return {
-            status: status,
-            data: data
-        };
-    },
-
-    /**
+  /**
      *
      * @param options.userId The unique identifier of the user
 
      */
-    deleteUserId: async (options: number) => {
+  deleteUserId: async (options: number) => {
+    // Implement your business logic here...
+    //
+    // Return all 2xx and 4xx as follows:
+    //
+    // return {
+    //   status: 'statusCode',
+    //   data: 'response'
+    // }
 
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
+    // If an error happens during your business logic implementation,
+    // you can throw it as follows:
+    //
+    // throw new Error('<Error message>'); // this will result in a 500
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+    const data = {},
+      status = 204;
 
-        const data = {},
-            status: number = 204;
+    return {
+      status: status,
+      data: data,
+    };
+  },
 
-        return {
-            status: status,
-            data: data
-        };
-    },
-
-    /**
+  /**
      *
      * @param userId The unique identifier of the user
 
      */
-    getUserIdInvoices: async (userId: number) => {
+  getUserIdInvoices: async (userId: number) => {
+    // Implement your business logic here...
+    //
+    // Return all 2xx and 4xx as follows:
+    //
+    // return {
+    //   status: 'statusCode',
+    //   data: 'response'
+    // }
 
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
+    // If an error happens during your business logic implementation,
+    // you can throw it as follows:
+    //
+    // throw new Error('<Error message>'); // this will result in a 500
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+    const data = {
+        id: "<UserId>",
+        trips: "<array>",
+      },
+      status = 200;
 
-        const data = {
-                "id": "<UserId>",
-                "trips": "<array>",
-            },
-            status: number = 200;
+    return {
+      status: status,
+      data: data,
+    };
+  },
 
-        return {
-            status: status,
-            data: data
-        };
-    },
-
-    /**
+  /**
      *
      * @param options.userId The unique identifier of the user
 
      */
-    getUserIdTrips: async (options: number) => {
+  getUserIdTrips: async (options: number) => {
+    // Implement your business logic here...
+    //
+    // Return all 2xx and 4xx as follows:
+    //
+    // return {
+    //   status: 'statusCode',
+    //   data: 'response'
+    // }
 
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
+    // If an error happens during your business logic implementation,
+    // you can throw it as follows:
+    //
+    // throw new Error('<Error message>'); // this will result in a 500
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+    const data = {
+        id: "<UserId>",
+        trips: "<Trips>",
+      },
+      status = 200;
 
-        const data = {
-                "id": "<UserId>",
-                "trips": "<Trips>",
-            },
-            status: number = 200;
-
-        return {
-            status: status,
-            data: data
-        };
-    },
+    return {
+      status: status,
+      data: data,
+    };
+  },
 };
