@@ -1,10 +1,12 @@
+import { InvoiceInterface } from "../interfaces/invoiceInterface";
+
 export const invoices = {
     /**
      *
 
 
      */
-    getInvoices: async (options) => {
+    getInvoices: async () => {
 
         // Implement your business logic here...
         //
@@ -20,12 +22,7 @@ export const invoices = {
         //
         // throw new Error('<Error message>'); // this will result in a 500
 
-        const data = [{
-                "amount": "<number>",
-                "id": "<InvoiceId>",
-                "status": "<string>",
-                "trip_id": "<TripId>",
-            }],
+        const data: InvoiceInterface[] = [],
             status: number = 200;
 
         return {
@@ -37,13 +34,13 @@ export const invoices = {
     /**
      *
 
-     * @param options.invoice.amount required
-     * @param options.invoice.id requiredThe unique identifer of an invoice
-     * @param options.invoice.status required
-     * @param options.invoice.trip_id requiredThe unique identifier of a trip
+     * @param options.amount required
+     * @param options.id requiredThe unique identifier of an invoice
+     * @param options.status required
+     * @param options.trip_id requiredThe unique identifier of a trip
 
      */
-    postInvoices: async (options) => {
+    postInvoices: async (options: InvoiceInterface[]) => {
 
         // Implement your business logic here...
         //
@@ -70,10 +67,10 @@ export const invoices = {
 
     /**
      *
-     * @param options.invoiceId The unique identifier of the invoice
+     * @param invoiceId The unique identifier of the invoice
 
      */
-    getInvoiceId: async (options) => {
+    getInvoiceId: async (invoiceId: number) => {
 
         // Implement your business logic here...
         //
@@ -107,12 +104,12 @@ export const invoices = {
      *
      * @param options.invoiceId The unique identifier of the invoice
      * @param options.invoice.amount required
-     * @param options.invoice.id requiredThe unique identifer of an invoice
+     * @param options.invoice.id requiredThe unique identifier of an invoice
      * @param options.invoice.status required
      * @param options.invoice.trip_id requiredThe unique identifier of a trip
 
      */
-    putInvoiceId: async (options) => {
+    putInvoiceId: async (options: { invoiceId: number; invoice: InvoiceInterface[] }) => {
 
         // Implement your business logic here...
         //
@@ -139,10 +136,10 @@ export const invoices = {
 
     /**
      *
-     * @param options.invoiceId The unique identifier of the invoice
+     * @param invoiceId The unique identifier of the invoice
 
      */
-    deleteInvoiceId: async (options) => {
+    deleteInvoiceId: async (invoiceId: number) => {
 
         // Implement your business logic here...
         //
