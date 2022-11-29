@@ -1,4 +1,5 @@
 -- Get all scooters
+-- GET /scooters
 DROP PROCEDURE IF EXISTS show_scooter_all;
 
 DELIMITER ;;
@@ -21,8 +22,10 @@ END
 
 DELIMITER ;
 -- Create new scooter
+-- POST /scooters
 
 -- Get all available scooters
+-- GET scooters/available
 DROP PROCEDURE IF EXISTS show_scooter_available;
 DELIMITER ;;
 CREATE PROCEDURE show_scooter_available()
@@ -46,6 +49,7 @@ END
 DELIMITER ;
 
 -- Get all scooters in city
+-- GET /scooters/city/:cityName
 DROP PROCEDURE IF EXISTS show_scooter_city;
 DELIMITER ;;
 CREATE PROCEDURE show_scooter_city(
@@ -69,8 +73,10 @@ END
 ;;
 
 -- Delete specific scooter
+-- DELETE scooters/:scooterId
 
 -- Get specific scooter
+-- GET scooters/:scooterId
 DROP PROCEDURE IF EXISTS show_scooter_id;
 DELIMITER ;;
 CREATE PROCEDURE show_scooter_id(
@@ -94,6 +100,10 @@ END
 ;;
 
 -- Update scooter
+-- PUT scooters/:scooterId
+
 -- Get scooter logs
+-- GET /scooters/:scooterId/logs
+
 -- Add scooter log???
 -- Get scooters in parking zone??

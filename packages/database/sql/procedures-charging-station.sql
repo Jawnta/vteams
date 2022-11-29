@@ -47,6 +47,24 @@ DELIMITER ;
 -- Delete charging station
 -- DELETE chargingstations/:chargingStationId
 
+-- Get charging station by id
 -- GET chargingstations/:chargingStationId
+DROP PROCEDURE IF EXISTS show_charging_station_id;
+DELIMITER ;;
+CREATE PROCEDURE show_charging_station_id(
+    s_id INT
+)
+BEGIN
+    SELECT
+        id,
+        charging_zone,
+        ST_AsGeoJSON(position) as position,
+        occupied,
+        scooter_id
+    FROM charging_station WHERE id = s_id;
+END
+;;
+
+DELIMITER ;
 
 

@@ -1,5 +1,6 @@
 
 -- Get all trips
+-- GET /trips
 DROP PROCEDURE IF EXISTS show_trip_all;
 
 DELIMITER ;;
@@ -21,8 +22,10 @@ END
 
 DELIMITER ;
 -- Create a new trip
+-- POST /trips
 
 -- Get specific trip
+-- GET /trips/:tripId
 DROP PROCEDURE IF EXISTS show_trip_id;
 
 DELIMITER ;;
@@ -46,11 +49,14 @@ END
 
 DELIMITER ;
 -- Update specific trip
+-- PUT /trips/:tripId
 
 -- Delete trip
+-- DELETE /trips/:tripId
 
 
 -- Get trips for user
+-- GET /users/:userId/trips
 DROP PROCEDURE IF EXISTS show_trip_user;
 
 DELIMITER ;;

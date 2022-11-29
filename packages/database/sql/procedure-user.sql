@@ -1,5 +1,6 @@
 
 -- Get all users
+-- GET /users
 DROP PROCEDURE IF EXISTS show_user_all;
 
 DELIMITER ;;
@@ -13,10 +14,13 @@ END
 
 DELIMITER ;
 -- Create new user
+-- POST /users
 
 -- Delete user
+-- DELETE /users/:userId
 
 -- Get specific user
+-- GET /users/:userId
 DROP PROCEDURE IF EXISTS show_user_id;
 
 DELIMITER ;;
@@ -33,4 +37,5 @@ END
 
 DELIMITER ;
 -- Update user data
+-- PUT /users/:userId
 
