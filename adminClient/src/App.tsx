@@ -2,12 +2,12 @@ import React, { useState } from "react";
 import logo from './logo.svg';
 import './App.css';
 
-const apiUrl = "http://api:1337"
+const apiUrl = "http://api:3000"
 function App() {
   const [users, setUsers] = useState<any[]>([]);
   async function fetchData() {
     await fetch(
-      "/api", {method: "GET",
+      "/trips", {method: "GET",
       mode: "cors"})
       .then((res) => res.json())
       .then((json) => {
