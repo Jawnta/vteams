@@ -1,9 +1,5 @@
 {
     "$schema": "node_modules/lerna/schemas/lerna-schema.json",
     "useWorkspaces": true,
-    "version": "0.0.0",
-    "lerna-dockerize": {
-        "templateDockerfileName": "Dockerfile.template",
-        "baseDockerfileName": "Dockerfile.base"
-    }
+    "version": "0.0.0"
 }

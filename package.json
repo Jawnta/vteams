@@ -16,8 +16,5 @@
     },
     "scripts": {
         "lerna-dockerize": "lerna-dockerize"
-    },
-    "dependencies": {
-        "lerna-dockerize": "^1.0.4"
     }
 }
