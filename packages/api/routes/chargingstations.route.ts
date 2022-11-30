@@ -90,4 +90,4 @@ router.delete('/:chargingStationId', async (req, res) => {
     }
 });
 
-module.exports = router;
+export const chargingStationRouter = router;

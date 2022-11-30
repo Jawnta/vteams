@@ -14,4 +14,4 @@ router.get('/', async (req: any, res: any) => {
     }
 });
 
-module.exports = router;
+export const citiesRouter = router;

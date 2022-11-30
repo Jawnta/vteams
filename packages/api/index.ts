@@ -4,7 +4,7 @@ import log from 'morgan';
 import cors from 'cors';
 // import multer from 'multer';
 
-import routes from "./routes";
+import { routes } from "./routes";
 
 // const upload = multer();
 const app = express();
@@ -34,6 +34,7 @@ app.use(express.static('public'));
 app.use(cookieParser());
 
 
+// require('./routes')(app); gammal
 routes(app);
 
 // catch 404

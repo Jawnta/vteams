@@ -15,7 +15,7 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const tripData: TripInterface = req.body;
+    const tripData: TripInterface[] = req.body;
 
     try {
         const result = await trips.postTrips(tripData);
@@ -70,4 +70,4 @@ router.delete('/:tripId', async (req, res) => {
     }
 });
 
-module.exports = router;
+export const tripsRouter = router;

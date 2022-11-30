@@ -107,4 +107,4 @@ router.get('/:scooterId/logs', async (req, res) => {
     }
 });
 
-module.exports = router;
+export const scooterRouter = router;

@@ -96,4 +96,4 @@ router.get('/:userId/trips', async (req, res) => {
     }
 });
 
-module.exports = router;
+export const userRouter = router;

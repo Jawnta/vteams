@@ -84,4 +84,4 @@ router.delete('/:parkingZoneId', async (req, res) => {
     }
 });
 
-module.exports = router;
+export const parkingZonesRouter = router;

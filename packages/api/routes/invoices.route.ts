@@ -70,4 +70,4 @@ router.delete('/:invoiceId', async (req, res) => {
     }
 });
 
-module.exports = router;
+export const invoicesRouter = router;

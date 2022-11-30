@@ -83,4 +83,4 @@ router.delete('/:chargingZoneId', async (req, res) => {
     }
 });
 
-module.exports = router;
+export const chargingZoneRouter = router;
