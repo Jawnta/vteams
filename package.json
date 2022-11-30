@@ -1,18 +1,18 @@
 {
-  "name": "root",
-  "private": true,
-  "workspaces": [
-    "packages/clients/",
-    "packages/clients/*/",
-    "packages/api/",
-    "packages/*"
-  ],
-  "devDependencies": {
-    "@typescript-eslint/eslint-plugin": "^5.45.0",
-    "@typescript-eslint/parser": "^5.45.0",
-    "eslint": "^8.28.0",
-    "lerna": "^6.0.3",
-    "prettier": "2.8.0",
-    "typescript": "^4.9.3"
-  }
+    "name": "root",
+    "private": true,
+    "workspaces": [
+        "packages/clients/",
+        "packages/clients/*/",
+        "packages/api/",
+        "packages/*"
+    ],
+    "devDependencies": {
+        "@typescript-eslint/eslint-plugin": "^5.45.0",
+        "@typescript-eslint/parser": "^5.45.0",
+        "eslint": "^8.28.0",
+        "lerna": "^6.0.3",
+        "prettier": "2.8.0",
+        "typescript": "^4.9.3"
+    }
 }

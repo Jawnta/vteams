@@ -1,42 +1,42 @@
-version: "3"
+version: '3'
 
 services:
-  api:
-    image: "api"
-    container_name: "api_server"
-    build: "./packages/api/"
-    ports:
-      - "8080:3000"
-    environment:
-      - NODE_ENV=development
-    volumes:
-      - "./packages/api/:/api"
-    restart: "always"
-  adminClient:
-    image: "admin_client"
-    container_name: "admin_client"
-    environment:
-      - WATCHPACK_POLLING=true
-    volumes:
-      - "./packages/clients/adminClient/:/adminClient"
-    ports:
-      - "8880:1338"
-    build: "./packages/clients/adminClient/"
-  userMobileClient:
-    image: "user_mobile_client"
-    container_name: "user_mobile_client"
-    environment:
-      - NODE_ENV=development
-    tty: true
-    ports:
-      - "19006:19006"
-      - "19001:19001"
-      - "19002:19002"
-    volumes:
-      - "./packages/clients/userMobileClient/app/:/opt/app"
-      - notused:/opt/userMobileClient/app/node_modules
-    healthcheck:
-      disable: true
+    api:
+        image: 'api'
+        container_name: 'api_server'
+        build: './packages/api/'
+        ports:
+            - '8080:3000'
+        environment:
+            - NODE_ENV=development
+        volumes:
+            - './packages/api/:/api'
+        restart: 'always'
+    adminClient:
+        image: 'admin_client'
+        container_name: 'admin_client'
+        environment:
+            - WATCHPACK_POLLING=true
+        volumes:
+            - './packages/clients/adminClient/:/adminClient'
+        ports:
+            - '8880:1338'
+        build: './packages/clients/adminClient/'
+    userMobileClient:
+        image: 'user_mobile_client'
+        container_name: 'user_mobile_client'
+        environment:
+            - NODE_ENV=development
+        tty: true
+        ports:
+            - '19006:19006'
+            - '19001:19001'
+            - '19002:19002'
+        volumes:
+            - './packages/clients/userMobileClient/app/:/opt/app'
+            - notused:/opt/userMobileClient/app/node_modules
+        healthcheck:
+            disable: true
 
 volumes:
-  notused:
+    notused:

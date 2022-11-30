@@ -1,35 +1,35 @@
-import { TripInterface } from "../interfaces/tripsInterface";
+import {TripInterface} from '../interfaces/tripsInterface';
 export const trips = {
-  /**
+    /**
      *
 
 
      */
-  getTrips: async () => {
-    // Implement your business logic here...
-    //
-    // Return all 2xx and 4xx as follows:
-    //
-    // return {
-    //   status: 'statusCode',
-    //   data: 'response'
-    // }
+    getTrips: async () => {
+        // Implement your business logic here...
+        //
+        // Return all 2xx and 4xx as follows:
+        //
+        // return {
+        //   status: 'statusCode',
+        //   data: 'response'
+        // }
 
-    // If an error happens during your business logic implementation,
-    // you can throw it as follows:
-    //
-    // throw new Error('<Error message>'); // this will result in a 500
+        // If an error happens during your business logic implementation,
+        // you can throw it as follows:
+        //
+        // throw new Error('<Error message>'); // this will result in a 500
 
-    const data: TripInterface[] = [],
-      status = 200;
+        const data: TripInterface[] = [],
+            status = 200;
 
-    return {
-      status: status,
-      data: data,
-    };
-  },
+        return {
+            status: status,
+            data: data,
+        };
+    },
 
-  /**
+    /**
      *
 
      * @param options.trip.completed required
@@ -43,70 +43,70 @@ export const trips = {
      * @param options.trip.user_id requiredThe unique identifier of a user
 
      */
-  postTrips: async (options: {}) => {
-    // Implement your business logic here...
-    //
-    // Return all 2xx and 4xx as follows:
-    //
-    // return {
-    //   status: 'statusCode',
-    //   data: 'response'
-    // }
+    postTrips: async (options: {}) => {
+        // Implement your business logic here...
+        //
+        // Return all 2xx and 4xx as follows:
+        //
+        // return {
+        //   status: 'statusCode',
+        //   data: 'response'
+        // }
 
-    // If an error happens during your business logic implementation,
-    // you can throw it as follows:
-    //
-    // throw new Error('<Error message>'); // this will result in a 500
+        // If an error happens during your business logic implementation,
+        // you can throw it as follows:
+        //
+        // throw new Error('<Error message>'); // this will result in a 500
 
-    const data = {},
-      status = 201;
+        const data = {},
+            status = 201;
 
-    return {
-      status: status,
-      data: data,
-    };
-  },
+        return {
+            status: status,
+            data: data,
+        };
+    },
 
-  /**
+    /**
      *
      * @param tripId The unique identifier of the trip
 
      */
-  getTripId: async (tripId: number) => {
-    // Implement your business logic here...
-    //
-    // Return all 2xx and 4xx as follows:
-    //
-    // return {
-    //   status: 'statusCode',
-    //   data: 'response'
-    // }
+    getTripId: async (tripId: number) => {
+        // Implement your business logic here...
+        //
+        // Return all 2xx and 4xx as follows:
+        //
+        // return {
+        //   status: 'statusCode',
+        //   data: 'response'
+        // }
 
-    // If an error happens during your business logic implementation,
-    // you can throw it as follows:
-    //
-    // throw new Error('<Error message>'); // this will result in a 500
+        // If an error happens during your business logic implementation,
+        // you can throw it as follows:
+        //
+        // throw new Error('<Error message>'); // this will result in a 500
 
-    const data = {
-        completed: "<boolean>",
-        distance: "<number>",
-        id: "<TripId>",
-        scooter_id: "<integer>",
-        start_position: "<Coordinates>",
-        start_time: "<string>",
-        stop_position: "<Coordinates>",
-        stop_time: "<string>",
-        user_id: "<UserId>",
-      },
-      status = 200;
+        const data = {
+                completed: '<boolean>',
+                distance: '<number>',
+                id: '<TripId>',
+                scooter_id: '<integer>',
+                start_position: '<Coordinates>',
+                start_time: '<string>',
+                stop_position: '<Coordinates>',
+                stop_time: '<string>',
+                user_id: '<UserId>',
+            },
+            status = 200;
 
-    return {
-      status: status,
-      data: data,
-    };
-  },
+        return {
+            status: status,
+            data: data,
+        };
+    },
 
-  /**
+    /**
      *
      * @param options.tripId The unique identifier of the trip
      * @param options.trip.completed required
@@ -120,56 +120,56 @@ export const trips = {
      * @param options.trip.user_id requiredThe unique identifier of a user
 
      */
-  putTripId: async (options: { tripId: number; trip: TripInterface[] }) => {
-    // Implement your business logic here...
-    //
-    // Return all 2xx and 4xx as follows:
-    //
-    // return {
-    //   status: 'statusCode',
-    //   data: 'response'
-    // }
+    putTripId: async (options: {tripId: number; trip: TripInterface[]}) => {
+        // Implement your business logic here...
+        //
+        // Return all 2xx and 4xx as follows:
+        //
+        // return {
+        //   status: 'statusCode',
+        //   data: 'response'
+        // }
 
-    // If an error happens during your business logic implementation,
-    // you can throw it as follows:
-    //
-    // throw new Error('<Error message>'); // this will result in a 500
+        // If an error happens during your business logic implementation,
+        // you can throw it as follows:
+        //
+        // throw new Error('<Error message>'); // this will result in a 500
 
-    const data = {},
-      status = 200;
+        const data = {},
+            status = 200;
 
-    return {
-      status: status,
-      data: data,
-    };
-  },
+        return {
+            status: status,
+            data: data,
+        };
+    },
 
-  /**
+    /**
      *
      * @param tripId The unique identifier of the trip
 
      */
-  deleteTripId: async (tripId: number) => {
-    // Implement your business logic here...
-    //
-    // Return all 2xx and 4xx as follows:
-    //
-    // return {
-    //   status: 'statusCode',
-    //   data: 'response'
-    // }
+    deleteTripId: async (tripId: number) => {
+        // Implement your business logic here...
+        //
+        // Return all 2xx and 4xx as follows:
+        //
+        // return {
+        //   status: 'statusCode',
+        //   data: 'response'
+        // }
 
-    // If an error happens during your business logic implementation,
-    // you can throw it as follows:
-    //
-    // throw new Error('<Error message>'); // this will result in a 500
+        // If an error happens during your business logic implementation,
+        // you can throw it as follows:
+        //
+        // throw new Error('<Error message>'); // this will result in a 500
 
-    const data = {},
-      status = 204;
+        const data = {},
+            status = 204;
 
-    return {
-      status: status,
-      data: data,
-    };
-  },
+        return {
+            status: status,
+            data: data,
+        };
+    },
 };
