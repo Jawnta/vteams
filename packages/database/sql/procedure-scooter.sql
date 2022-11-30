@@ -1,8 +1,17 @@
--- Get all scooters
--- GET /scooters
 DROP PROCEDURE IF EXISTS show_scooter_all;
+DROP PROCEDURE IF EXISTS scooter_add;
+DROP PROCEDURE IF EXISTS show_scooter_available;
+DROP PROCEDURE IF EXISTS show_scooter_city;
+DROP PROCEDURE IF EXISTS delete_scooter;
+DROP PROCEDURE IF EXISTS show_scooter_id;
+DROP PROCEDURE IF EXISTS update_scooter;
+DROP PROCEDURE IF EXISTS show_scooter_logs;
+DROP PROCEDURE IF EXISTS scooter_log_add;
 
 DELIMITER ;;
+
+-- Get all scooters
+-- GET /scooters
 CREATE PROCEDURE show_scooter_all()
     READS SQL DATA
 BEGIN
@@ -20,12 +29,8 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 -- Create new scooter
 -- POST /scooters
-DROP PROCEDURE IF EXISTS scooter_add;
-
-DELIMITER ;;
 CREATE PROCEDURE scooter_add(
     s_available TINYINT(1),
     s_enabled TINYINT(1),
@@ -36,17 +41,12 @@ CREATE PROCEDURE scooter_add(
 )
 BEGIN
     INSERT INTO scooter (available, enabled, charge, last_position, is_charging, city_id)
-    VALUES (s_available, s_enabled, s_charge, ST_GeomFromGeoJSON(s_last_position), s_is_charging, c_id)
+    VALUES (s_available, s_enabled, s_charge, ST_GeomFromGeoJSON(s_last_position), s_is_charging, c_id);
 END
 ;;
 
-DELIMITER ;
-
-
 -- Get all available scooters
 -- GET scooters/available
-DROP PROCEDURE IF EXISTS show_scooter_available;
-DELIMITER ;;
 CREATE PROCEDURE show_scooter_available()
     READS SQL DATA
 BEGIN
@@ -64,12 +64,9 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 
 -- Get all scooters in city
 -- GET /scooters/city/:cityName
-DROP PROCEDURE IF EXISTS show_scooter_city;
-DELIMITER ;;
 CREATE PROCEDURE show_scooter_city(
     c_name INT
 )
@@ -93,9 +90,6 @@ END
 
 -- Delete specific scooter
 -- DELETE scooters/:scooterId
-DROP PROCEDURE IF EXISTS delete_scooter;
-
-DELIMITER ;;
 CREATE PROCEDURE delete_scooter(
     s_id INT
 )
@@ -105,12 +99,9 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 
 -- Get specific scooter
 -- GET scooters/:scooterId
-DROP PROCEDURE IF EXISTS show_scooter_id;
-DELIMITER ;;
 CREATE PROCEDURE show_scooter_id(
     s_id INT
 )
@@ -133,9 +124,6 @@ END
 
 -- Update scooter
 -- PUT scooters/:scooterId
-DROP PROCEDURE IF EXISTS update_scooter;
-
-DELIMITER ;;
 CREATE PROCEDURE update_scooter(
     s_id INT,
     s_available TINYINT(1),
@@ -163,12 +151,9 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 
 -- Get scooter logs
 -- GET /scooters/:scooterId/logs
-DROP PROCEDURE IF EXISTS show_scooter_logs;
-DELIMITER ;;
 CREATE PROCEDURE show_scooter_logs(
     s_id INT
 )
@@ -182,9 +167,6 @@ END
 
 -- Add scooter log???
 -- POST /scooters/:scooterId/log???
-DROP PROCEDURE IF EXISTS scooter_log_add;
-
-DELIMITER ;;
 CREATE PROCEDURE scooter_log_add(
     s_id INT,
     s_speed INT,

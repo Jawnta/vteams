@@ -1,30 +1,29 @@
+DROP PROCEDURE IF EXISTS show_charging_zone_all;
+DROP PROCEDURE IF EXISTS charging_zone_add;
+DROP PROCEDURE IF EXISTS show_charging_zone_city;
+DROP PROCEDURE IF EXISTS delete_charging_zone;
+DROP PROCEDURE IF EXISTS update_charging_zone;
+DROP PROCEDURE IF EXISTS show_charging_zone_id;
+
+DELIMITER ;;
 
 -- Get all charging zones
 -- GET /chargingzones
-DROP PROCEDURE IF EXISTS show_charging_zone_all;
-
-DELIMITER ;;
 CREATE PROCEDURE show_charging_zone_all()
     READS SQL DATA
 BEGIN
     SELECT  id,
             parking_zone_id,
-            ST_AsGeoJSON(area) as area,
+            ST_AsGeoJSON(area) AS area
     FROM charging_zone;
 END
 ;;
 
-DELIMITER ;
-
 -- Create new charging zone
 -- POST /chargingzones
-
-DROP PROCEDURE IF EXISTS charging_zone_add;
-
-DELIMITER ;;
 CREATE PROCEDURE charging_zone_add(
     p_id INT,
-    z_area VARCHAR(100),
+    z_area VARCHAR(100)
 )
     MODIFIES SQL DATA
 BEGIN
@@ -33,12 +32,8 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
-
 -- Get charging zones in city
 -- GET chargingzones/city/:cityName
-DROP PROCEDURE IF EXISTS show_charging_zone_city;
-DELIMITER ;;
 CREATE PROCEDURE show_charging_zone_city(
     c_name VARCHAR(20)
 )
@@ -47,24 +42,20 @@ BEGIN
     SELECT
         id,
         parking_zone_id,
-        ST_AsGeoJSON(area) as area,
+        ST_AsGeoJSON(area) as area
     FROM charging_zone 
     WHERE parking_zone_id IN
         (SELECT id from parking_zone 
         WHERE city_id = 
             (SELECT id 
             FROM city 
-            WHERE name = c_name););
+            WHERE name = c_name));
 END
 ;;
 
-DELIMITER ;
 
 -- Delete charging zone
 -- DELETE chargingzones/:chargingZoneId
-DROP PROCEDURE IF EXISTS delete_charging_zone;
-
-DELIMITER ;;
 CREATE PROCEDURE delete_charging_zone(
     z_id INT
 )
@@ -74,14 +65,10 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 
 
 -- Update charging zone
 -- PUT chargingzones/:chargingZoneId
-DROP PROCEDURE IF EXISTS update_charging_zone;
-
-DELIMITER ;;
 CREATE PROCEDURE update_charging_zone(
     z_id INT,
     pakring_z_id INT,
@@ -95,12 +82,9 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 
 -- Get specific charging zone
 -- GET chargingzones/:chargingZoneId
-DROP PROCEDURE IF EXISTS show_charging_zone_id;
-DELIMITER ;;
 CREATE PROCEDURE show_charging_zone_id(
     z_id INT
 )
@@ -109,7 +93,7 @@ BEGIN
     SELECT
         id,
         parking_zone_id,
-        ST_AsGeoJSON(area) as area,
+        ST_AsGeoJSON(area) as area
     FROM charging_zone WHERE id = z_id;
 END
 ;;

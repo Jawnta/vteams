@@ -1,9 +1,14 @@
+DROP PROCEDURE IF EXISTS show_charging_station_all;
+DROP PROCEDURE IF EXISTS charging_station_add;
+DROP PROCEDURE IF EXISTS show_charging_station_zone;
+DROP PROCEDURE IF EXISTS update_charging_station;
+DROP PROCEDURE IF EXISTS delete_charging_station;
+DROP PROCEDURE IF EXISTS show_charging_station_id;
+
+DELIMITER ;;
 
 -- Get all charging stations
 -- GET /chargingstations
-DROP PROCEDURE IF EXISTS show_charging_station_all;
-
-DELIMITER ;;
 CREATE PROCEDURE show_charging_station_all()
     READS SQL DATA
 BEGIN
@@ -16,14 +21,9 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 
 -- Create new charging station
 -- POST /chargingstations
-
-DROP PROCEDURE IF EXISTS charging_station_add;
-
-DELIMITER ;;
 CREATE PROCEDURE charging_station_add(
     z_id INT,
     z_position VARCHAR(100),
@@ -36,12 +36,9 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 
 -- Get charging stations in charging zone
 -- GET chargingstations/zone/:chargingZoneId
-DROP PROCEDURE IF EXISTS show_charging_station_zone;
-DELIMITER ;;
 CREATE PROCEDURE show_charging_station_zone(
     z_id INT
 )
@@ -56,13 +53,10 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 
 -- Update specific charging station
 -- PUT chargingstations/:chargingStationId
-DROP PROCEDURE IF EXISTS update_charging_station;
 
-DELIMITER ;;
 CREATE PROCEDURE update_charging_station(
     s_id INT,
     z_id INT,
@@ -78,13 +72,9 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 
 -- Delete charging station
 -- DELETE chargingstations/:chargingStationId
-DROP PROCEDURE IF EXISTS delete_charging_station;
-
-DELIMITER ;;
 CREATE PROCEDURE delete_charging_station(
     s_id INT
 )
@@ -94,12 +84,9 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 
 -- Get charging station by id
 -- GET chargingstations/:chargingStationId
-DROP PROCEDURE IF EXISTS show_charging_station_id;
-DELIMITER ;;
 CREATE PROCEDURE show_charging_station_id(
     s_id INT
 )

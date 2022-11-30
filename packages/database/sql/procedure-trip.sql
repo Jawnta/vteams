@@ -1,9 +1,15 @@
 
--- Get all trips
--- GET /trips
 DROP PROCEDURE IF EXISTS show_trip_all;
+DROP PROCEDURE IF EXISTS trip_add;
+DROP PROCEDURE IF EXISTS show_trip_id;
+DROP PROCEDURE IF EXISTS update_trip;
+DROP PROCEDURE IF EXISTS delete_trip;
+DROP PROCEDURE IF EXISTS show_trip_user;
 
 DELIMITER ;;
+
+-- Get all trips
+-- GET /trips
 CREATE PROCEDURE show_trip_all()
     READS SQL DATA
 BEGIN
@@ -20,12 +26,8 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 -- Create a new trip
 -- POST /trips
-DROP PROCEDURE IF EXISTS trip_add;
-
-DELIMITER ;;
 CREATE PROCEDURE trip_add(
     u_id INT,
     s_id INT,
@@ -37,13 +39,9 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 
 -- Get specific trip
 -- GET /trips/:tripId
-DROP PROCEDURE IF EXISTS show_trip_id;
-
-DELIMITER ;;
 CREATE PROCEDURE show_trip_id(
     t_id INT
 )
@@ -62,13 +60,9 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 
 -- Update specific trip
 -- PUT /trips/:tripId
-DROP PROCEDURE IF EXISTS update_trip;
-
-DELIMITER ;;
 CREATE PROCEDURE update_trip(
     t_id INT,
     u_id INT,
@@ -94,13 +88,9 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 
 -- Delete trip
 -- DELETE /trips/:tripId
-DROP PROCEDURE IF EXISTS delete_trip;
-
-DELIMITER ;;
 CREATE PROCEDURE delete_trip(
     t_id INT
 )
@@ -110,14 +100,9 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
-
 
 -- Get trips for user
 -- GET /users/:userId/trips
-DROP PROCEDURE IF EXISTS show_trip_user;
-
-DELIMITER ;;
 CREATE PROCEDURE show_trip_user(
     u_id INT
 )

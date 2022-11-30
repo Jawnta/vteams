@@ -1,9 +1,14 @@
 
--- Get all users
--- GET /users
+
 DROP PROCEDURE IF EXISTS show_user_all;
+DROP PROCEDURE IF EXISTS trip_add;
+DROP PROCEDURE IF EXISTS delete_user;
+DROP PROCEDURE IF EXISTS show_user_id;
+DROP PROCEDURE IF EXISTS update_user;
 
 DELIMITER ;;
+-- Get all users
+-- GET /users
 CREATE PROCEDURE show_user_all()
     READS SQL DATA
 BEGIN
@@ -12,12 +17,8 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 -- Create new user
 -- POST /users
-DROP PROCEDURE IF EXISTS trip_add;
-
-DELIMITER ;;
 CREATE PROCEDURE trip_add(
     u_first_name VARCHAR(45),
     u_last_name VARCHAR(45),
@@ -32,13 +33,9 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 
 -- Delete user
 -- DELETE /users/:userId
-DROP PROCEDURE IF EXISTS delete_user;
-
-DELIMITER ;;
 CREATE PROCEDURE delete_user(
     u_id INT
 )
@@ -48,13 +45,9 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 
 -- Get specific user
 -- GET /users/:userId
-DROP PROCEDURE IF EXISTS show_user_id;
-
-DELIMITER ;;
 CREATE PROCEDURE show_user_id(
     u_id INT
 )
@@ -66,13 +59,8 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 -- Update user data
 -- PUT /users/:userId
-
-DROP PROCEDURE IF EXISTS update_user;
-
-DELIMITER ;;
 CREATE PROCEDURE update_user(
     u_id INT,
     u_first_name VARCHAR(45),
