@@ -9,6 +9,7 @@
         // whatever paths you intend to lint
         "packages/api",
         "packages/clients/",
+        "packages/clients/userMobileClient/app/",
         "packages/utils"
     ]
 }
