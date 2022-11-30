@@ -3,7 +3,7 @@ class Scooter {
     protected enabled: boolean;
     protected available: boolean;
     protected inMaintenance: boolean;
-    protected position: string; //change this
+    protected position: string; //change this to array?
     protected speed: number;
     protected charge: number;
 
