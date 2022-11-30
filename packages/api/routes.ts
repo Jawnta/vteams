@@ -7,7 +7,7 @@ import * as scooters from './routes/scooters.route';
 import * as trips from './routes/trips.route';
 import * as users from './routes/users.route';
 
-module.exports = function (app: {use: (arg0: string, arg1: any) => void}) {
+export default function (app: {use: (arg0: string, arg1: any) => void}) {
     /*
      * Routes
      */

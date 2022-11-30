@@ -2,9 +2,11 @@ import express from 'express';
 import cookieParser from 'cookie-parser';
 import log from 'morgan';
 import cors from 'cors';
-import multer from 'multer';
+// import multer from 'multer';
 
-const upload = multer();
+import routes from "./routes";
+
+// const upload = multer();
 const app = express();
 const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
@@ -26,14 +28,13 @@ app.use(express.urlencoded({extended: true}));
 app.use(cookieParser());
 
 // parse multipart/form-data
-// @ts-ignore
-//why?
-app.use(upload.array());
+// app.use(upload.array());
 app.use(express.static('public'));
 
 app.use(cookieParser());
 
-require('./routes')(app);
+
+routes(app);
 
 // catch 404
 app.use((req, res) => {
