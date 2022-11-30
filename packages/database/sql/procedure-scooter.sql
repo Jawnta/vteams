@@ -1,7 +1,17 @@
--- Get all scooters
 DROP PROCEDURE IF EXISTS show_scooter_all;
+DROP PROCEDURE IF EXISTS scooter_add;
+DROP PROCEDURE IF EXISTS show_scooter_available;
+DROP PROCEDURE IF EXISTS show_scooter_city;
+DROP PROCEDURE IF EXISTS delete_scooter;
+DROP PROCEDURE IF EXISTS show_scooter_id;
+DROP PROCEDURE IF EXISTS update_scooter;
+DROP PROCEDURE IF EXISTS show_scooter_logs;
+DROP PROCEDURE IF EXISTS scooter_log_add;
 
 DELIMITER ;;
+
+-- Get all scooters
+-- GET /scooters
 CREATE PROCEDURE show_scooter_all()
     READS SQL DATA
 BEGIN
@@ -19,12 +29,24 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 -- Create new scooter
+-- POST /scooters
+CREATE PROCEDURE scooter_add(
+    s_available TINYINT(1),
+    s_enabled TINYINT(1),
+    s_charge FLOAT,
+    s_last_position VARCHAR(100),
+    s_is_charging TINYINT(1),
+    c_id INT
+)
+BEGIN
+    INSERT INTO scooter (available, enabled, charge, last_position, is_charging, city_id)
+    VALUES (s_available, s_enabled, s_charge, ST_GeomFromGeoJSON(s_last_position), s_is_charging, c_id);
+END
+;;
 
 -- Get all available scooters
-DROP PROCEDURE IF EXISTS show_scooter_available;
-DELIMITER ;;
+-- GET scooters/available
 CREATE PROCEDURE show_scooter_available()
     READS SQL DATA
 BEGIN
@@ -39,17 +61,14 @@ BEGIN
             is_charging,
             city_id
     FROM scooter WHERE available = 1;
-    -- Or available = true?
 END
 ;;
 
-DELIMITER ;
 
 -- Get all scooters in city
-DROP PROCEDURE IF EXISTS show_scooter_city;
-DELIMITER ;;
+-- GET /scooters/city/:cityName
 CREATE PROCEDURE show_scooter_city(
-    c_id INT
+    c_name INT
 )
     READS SQL DATA
 BEGIN
@@ -63,16 +82,26 @@ BEGIN
             ST_AsGeoJSON(last_position) as last_position,
             is_charging,
             city_id
-    FROM scooter WHERE city_id = c_id;
-    -- Or available = true?
+    FROM scooter WHERE city_id = 
+        (SELECT id FROM city
+        WHERE name = c_name);
 END
 ;;
 
 -- Delete specific scooter
+-- DELETE scooters/:scooterId
+CREATE PROCEDURE delete_scooter(
+    s_id INT
+)
+    MODIFIES SQL DATA
+BEGIN
+    DELETE FROM scooter WHERE id = s_id;
+END
+;;
+
 
 -- Get specific scooter
-DROP PROCEDURE IF EXISTS show_scooter_id;
-DELIMITER ;;
+-- GET scooters/:scooterId
 CREATE PROCEDURE show_scooter_id(
     s_id INT
 )
@@ -94,6 +123,61 @@ END
 ;;
 
 -- Update scooter
+-- PUT scooters/:scooterId
+CREATE PROCEDURE update_scooter(
+    s_id INT,
+    s_available TINYINT(1),
+    s_enabled TINYINT(1),
+    s_charge FLOAT,
+    s_last_serviced DATETIME,
+    s_first_used DATETIME,
+    s_distance_traveled FLOAT,
+    s_last_position VARCHAR(100),
+    s_is_charging TINYINT(1),
+    c_id INT
+)
+BEGIN
+    UPDATE scooter
+    SET available         = s_available,
+        enabled           = s_enabled,
+        charge            = s_charge,
+        last_serviced     = s_last_serviced,
+        first_used        = s_first_used,
+        distance_traveled = s_distance_traveled,
+        last_position     = ST_GeomFromGeoJSON(s_last_position),
+        is_charging       = s_is_charging,
+        city_id           = c_id
+    WHERE id = s_id;
+END
+;;
+
+
 -- Get scooter logs
+-- GET /scooters/:scooterId/logs
+CREATE PROCEDURE show_scooter_logs(
+    s_id INT
+)
+    READS SQL DATA
+BEGIN
+    SELECT  * FROM scooter_log 
+    WHERE scooter_id = s_id
+    ORDER BY 'timestamp' DESC;
+END
+;;
+
 -- Add scooter log???
--- Get scooters in parking zone??
+-- POST /scooters/:scooterId/log???
+CREATE PROCEDURE scooter_log_add(
+    s_id INT,
+    s_speed INT,
+    s_position VARCHAR(100),
+    s_status VARCHAR(20),
+    s_charge INT
+)
+BEGIN
+    INSERT INTO scooter_log (scooter_id, speed, position, status, charge)
+    VALUES (s_id, s_speed, ST_GeomFromGeoJSON(s_position), s_status, s_charge);
+END
+;;
+
+DELIMITER ;

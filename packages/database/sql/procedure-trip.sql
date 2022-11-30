@@ -1,8 +1,15 @@
 
--- Get all trips
 DROP PROCEDURE IF EXISTS show_trip_all;
+DROP PROCEDURE IF EXISTS trip_add;
+DROP PROCEDURE IF EXISTS show_trip_id;
+DROP PROCEDURE IF EXISTS update_trip;
+DROP PROCEDURE IF EXISTS delete_trip;
+DROP PROCEDURE IF EXISTS show_trip_user;
 
 DELIMITER ;;
+
+-- Get all trips
+-- GET /trips
 CREATE PROCEDURE show_trip_all()
     READS SQL DATA
 BEGIN
@@ -19,13 +26,22 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
 -- Create a new trip
+-- POST /trips
+CREATE PROCEDURE trip_add(
+    u_id INT,
+    s_id INT,
+    t_start_position VARCHAR(100)
+)
+BEGIN
+    INSERT INTO trip (user_id, scooter_id, start_position)
+    VALUES (u_id, s_id, ST_GeomFromGeoJSON(t_start_position));
+END
+;;
+
 
 -- Get specific trip
-DROP PROCEDURE IF EXISTS show_trip_id;
-
-DELIMITER ;;
+-- GET /trips/:tripId
 CREATE PROCEDURE show_trip_id(
     t_id INT
 )
@@ -44,16 +60,49 @@ BEGIN
 END
 ;;
 
-DELIMITER ;
+
 -- Update specific trip
+-- PUT /trips/:tripId
+CREATE PROCEDURE update_trip(
+    t_id INT,
+    u_id INT,
+    s_id INT,
+    t_distance FLOAT,
+    t_completed TINYINT(1),
+    t_start_position VARCHAR(100),
+    t_stop_position VARCHAR(100),
+    t_start_time DATETIME,
+    t_stop_time DATETIME
+)
+BEGIN
+    UPDATE trip
+    SET user_id        = u_id,
+        scooter_id     = s_id,
+        distance       = t_distance,
+        completed      = t_completed,
+        start_position = ST_GeomFromGeoJSON(t_start_position),
+        stop_position  = ST_GeomFromGeoJSON(t_start_position),
+        start_time     = t_start_time,
+        stop_time      = t_stop_time
+    WHERE id = t_id;
+END
+;;
+
 
 -- Delete trip
+-- DELETE /trips/:tripId
+CREATE PROCEDURE delete_trip(
+    t_id INT
+)
+    MODIFIES SQL DATA
+BEGIN
+    DELETE FROM trip WHERE id = t_id;
+END
+;;
 
 
 -- Get trips for user
-DROP PROCEDURE IF EXISTS show_trip_user;
-
-DELIMITER ;;
+-- GET /users/:userId/trips
 CREATE PROCEDURE show_trip_user(
     u_id INT
 )

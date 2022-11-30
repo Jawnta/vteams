@@ -1,5 +1,6 @@
 
 -- Get all cities
+-- GET /cities
 DROP PROCEDURE IF EXISTS show_city_all;
 
 DELIMITER ;;
