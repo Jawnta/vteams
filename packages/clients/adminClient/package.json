@@ -1,7 +1,6 @@
 {
     "name": "adminclient",
     "version": "0.1.0",
-    "private": true,
     "proxy": "http://api:3000",
     "dependencies": {
         "@testing-library/jest-dom": "^5.16.5",
