@@ -2,10 +2,9 @@
     "name": "root",
     "private": true,
     "workspaces": [
-        "packages/clients/",
         "packages/clients/*/",
-        "packages/api/",
-        "packages/*"
+        "packages/clients/userMobileClient/app/",
+        "packages/api/"
     ],
     "devDependencies": {
         "@typescript-eslint/eslint-plugin": "^5.45.0",
@@ -14,5 +13,11 @@
         "lerna": "^6.0.3",
         "prettier": "2.8.0",
         "typescript": "^4.9.3"
+    },
+    "scripts": {
+        "lerna-dockerize": "lerna-dockerize"
+    },
+    "dependencies": {
+        "lerna-dockerize": "^1.0.4"
     }
 }
