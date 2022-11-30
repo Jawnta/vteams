@@ -4,7 +4,7 @@ WORKDIR /api
 
 COPY package*.json ./
 RUN npm install 
-
+COPY . ./
 # For deploy
 # RUN npm run build
 

@@ -6,7 +6,7 @@ const apiUrl = 'http://api:3000';
 function App() {
     const [users, setUsers] = useState<any[]>([]);
     async function fetchData() {
-        await fetch('/trips', {method: 'GET', mode: 'cors'})
+        await fetch('/chargingstations', {method: 'GET', mode: 'cors'})
             .then((res) => res.json())
             .then((json) => {
                 setUsers(json);

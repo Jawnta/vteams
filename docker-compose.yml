@@ -9,16 +9,18 @@ services:
             - '8080:3000'
         environment:
             - NODE_ENV=development
-        volumes:
-            - './packages/api/:/api'
+        # volumes:
+        #     - notused:/api/node_modules
+        #     - './packages/api/:/api'
         restart: 'always'
     adminClient:
         image: 'admin_client'
         container_name: 'admin_client'
         environment:
             - WATCHPACK_POLLING=true
-        volumes:
-            - './packages/clients/adminClient/:/adminClient'
+        # volumes:
+        #     - notused:/adminClient/node_modules
+        #     - './packages/clients/adminClient/:/adminClient'
         ports:
             - '8880:1338'
         build: './packages/clients/adminClient/'
