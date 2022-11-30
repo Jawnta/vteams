@@ -1,25 +1,24 @@
 import React, { useState } from "react";
-import logo from './logo.svg';
-import './App.css';
+import logo from "./logo.svg";
+import "./App.css";
 
-const apiUrl = "http://api:3000"
+const apiUrl = "http://api:3000";
 function App() {
   const [users, setUsers] = useState<any[]>([]);
   async function fetchData() {
-    await fetch(
-      "/trips", {method: "GET",
-      mode: "cors"})
+    await fetch("/trips", { method: "GET", mode: "cors" })
       .then((res) => res.json())
       .then((json) => {
-      setUsers(json);
-      console.log(json);})
-    };
+        setUsers(json);
+        console.log(json);
+      });
+  }
 
-    function testLog() {
-      console.log(users)
-    }
-  
-    let testcount = 0
+  function testLog() {
+    console.log(users);
+  }
+
+  let testcount = 0;
   return (
     <div className="App">
       <header className="App-header">
@@ -30,14 +29,17 @@ function App() {
         <button onClick={fetchData}>Get Users</button>
         <button onClick={testLog}>console.log that shit</button>
         <ul>
-        {Array.isArray(users) ? (users).map(user => <li key={testcount++}>{user.name} - {user.test} </li>) : null}
-    </ul>
-    
+          {Array.isArray(users)
+            ? users.map((user) => (
+                <li key={testcount++}>
+                  {user.name} - {user.test}{" "}
+                </li>
+              ))
+            : null}
+        </ul>
       </header>
     </div>
-     
   );
 }
-
 
 export default App;
