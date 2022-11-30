@@ -1,4 +1,3 @@
-
 -- Get all invoicess
 -- GET /invoices
 DROP PROCEDURE IF EXISTS show_invoice_all;
@@ -13,8 +12,26 @@ END
 ;;
 
 DELIMITER ;
+
 -- Create new invoice
 -- POST /invoices
+
+DROP PROCEDURE IF EXISTS invoice_add;
+
+DELIMITER ;;
+CREATE PROCEDURE invoice_add(
+    t_id INT,
+    i_status VARCHAR(45),
+    i_amount FLOAT
+)
+    MODIFIES SQL DATA
+BEGIN
+    INSERT INTO invoice (trip_id, status, amount)
+    VALUES (t_id, i_status, i_amount);
+END
+;;
+
+DELIMITER ;
 
 
 -- Delete invoice
@@ -25,6 +42,7 @@ DELIMITER ;;
 CREATE PROCEDURE delete_invoice(
     i_id INT
 )
+    MODIFIES SQL DATA
 BEGIN
     DELETE FROM invoice WHERE id = i_id;
 END
@@ -32,9 +50,27 @@ END
 
 DELIMITER ;
 
-
 -- Update invoice
 -- PUT invoices/:invoiceId
+DROP PROCEDURE IF EXISTS update_invoice;
+
+DELIMITER ;;
+CREATE PROCEDURE update_invoice(
+    i_id INT,
+    t_id INT,
+    i_status VARCHAR(45),
+    i_amount FLOAT
+)
+BEGIN
+    UPDATE invoice
+    SET trip_id      = t_id,
+        status       = i_status,
+        amount       = i_amount
+    WHERE id = i_id;
+END
+;;
+
+DELIMITER ;
 
 -- Get specific invoice
 -- GET invoices/:invoiceId

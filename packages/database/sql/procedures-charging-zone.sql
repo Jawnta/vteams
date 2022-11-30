@@ -19,6 +19,21 @@ DELIMITER ;
 -- Create new charging zone
 -- POST /chargingzones
 
+DROP PROCEDURE IF EXISTS charging_zone_add;
+
+DELIMITER ;;
+CREATE PROCEDURE charging_zone_add(
+    p_id INT,
+    z_area VARCHAR(100),
+)
+    MODIFIES SQL DATA
+BEGIN
+    INSERT INTO charging_zone (parking_zone_id, area)
+    VALUES (p_id, ST_GeomFromGeoJSON(z_area));
+END
+;;
+
+DELIMITER ;
 
 -- Get charging zones in city
 -- GET chargingzones/city/:cityName
@@ -53,6 +68,7 @@ DELIMITER ;;
 CREATE PROCEDURE delete_charging_zone(
     z_id INT
 )
+    MODIFIES SQL DATA
 BEGIN
     DELETE FROM charging_zone WHERE id = z_id;
 END
@@ -63,7 +79,23 @@ DELIMITER ;
 
 -- Update charging zone
 -- PUT chargingzones/:chargingZoneId
+DROP PROCEDURE IF EXISTS update_charging_zone;
 
+DELIMITER ;;
+CREATE PROCEDURE update_charging_zone(
+    z_id INT,
+    pakring_z_id INT,
+    z_area VARCHAR(100)
+)
+BEGIN
+    UPDATE charging_zone
+    SET parking_zone_id = pakring_z_id,
+        area            = ST_GeomFromGeoJSON(z_area)
+    WHERE id = z_id;
+END
+;;
+
+DELIMITER ;
 
 -- Get specific charging zone
 -- GET chargingzones/:chargingZoneId
