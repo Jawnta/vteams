@@ -2,7 +2,7 @@ import React, {useState} from 'react';
 import logo from './logo.svg';
 import './App.css';
 
-const apiUrl = 'http://api:3000';
+const apiUrl = 'http://localhost:3000';
 function App() {
     const [users, setUsers] = useState<any[]>([]);
     async function fetchData() {
