@@ -41,7 +41,7 @@ router.get('/city/:cityName', async (req, res) => {
     }
 });
 
-router.get('/:parkingZoneId', async (req, res, next) => {
+router.get('/:parkingZoneId', async (req, res) => {
     const parkingZoneId: number = +req.params.parkingZoneId;
 
     try {

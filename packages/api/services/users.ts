@@ -88,8 +88,9 @@ export const users = {
         //
         // throw new Error('<Error message>'); // this will result in a 500
 
-        const data: {} = {},
-            status = 200;
+
+        const status = 200;
+        const data: UserInterface[] = [];
 
         return {
             status: status,

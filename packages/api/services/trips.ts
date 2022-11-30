@@ -32,18 +32,18 @@ export const trips = {
     /**
      *
 
-     * @param options.trip.completed required
-     * @param options.trip.distance required
-     * @param options.trip.id requiredThe unique identifier of a trip
-     * @param options.trip.scooter_id required
-     * @param options.trip.start_position required
-     * @param options.trip.start_time required
-     * @param options.trip.stop_position required
-     * @param options.trip.stop_time required
-     * @param options.trip.user_id requiredThe unique identifier of a user
+     * @param options.completed required
+     * @param options.distance required
+     * @param options.id requiredThe unique identifier of a trip
+     * @param options.scooter_id required
+     * @param options.start_position required
+     * @param options.start_time required
+     * @param options.stop_position required
+     * @param options.stop_time required
+     * @param options.user_id requiredThe unique identifier of a user
 
      */
-    postTrips: async (options: {}) => {
+    postTrips: async (options: TripInterface[]) => {
         // Implement your business logic here...
         //
         // Return all 2xx and 4xx as follows:

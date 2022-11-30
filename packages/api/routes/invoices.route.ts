@@ -3,7 +3,7 @@ import {invoices} from '../services/invoices';
 import {InvoiceInterface} from '../interfaces/invoiceInterface';
 const router = express.Router();
 
-router.get('/', async (req, res, next) => {
+router.get('/', async (req, res) => {
     try {
         const result = await invoices.getInvoices();
         res.status(result.status || 200).send(result.data);
@@ -14,7 +14,7 @@ router.get('/', async (req, res, next) => {
     }
 });
 
-router.post('/', async (req, res, next) => {
+router.post('/', async (req, res) => {
     const data: InvoiceInterface[] = req.body;
 
     try {
@@ -27,7 +27,7 @@ router.post('/', async (req, res, next) => {
     }
 });
 
-router.get('/:invoiceId', async (req, res, next) => {
+router.get('/:invoiceId', async (req, res) => {
     const invoiceId: number = +req.params.invoiceId;
 
     try {
@@ -40,7 +40,7 @@ router.get('/:invoiceId', async (req, res, next) => {
     }
 });
 
-router.put('/:invoiceId', async (req, res, next) => {
+router.put('/:invoiceId', async (req, res) => {
     const invoice: InvoiceInterface[] = req.body;
     const data = {
         invoiceId: +req.params.invoiceId,
@@ -57,7 +57,7 @@ router.put('/:invoiceId', async (req, res, next) => {
     }
 });
 
-router.delete('/:invoiceId', async (req, res, next) => {
+router.delete('/:invoiceId', async (req, res) => {
     const invoiceId: number = +req.params.invoiceId;
 
     try {

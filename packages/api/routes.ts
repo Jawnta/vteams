@@ -19,4 +19,4 @@ export default function (app: {use: (arg0: string, arg1: any) => void}) {
     app.use('/scooters', scooters);
     app.use('/trips', trips);
     app.use('/users', users);
-};
+}
