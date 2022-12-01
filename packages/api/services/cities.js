@@ -18,16 +18,16 @@ exports.cities = {
 
      */
     getCities: () => __awaiter(void 0, void 0, void 0, function* () {
-        const db = yield (0, dbConnection_1.dbConnection)();
+        const db = yield (0, dbConnection_1.connect)();
         yield db.getConnection();
         const sql = `CALL show_city_all()`;
         const res = yield db.query(sql);
+        const cities = res[0];
         yield db.end();
         const status = 200;
-        const test = res[0];
         return {
             status: status,
-            data: test
+            data: cities
         };
     }),
 };
