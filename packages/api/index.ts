@@ -53,6 +53,9 @@ app.use((err: any, req: any, res: any) => {
 
 module.exports = app;
 
+//för test
+export default app
+
 app.listen(PORT, () => {
     console.log(
         `Express Server started on Port ${app.get(
