@@ -1,27 +1,28 @@
-import {CityInterface} from '../interfaces/cityInterface';
-import {dbConnection} from "../db/dbConnection";
+import { CityInterface } from '../interfaces/cityInterface';
+import { connect } from "../db/dbConnection";
 export const cities = {
     /**
      *
 
 
      */
-    getCities: async () => {
+    getCities: async (): Promise<{ status: number; data: CityInterface[] }> => {
 
-        const db = await dbConnection();
+        const db = await connect();
         await db.getConnection();
 
         const sql = `CALL show_city_all()`;
 
         const res = await db.query(sql);
+        const cities = res[0] as CityInterface[];
         await db.end();
 
         const status = 200;
-        const test: CityInterface = res[0];
 
         return {
             status: status,
-            data: test
+            data: cities
         };
     },
 };
+
