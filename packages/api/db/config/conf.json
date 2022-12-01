@@ -1,4 +1,5 @@
 {
+
   "host":     "mariadb",
   "user":     "%",
   "password": "password",

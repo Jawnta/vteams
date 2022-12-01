@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.trips = void 0;
+const dbConnection_1 = require("../db/dbConnection");
 exports.trips = {
     /**
      *
@@ -17,23 +18,13 @@ exports.trips = {
 
      */
     getTrips: () => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = [], status = 200;
-        return {
-            status: status,
-            data: data,
-        };
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL show_trip_all()`;
+        const res = yield db.query(sql);
+        const trips = res.length === 2 ? res[0] : [];
+        yield db.end();
+        return trips;
     }),
     /**
      *
@@ -50,23 +41,18 @@ exports.trips = {
 
      */
     postTrips: (options) => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = {}, status = 201;
-        return {
-            status: status,
-            data: data,
-        };
+        const tripDetails = [
+            options.user_id,
+            options.scooter_id,
+            options.start_position
+        ];
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL add_user(?, ?, ?)`;
+        const res = yield db.query(sql, [...tripDetails]);
+        const newTrip = res[0];
+        yield db.end();
+        return newTrip;
     }),
     /**
      *
@@ -74,33 +60,13 @@ exports.trips = {
 
      */
     getTripId: (tripId) => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = {
-            completed: '<boolean>',
-            distance: '<number>',
-            id: '<TripId>',
-            scooter_id: '<integer>',
-            start_position: '<Coordinates>',
-            start_time: '<string>',
-            stop_position: '<Coordinates>',
-            stop_time: '<string>',
-            user_id: '<UserId>',
-        }, status = 200;
-        return {
-            status: status,
-            data: data,
-        };
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL show_trip_id(?)`;
+        const res = yield db.query(sql, tripId);
+        const trip = res.length === 2 ? res[0] : [];
+        yield db.end();
+        return trip;
     }),
     /**
      *
@@ -117,23 +83,24 @@ exports.trips = {
 
      */
     putTripId: (options) => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = {}, status = 200;
-        return {
-            status: status,
-            data: data,
-        };
+        const tripDetails = [
+            options.tripId,
+            options.trip.user_id,
+            options.trip.scooter_id,
+            options.trip.distance,
+            options.trip.completed,
+            options.trip.start_position,
+            options.trip.stop_position,
+            options.trip.start_time,
+            options.trip.stop_time
+        ];
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL update_trip(?, ?, ?, ?, ?, ?, ? ,?, ?)`;
+        const res = yield db.query(sql, [...tripDetails]);
+        const updatedTrip = res[0];
+        yield db.end();
+        return updatedTrip;
     }),
     /**
      *
@@ -141,22 +108,11 @@ exports.trips = {
 
      */
     deleteTripId: (tripId) => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = {}, status = 204;
-        return {
-            status: status,
-            data: data,
-        };
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL delete_trip(?)`;
+        const res = yield db.query(sql, tripId);
+        yield db.end();
+        return res;
     }),
 };

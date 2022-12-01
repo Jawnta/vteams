@@ -19,7 +19,7 @@ const router = express_1.default.Router();
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield users_1.users.getUsers();
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -29,9 +29,12 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 }));
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const userData = req.body;
+    if (!userData.first_name || !userData.last_name) {
+        return res.sendStatus(400);
+    }
     try {
         const result = yield users_1.users.postUsers(userData);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -43,7 +46,7 @@ router.get('/:userId', (req, res) => __awaiter(void 0, void 0, void 0, function*
     const userId = +req.params.userId;
     try {
         const result = yield users_1.users.getUserId(userId);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -57,9 +60,12 @@ router.put('/:userId', (req, res) => __awaiter(void 0, void 0, void 0, function*
         userId: +req.params.userId,
         user: user,
     };
+    if (!user.first_name && !user.last_name) {
+        res.sendStatus(400);
+    }
     try {
         const result = yield users_1.users.putUserId(data);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -71,7 +77,10 @@ router.delete('/:userId', (req, res) => __awaiter(void 0, void 0, void 0, functi
     const userId = +req.params.userId;
     try {
         const result = yield users_1.users.deleteUserId(userId);
-        res.status(result.status || 200).send(result.data);
+        if (!result.affectedRows) {
+            res.sendStatus(400);
+        }
+        res.sendStatus(200);
     }
     catch (err) {
         return res.status(500).send({
@@ -83,7 +92,7 @@ router.get('/:userId/invoices', (req, res) => __awaiter(void 0, void 0, void 0, 
     const userId = +req.params.userId;
     try {
         const result = yield users_1.users.getUserIdInvoices(userId);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -95,7 +104,7 @@ router.get('/:userId/trips', (req, res) => __awaiter(void 0, void 0, void 0, fun
     const userId = +req.params.userId;
     try {
         const result = yield users_1.users.getUserIdTrips(userId);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).send(result);
     }
     catch (err) {
         return res.status(500).send({

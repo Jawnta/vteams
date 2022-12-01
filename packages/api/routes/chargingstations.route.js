@@ -19,7 +19,7 @@ const router = express_1.default.Router();
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield chargingstations_1.chargingStations.getChargingStations();
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -29,9 +29,12 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 }));
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
+    if (!data.charging_zone_id || !data.position) {
+        res.sendStatus(400);
+    }
     try {
         const result = yield chargingstations_1.chargingStations.postChargingStations(data);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -43,7 +46,7 @@ router.get('/zone/:chargingZoneId', (req, res) => __awaiter(void 0, void 0, void
     const chargingZoneId = +req.params.chargingZoneId;
     try {
         const result = yield chargingstations_1.chargingStations.getZoneChargingZoneId(chargingZoneId);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -55,7 +58,7 @@ router.get('/:chargingStationId', (req, res) => __awaiter(void 0, void 0, void 0
     const chargingStationId = +req.params.chargingStationId;
     try {
         const result = yield chargingstations_1.chargingStations.getChargingStationId(chargingStationId);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -69,9 +72,12 @@ router.put('/:chargingStationId', (req, res) => __awaiter(void 0, void 0, void 0
         chargingStationId: +req.params.chargingStationId,
         chargingStation: chargingStation,
     };
+    if (!chargingStation.charging_zone_id || !chargingStation.position || !chargingStation.occupied) {
+        res.sendStatus(400);
+    }
     try {
         const result = yield chargingstations_1.chargingStations.putChargingStationId(data);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -83,7 +89,10 @@ router.delete('/:chargingStationId', (req, res) => __awaiter(void 0, void 0, voi
     const chargingStationId = +req.params.chargingStationId;
     try {
         const result = yield chargingstations_1.chargingStations.deleteChargingStationId(chargingStationId);
-        res.status(result.status || 200).send(result.data);
+        if (!result.affectedRows) {
+            res.sendStatus(400);
+        }
+        res.sendStatus(200);
     }
     catch (err) {
         return res.status(500).send({

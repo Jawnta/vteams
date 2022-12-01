@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.users = void 0;
+const dbConnection_1 = require("../db/dbConnection");
 exports.users = {
     /**
      *
@@ -17,58 +18,45 @@ exports.users = {
 
      */
     getUsers: () => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = [], status = 200;
-        return {
-            status: status,
-            data: data,
-        };
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL show_user_all()`;
+        const res = yield db.query(sql);
+        const users = res.length === 2 ? res[0] : [];
+        yield db.end();
+        return users;
     }),
     /**
      *
 
      * @param options.creditCurrent credit balance
      * @param options.email required
-     * @param options.enabled requiredReturns false if user is disabled
+     * @param options.enabled required Returns false if user is disabled
      * @param options.first_name required
      * @param options.id requiredThe unique identifier of a user
      * @param options.last_name required
      * @param options.phone_number required
      * @param options.register_date required
-     * @param options.social_security requiredSocial security number such as Swedish personnummer
+     * @param options.social_security required Social security number such as Swedish personnummer
      * @param options.tokenLogin token for authentication
 
      */
     postUsers: (options) => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = {};
-        const status = 201;
-        return {
-            status: status,
-            data: data,
-        };
+        const userDetails = [
+            options.first_name,
+            options.last_name,
+            options.phone_number || null,
+            options.email,
+            options.social_security || null,
+            options.token || null
+        ];
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL add_user(?, ?, ?, ?, ?, ?)`;
+        const res = yield db.query(sql, [...userDetails]);
+        const newUser = res[0];
+        yield db.end();
+        return newUser;
     }),
     /**
      *
@@ -76,24 +64,13 @@ exports.users = {
 
      */
     getUserId: (userId) => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const status = 200;
-        const data = [];
-        return {
-            status: status,
-            data: data,
-        };
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL show_user_id(?)`;
+        const res = yield db.query(sql, userId);
+        const user = res.length === 2 ? res[0] : [];
+        yield db.end();
+        return user;
     }),
     /**
      *
@@ -111,47 +88,38 @@ exports.users = {
 
      */
     putUserId: (options) => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = {}, status = 200;
-        return {
-            status: status,
-            data: data,
-        };
+        const userDetails = [
+            options.userId,
+            options.user.first_name,
+            options.user.last_name,
+            options.user.phone_number || null,
+            options.user.email || null,
+            options.user.register_date || null,
+            options.user.social_security || null,
+            options.user.enabled || null,
+            options.user.credit || null,
+            options.user.token || null
+        ];
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL update_user(?, ?, ?, ?, ?, ?, ? ,?, ?, ?)`;
+        const res = yield db.query(sql, [...userDetails]);
+        const updatedUser = res[0];
+        yield db.end();
+        return updatedUser;
     }),
     /**
      *
-     * @param options.userId The unique identifier of the user
+     * @param userId The unique identifier of the user
 
      */
-    deleteUserId: (options) => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = {}, status = 204;
-        return {
-            status: status,
-            data: data,
-        };
+    deleteUserId: (userId) => __awaiter(void 0, void 0, void 0, function* () {
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL delete_user(?)`;
+        const res = yield db.query(sql, userId);
+        yield db.end();
+        return res;
     }),
     /**
      *
@@ -159,52 +127,24 @@ exports.users = {
 
      */
     getUserIdInvoices: (userId) => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = {
-            id: '<UserId>',
-            trips: '<array>',
-        }, status = 200;
-        return {
-            status: status,
-            data: data,
-        };
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL show_invoice_user(?)`;
+        const res = yield db.query(sql, userId);
+        yield db.end();
+        return res;
     }),
     /**
      *
-     * @param options.userId The unique identifier of the user
+     * @param userId The unique identifier of the user
 
      */
-    getUserIdTrips: (options) => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = {
-            id: '<UserId>',
-            trips: '<Trips>',
-        }, status = 200;
-        return {
-            status: status,
-            data: data,
-        };
+    getUserIdTrips: (userId) => __awaiter(void 0, void 0, void 0, function* () {
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL show_trip_user(?)`;
+        const res = yield db.query(sql, userId);
+        yield db.end();
+        return res;
     }),
 };

@@ -19,7 +19,7 @@ const router = express_1.default.Router();
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield scooters_1.scooters.getScooters();
-        res.status(result.status || 200).send(result.data);
+        res.status(200).send(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -29,9 +29,12 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 }));
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
+    if (!data.city_id) {
+        return res.sendStatus(400);
+    }
     try {
         const result = yield scooters_1.scooters.postScooters(data);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -42,7 +45,7 @@ router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 router.get('/available', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield scooters_1.scooters.getAvailable();
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -54,7 +57,7 @@ router.get('/city/:cityName', (req, res) => __awaiter(void 0, void 0, void 0, fu
     const cityName = req.params.cityName;
     try {
         const result = yield scooters_1.scooters.getCityCityName(cityName);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -66,7 +69,7 @@ router.get('/:scooterId', (req, res) => __awaiter(void 0, void 0, void 0, functi
     const scooterId = +req.params.scooterId;
     try {
         const result = yield scooters_1.scooters.getScooterId(scooterId);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -80,9 +83,12 @@ router.put('/:scooterId', (req, res) => __awaiter(void 0, void 0, void 0, functi
         scooterId: +req.params.scooterId,
         scooter: scooter,
     };
+    if (!scooter.charge) {
+        return res.sendStatus(400);
+    }
     try {
         const result = yield scooters_1.scooters.putScooterId(data);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -94,7 +100,10 @@ router.delete('/:scooterId', (req, res) => __awaiter(void 0, void 0, void 0, fun
     const scooterId = +req.params.scooterId;
     try {
         const result = yield scooters_1.scooters.deleteScooterId(scooterId);
-        res.status(result.status || 200).send(result.data);
+        if (!result.affectedRows) {
+            res.sendStatus(400);
+        }
+        res.sendStatus(200);
     }
     catch (err) {
         return res.status(500).send({
@@ -106,7 +115,7 @@ router.get('/:scooterId/logs', (req, res) => __awaiter(void 0, void 0, void 0, f
     const scooterId = +req.params.scooterId;
     try {
         const result = yield scooters_1.scooters.getScooterIdLogs(scooterId);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
