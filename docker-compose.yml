@@ -38,6 +38,7 @@ services:
     userMobileClient:
         image: 'user_mobile_client'
         container_name: 'user_mobile_client'
+        build: './packages/clients/userMobileClient'
         environment:
             - NODE_ENV=development
         tty: true
