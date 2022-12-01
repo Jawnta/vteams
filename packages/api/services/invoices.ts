@@ -1,4 +1,5 @@
 import {InvoiceInterface} from '../interfaces/invoiceInterface';
+import {connect} from "../db/dbConnection";
 
 export const invoices = {
     /**
@@ -7,27 +8,20 @@ export const invoices = {
 
      */
     getInvoices: async () => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const db = await connect();
 
-        const data: InvoiceInterface[] = [],
-            status = 200;
+        await db.getConnection();
 
-        return {
-            status: status,
-            data: data,
-        };
+        const sql = `CALL show_invoice_all()`;
+
+        const res = await db.query(sql);
+        const invoices = res.length === 2 ? res[0] : [];
+
+        await db.end();
+
+
+        return invoices;
     },
 
     /**
@@ -39,28 +33,26 @@ export const invoices = {
      * @param options.trip_id requiredThe unique identifier of a trip
 
      */
-    postInvoices: async (options: InvoiceInterface[]) => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
+    postInvoices: async (options: InvoiceInterface) => {
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const invoiceDetails = [
+            options.trip_id,
+            options.status,
+            options.amount
+        ]
+        const db = await connect();
 
-        const data = {},
-            status = 201;
+        await db.getConnection();
 
-        return {
-            status: status,
-            data: data,
-        };
+        const sql = `CALL invoice_add(?, ?, ?)`;
+
+        const res = await db.query(sql, [... invoiceDetails]);
+
+        const newInvoice = res[0];
+
+        await db.end();
+
+        return newInvoice;
     },
 
     /**
@@ -69,32 +61,18 @@ export const invoices = {
 
      */
     getInvoiceId: async (invoiceId: number) => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const db = await connect();
 
-        const data = {
-                amount: '<number>',
-                id: '<InvoiceId>',
-                status: '<string>',
-                trip_id: '<TripId>',
-            },
-            status = 200;
+        await db.getConnection();
 
-        return {
-            status: status,
-            data: data,
-        };
+        const sql = `CALL show_invoice_id(?)`;
+
+        const res = await db.query(sql, invoiceId);
+        const invoice = res.length === 2 ? res[0] : [];
+        await db.end();
+
+        return invoice;
     },
 
     /**
@@ -108,29 +86,27 @@ export const invoices = {
      */
     putInvoiceId: async (options: {
         invoiceId: number;
-        invoice: InvoiceInterface[];
+        invoice: InvoiceInterface;
     }) => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const invoiceDetails = [
+            options.invoiceId,
+            options.invoice.trip_id,
+            options.invoice.status,
+            options.invoice.amount
+        ]
+        const db = await connect();
 
-        const data = {},
-            status = 200;
+        await db.getConnection();
 
-        return {
-            status: status,
-            data: data,
-        };
+        const sql = `CALL update_user(?, ?, ?, ?)`;
+
+        const res = await db.query(sql, [... invoiceDetails]);
+
+        const updatedInvoice = res[0];
+        await db.end();
+
+        return updatedInvoice;
     },
 
     /**
@@ -139,26 +115,17 @@ export const invoices = {
 
      */
     deleteInvoiceId: async (invoiceId: number) => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const db = await connect();
 
-        const data = {},
-            status = 204;
+        await db.getConnection();
 
-        return {
-            status: status,
-            data: data,
-        };
+        const sql = `CALL delete_invoice(?)`;
+
+        const res = await db.query(sql, invoiceId);
+
+        await db.end();
+
+        return res;
     },
 };

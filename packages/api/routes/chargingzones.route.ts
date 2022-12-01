@@ -7,7 +7,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     try {
         const result = await chargingZones.getChargingZones();
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     } catch (err) {
         return res.status(500).send({
             error: err || 'Something went wrong.',
@@ -16,11 +16,14 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const data: ChargingZoneInterface[] = req.body;
+    const data: ChargingZoneInterface = req.body;
+    if (!data.parking_zone_id || !data.area) {
+        res.sendStatus(400);
+    }
 
     try {
         const result = await chargingZones.postChargingZones(data);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     } catch (err) {
         return res.status(500).send({
             error: err || 'Something went wrong.',
@@ -33,7 +36,7 @@ router.get('/city/:cityName', async (req, res) => {
 
     try {
         const result = await chargingZones.getCityCityName(cityName);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     } catch (err) {
         return res.status(500).send({
             error: err || 'Something went wrong.',
@@ -46,7 +49,7 @@ router.get('/:chargingZoneId', async (req, res) => {
 
     try {
         const result = await chargingZones.getChargingZoneId(chargingZoneId);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     } catch (err) {
         return res.status(500).send({
             error: err || 'Something went wrong.',
@@ -55,14 +58,18 @@ router.get('/:chargingZoneId', async (req, res) => {
 });
 
 router.put('/:chargingZoneId', async (req, res) => {
-    const chargingZone: ChargingZoneInterface[] = req.body;
+    const chargingZone: ChargingZoneInterface = req.body;
     const data = {
         chargingZoneId: +req.params.chargingZoneId,
         chargingZone: chargingZone,
     };
+
+    if (!chargingZone.parking_zone_id || !chargingZone.area) {
+        res.sendStatus(400);
+    }
     try {
         const result = await chargingZones.putChargingZoneId(data);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     } catch (err) {
         return res.status(500).send({
             error: err || 'Something went wrong.',
@@ -75,7 +82,10 @@ router.delete('/:chargingZoneId', async (req, res) => {
 
     try {
         const result = await chargingZones.deleteChargingZoneId(chargingZoneId);
-        res.status(result.status || 200).send(result.data);
+        if (!result.affectedRows) {
+            res.sendStatus(400);
+        }
+        res.sendStatus(200);
     } catch (err) {
         return res.status(500).send({
             error: err || 'Something went wrong.',

@@ -19,7 +19,7 @@ const router = express_1.default.Router();
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield parkingzones_1.parkingZones.getParkingZones();
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -29,9 +29,12 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 }));
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
+    if (!data.city_id || !data.area) {
+        res.sendStatus(400);
+    }
     try {
         const result = yield parkingzones_1.parkingZones.postParkingZones(data);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -43,7 +46,7 @@ router.get('/city/:cityName', (req, res) => __awaiter(void 0, void 0, void 0, fu
     const cityName = req.params.cityName;
     try {
         const result = yield parkingzones_1.parkingZones.getCityCityName(cityName);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -55,7 +58,7 @@ router.get('/:parkingZoneId', (req, res) => __awaiter(void 0, void 0, void 0, fu
     const parkingZoneId = +req.params.parkingZoneId;
     try {
         const result = yield parkingzones_1.parkingZones.getParkingZoneId(parkingZoneId);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -69,9 +72,12 @@ router.put('/:parkingZoneId', (req, res) => __awaiter(void 0, void 0, void 0, fu
         parkingZoneId: +req.params.parkingZoneId,
         parkingZone: parkingZone,
     };
+    if (!parkingZone.city_id || !parkingZone.area) {
+        res.sendStatus(400);
+    }
     try {
         const result = yield parkingzones_1.parkingZones.putParkingZoneId(data);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -83,7 +89,10 @@ router.delete('/:parkingZoneId', (req, res) => __awaiter(void 0, void 0, void 0,
     const parkingZoneId = +req.params.parkingZoneId;
     try {
         const result = yield parkingzones_1.parkingZones.deleteParkingZoneId(parkingZoneId);
-        res.status(result.status || 200).send(result.data);
+        if (!result.affectedRows) {
+            res.sendStatus(400);
+        }
+        res.sendStatus(200);
     }
     catch (err) {
         return res.status(500).send({

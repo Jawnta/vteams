@@ -1,4 +1,5 @@
 import {ChargingStationInterface} from '../interfaces/chargingstationInterface';
+import {connect} from "../db/dbConnection";
 
 export const chargingStations = {
     /**
@@ -7,34 +8,17 @@ export const chargingStations = {
 
      */
     getChargingStations: async () => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
+        const db = await connect();
+        await db.getConnection();
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const sql = `CALL show_charging_station_all()`;
 
-        const data = [
-                {
-                    charging_zone_id: '<ChargingZoneId>',
-                    id: '<ChargingStationId>',
-                    occupied: '<boolean>',
-                    position: '<Coordinates>',
-                },
-            ],
-            status = 200;
+        const res = await db.query(sql);
+        const chargingStations = res.length === 2 ? res[0] : [];
 
-        return {
-            status: status,
-            data: data,
-        };
+        await db.end();
+
+        return chargingStations;
     },
 
     /**
@@ -46,28 +30,25 @@ export const chargingStations = {
      * @param options.position required
 
      */
-    postChargingStations: async (options: ChargingStationInterface[]) => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
+    postChargingStations: async (options: ChargingStationInterface) => {
+        const chargingStationDetails = [
+            options.charging_zone_id,
+            options.position,
+            0
+        ]
+        const db = await connect();
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        await db.getConnection();
 
-        const data = {},
-            status = 201;
+        const sql = `CALL charging_station_add(?, ?, ?)`;
 
-        return {
-            status: status,
-            data: data,
-        };
+        const res = await db.query(sql, [... chargingStationDetails]);
+
+        const newChargingStation = res[0];
+
+        await db.end();
+
+        return newChargingStation;
     },
 
     /**
@@ -76,34 +57,18 @@ export const chargingStations = {
 
      */
     getZoneChargingZoneId: async (chargingZoneId: number) => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const db = await connect();
 
-        const data = [
-                {
-                    charging_zone_id: '<ChargingZoneId>',
-                    id: '<ChargingStationId>',
-                    occupied: '<boolean>',
-                    position: '<Coordinates>',
-                },
-            ],
-            status = 200;
+        await db.getConnection();
 
-        return {
-            status: status,
-            data: data,
-        };
+        const sql = `CALL show_charging_station_zone(?)`;
+
+        const res = await db.query(sql, chargingZoneId);
+        const chargingStations = res.length === 2 ? res[0] : [];
+        await db.end();
+
+        return chargingStations;
     },
 
     /**
@@ -112,32 +77,18 @@ export const chargingStations = {
 
      */
     getChargingStationId: async (chargingStationId: number) => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const db = await connect();
 
-        const data = {
-                charging_zone_id: '<ChargingZoneId>',
-                id: '<ChargingStationId>',
-                occupied: '<boolean>',
-                position: '<Coordinates>',
-            },
-            status = 200;
+        await db.getConnection();
 
-        return {
-            status: status,
-            data: data,
-        };
+        const sql = `CALL show_charging_station_id(?)`;
+
+        const res = await db.query(sql, chargingStationId);
+        const chargingStation = res.length === 2 ? res[0] : [];
+        await db.end();
+
+        return chargingStation;
     },
 
     /**
@@ -151,29 +102,26 @@ export const chargingStations = {
      */
     putChargingStationId: async (options: {
         chargingStationId: number;
-        chargingStation: ChargingStationInterface[];
+        chargingStation: ChargingStationInterface;
     }) => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
+        const chargingStationDetails = [
+            options.chargingStationId,
+            options.chargingStation.charging_zone_id,
+            options.chargingStation.position,
+            0
+        ]
+        const db = await connect();
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        await db.getConnection();
 
-        const data = {},
-            status = 200;
+        const sql = `CALL update_charging_station(?, ?, ?, ?)`;
 
-        return {
-            status: status,
-            data: data,
-        };
+        const res = await db.query(sql, [... chargingStationDetails]);
+
+        const updatedChargingStation = res[0];
+        await db.end();
+
+        return updatedChargingStation;
     },
 
     /**
@@ -182,26 +130,17 @@ export const chargingStations = {
 
      */
     deleteChargingStationId: async (chargingStationId: number) => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const db = await connect();
 
-        const data = {},
-            status = 204;
+        await db.getConnection();
 
-        return {
-            status: status,
-            data: data,
-        };
+        const sql = `CALL delete_charging_station(?)`;
+
+        const res = await db.query(sql, chargingStationId);
+
+        await db.end();
+
+        return res;
     },
 };

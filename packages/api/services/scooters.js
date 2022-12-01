@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.scooters = void 0;
+const dbConnection_1 = require("../db/dbConnection");
 exports.scooters = {
     /**
      *
@@ -17,23 +18,13 @@ exports.scooters = {
 
      */
     getScooters: () => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = [], status = 200;
-        return {
-            status: status,
-            data: data,
-        };
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL show_scooter_all()`;
+        const res = yield db.query(sql);
+        const scooters = res.length === 2 ? res[0] : [];
+        yield db.end();
+        return scooters;
     }),
     /**
      *
@@ -51,23 +42,21 @@ exports.scooters = {
 
      */
     postScooters: (options) => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = {}, status = 201;
-        return {
-            status: status,
-            data: data,
-        };
+        const scooterDetails = [
+            options.available,
+            options.enabled,
+            options.charge,
+            options.last_position,
+            options.is_charging,
+            options.city_id
+        ];
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL add_user(?, ?, ?, ?, ?, ?)`;
+        const res = yield db.query(sql, [...scooterDetails]);
+        const newScooter = res[0];
+        yield db.end();
+        return newScooter;
     }),
     /**
      *
@@ -75,36 +64,13 @@ exports.scooters = {
 
      */
     getAvailable: () => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = [
-            {
-                available: '<boolean>',
-                charge: '<number>',
-                city_id: '<CityId>',
-                distance_traveled: '<number>',
-                enabled: '<boolean>',
-                first_used: '<string>',
-                id: '<ScooterId>',
-                is_charging: '<boolean>',
-                last_position: '<Coordinates>',
-                last_serviced: '<string>',
-            },
-        ], status = 200;
-        return {
-            status: status,
-            data: data,
-        };
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL show_scooter_available()`;
+        const res = yield db.query(sql);
+        const availableScooters = res.length === 2 ? res[0] : [];
+        yield db.end();
+        return availableScooters;
     }),
     /**
      *
@@ -112,23 +78,13 @@ exports.scooters = {
 
      */
     getCityCityName: (cityName) => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = [], status = 200;
-        return {
-            status: status,
-            data: data,
-        };
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL show_scooter_city(?)`;
+        const res = yield db.query(sql, cityName);
+        const scooters = res.length === 2 ? res[0] : [];
+        yield db.end();
+        return scooters;
     }),
     /**
      *
@@ -136,34 +92,13 @@ exports.scooters = {
 
      */
     getScooterId: (scooterId) => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = {
-            available: '<boolean>',
-            charge: '<number>',
-            city_id: '<CityId>',
-            distance_traveled: '<number>',
-            enabled: '<boolean>',
-            first_used: '<string>',
-            id: '<ScooterId>',
-            is_charging: '<boolean>',
-            last_position: '<Coordinates>',
-            last_serviced: '<string>',
-        }, status = 200;
-        return {
-            status: status,
-            data: data,
-        };
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL show_scooter_id(?)`;
+        const res = yield db.query(sql, scooterId);
+        const scooter = res.length === 2 ? res[0] : [];
+        yield db.end();
+        return scooter;
     }),
     /**
      *
@@ -181,23 +116,25 @@ exports.scooters = {
 
      */
     putScooterId: (options) => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = {}, status = 200;
-        return {
-            status: status,
-            data: data,
-        };
+        const scooterDetails = [
+            options.scooterId,
+            options.scooter.available,
+            options.scooter.enabled,
+            options.scooter.charge,
+            options.scooter.last_serviced,
+            options.scooter.first_used,
+            options.scooter.distance_traveled,
+            options.scooter.last_position,
+            options.scooter.is_charging,
+            options.scooter.city_id
+        ];
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL update_scooter(?, ?, ?, ?, ?, ?, ? ,?, ?, ?)`;
+        const res = yield db.query(sql, [...scooterDetails]);
+        const updatedScooter = res[0];
+        yield db.end();
+        return updatedScooter;
     }),
     /**
      *
@@ -205,23 +142,12 @@ exports.scooters = {
 
      */
     deleteScooterId: (scooterId) => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = {}, status = 204;
-        return {
-            status: status,
-            data: data,
-        };
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL delete_scooter(?)`;
+        const res = yield db.query(sql, scooterId);
+        yield db.end();
+        return res;
     }),
     /**
      *
@@ -229,32 +155,12 @@ exports.scooters = {
 
      */
     getScooterIdLogs: (scooterId) => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = [
-            {
-                charge: '<number>',
-                id: '<integer>',
-                position: '<Coordinates>',
-                scooter_id: '<ScooterId>',
-                speed: '<number>',
-                status: '<string>',
-                timestamp: '<string>',
-            },
-        ], status = 200;
-        return {
-            status: status,
-            data: data,
-        };
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL show_scooter_logs(?)`;
+        const res = yield db.query(sql, scooterId);
+        const scooterLogs = res.length === 2 ? res[0] : [];
+        yield db.end();
+        return scooterLogs;
     }),
 };

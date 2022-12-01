@@ -1,7 +1,7 @@
 {
   "host":     "localhost",
   "user":     "root",
-  "password": "pass",
+  "password": "H@cker1337",
   "database": "vteams",
   "multipleStatements": true
 }

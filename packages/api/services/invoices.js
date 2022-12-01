@@ -10,6 +10,7 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
 };
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.invoices = void 0;
+const dbConnection_1 = require("../db/dbConnection");
 exports.invoices = {
     /**
      *
@@ -17,23 +18,13 @@ exports.invoices = {
 
      */
     getInvoices: () => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = [], status = 200;
-        return {
-            status: status,
-            data: data,
-        };
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL show_invoice_all()`;
+        const res = yield db.query(sql);
+        const invoices = res.length === 2 ? res[0] : [];
+        yield db.end();
+        return invoices;
     }),
     /**
      *
@@ -45,23 +36,18 @@ exports.invoices = {
 
      */
     postInvoices: (options) => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = {}, status = 201;
-        return {
-            status: status,
-            data: data,
-        };
+        const invoiceDetails = [
+            options.trip_id,
+            options.status,
+            options.amount
+        ];
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL invoice_add(?, ?, ?)`;
+        const res = yield db.query(sql, [...invoiceDetails]);
+        const newInvoice = res[0];
+        yield db.end();
+        return newInvoice;
     }),
     /**
      *
@@ -69,28 +55,13 @@ exports.invoices = {
 
      */
     getInvoiceId: (invoiceId) => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = {
-            amount: '<number>',
-            id: '<InvoiceId>',
-            status: '<string>',
-            trip_id: '<TripId>',
-        }, status = 200;
-        return {
-            status: status,
-            data: data,
-        };
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL show_invoice_id(?)`;
+        const res = yield db.query(sql, invoiceId);
+        const invoice = res.length === 2 ? res[0] : [];
+        yield db.end();
+        return invoice;
     }),
     /**
      *
@@ -102,23 +73,19 @@ exports.invoices = {
 
      */
     putInvoiceId: (options) => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = {}, status = 200;
-        return {
-            status: status,
-            data: data,
-        };
+        const invoiceDetails = [
+            options.invoiceId,
+            options.invoice.trip_id,
+            options.invoice.status,
+            options.invoice.amount
+        ];
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL update_user(?, ?, ?, ?)`;
+        const res = yield db.query(sql, [...invoiceDetails]);
+        const updatedInvoice = res[0];
+        yield db.end();
+        return updatedInvoice;
     }),
     /**
      *
@@ -126,22 +93,11 @@ exports.invoices = {
 
      */
     deleteInvoiceId: (invoiceId) => __awaiter(void 0, void 0, void 0, function* () {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
-        const data = {}, status = 204;
-        return {
-            status: status,
-            data: data,
-        };
+        const db = yield (0, dbConnection_1.connect)();
+        yield db.getConnection();
+        const sql = `CALL delete_invoice(?)`;
+        const res = yield db.query(sql, invoiceId);
+        yield db.end();
+        return res;
     }),
 };

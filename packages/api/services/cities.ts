@@ -6,7 +6,7 @@ export const cities = {
 
 
      */
-    getCities: async (): Promise<{ status: number; data: CityInterface[] }> => {
+    getCities: async (): Promise<{ data: CityInterface[] }> => {
 
         const db = await connect();
         await db.getConnection();
@@ -14,15 +14,12 @@ export const cities = {
         const sql = `CALL show_city_all()`;
 
         const res = await db.query(sql);
-        const cities = res[0] as CityInterface[];
+        const cities = res.length === 2 ? res[0] : [];
+
         await db.end();
 
-        const status = 200;
+        return cities;
 
-        return {
-            status: status,
-            data: cities
-        };
     },
 };
 
