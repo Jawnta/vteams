@@ -1,4 +1,5 @@
 import {CityInterface} from '../interfaces/cityInterface';
+import {dbConnection} from "../db/dbConnection";
 export const cities = {
     /**
      *
@@ -6,26 +7,21 @@ export const cities = {
 
      */
     getCities: async () => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const db = await dbConnection();
+        await db.getConnection();
 
-        const data: CityInterface[] = [],
-            status = '200';
+        const sql = `CALL show_city_all()`;
+
+        const res = await db.query(sql);
+        await db.end();
+
+        const status = 200;
+        const test: CityInterface = res[0];
 
         return {
             status: status,
-            data: data,
+            data: test
         };
     },
 };
