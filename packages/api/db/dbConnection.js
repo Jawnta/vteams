@@ -8,26 +8,14 @@ var __awaiter = (this && this.__awaiter) || function (thisArg, _arguments, P, ge
         step((generator = generator.apply(thisArg, _arguments || [])).next());
     });
 };
-Object.defineProperty(exports, "__esModule", { value: true });
-exports.cities = void 0;
-const dbConnection_1 = require("../db/dbConnection");
-exports.cities = {
-    /**
-     *
-
-
-     */
-    getCities: () => __awaiter(void 0, void 0, void 0, function* () {
-        const db = yield (0, dbConnection_1.dbConnection)();
-        yield db.getConnection();
-        const sql = `CALL show_city_all()`;
-        const res = yield db.query(sql);
-        yield db.end();
-        const status = 200;
-        const test = res[0];
-        return {
-            status: status,
-            data: test
-        };
-    }),
+var __importDefault = (this && this.__importDefault) || function (mod) {
+    return (mod && mod.__esModule) ? mod : { "default": mod };
 };
+Object.defineProperty(exports, "__esModule", { value: true });
+exports.dbConnection = void 0;
+const mariadb_1 = __importDefault(require("mariadb"));
+const conf_json_1 = __importDefault(require("./config/conf.json"));
+const dbConnection = () => __awaiter(void 0, void 0, void 0, function* () {
+    return mariadb_1.default.createPool(conf_json_1.default);
+});
+exports.dbConnection = dbConnection;
