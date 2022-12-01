@@ -19,7 +19,7 @@ END
 
 -- Create new user
 -- POST /users
-CREATE PROCEDURE trip_add(
+CREATE PROCEDURE add_user(
     u_first_name VARCHAR(45),
     u_last_name VARCHAR(45),
     u_phone_nr INT,
@@ -41,7 +41,7 @@ CREATE PROCEDURE delete_user(
 )
     MODIFIES SQL DATA
 BEGIN
-    DELETE FROM user WHERE id = i_id;
+    DELETE FROM user WHERE id = u_id;
 END
 ;;
 
