@@ -11,10 +11,6 @@ const cors_1 = __importDefault(require("cors"));
 const routes_1 = require("./routes");
 // const upload = multer();
 const app = (0, express_1.default)();
-const PORT = process.env.PORT || 3000;
-const NODE_ENV = process.env.NODE_ENV || 'development';
-app.set('port', PORT);
-app.set('env', NODE_ENV);
 app.use((0, cors_1.default)());
 app.use((0, morgan_1.default)('tiny'));
 // parse application/json
@@ -43,6 +39,5 @@ app.use((err, req, res) => {
     res.status(status).send({ status, error: msg });
 });
 module.exports = app;
-app.listen(PORT, () => {
-    console.log(`Express Server started on Port ${app.get('port')} | Environment : ${app.get('env')}`);
-});
+//för test
+exports.default = app;

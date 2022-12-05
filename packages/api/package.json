@@ -6,8 +6,9 @@
     "test": "echo \"Error: no test specified\" && exit 1",
     "scripts": {
         "test": "jest",
-        "start": "node server.js",
-        "dev": "concurrently \"npx tsc --watch\" \"nodemon --legacy-watch -q dist/index.ts\""
+        "test:watch": "jest --watch",
+        "start": "node index.js",
+        "dev": "concurrently \"npx tsc --watch\" \"nodemon --legacy-watch -q ./server.ts\""
     },
     "dependencies": {
         "cookie-parser": "1.4.5",
