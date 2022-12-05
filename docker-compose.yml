@@ -1,44 +1,49 @@
 version: '3'
 
 services:
+    mariadb:
+        image: lscr.io/linuxserver/mariadb:latest
+        container_name: mariadb
+        environment:
+            - PUID=1000
+            - PGID=1000
+            - MYSQL_ROOT_PASSWORD=password
+            - MYSQL_USER=snaladm #optional
+            - MYSQL_PASSWORD=lejonkungen #optional
+            - MYSQL_DATABASE=vteams
+            - TZ=Europe/London
+        volumes:
+            - ./packages/database/sql/init-database.sql:/config/initdb.d/initdb.sql
     api:
         image: 'api'
         container_name: 'api_server'
         build: './packages/api/'
         ports:
             - '8080:3000'
+        depends_on: 
+            - mariadb
         environment:
             - NODE_ENV=development
-        # volumes:
-        #     - notused:/api/node_modules
-        #     - './packages/api/:/api'
         restart: 'always'
     adminClient:
         image: 'admin_client'
         container_name: 'admin_client'
-        environment:
-            - WATCHPACK_POLLING=true
-        # volumes:
-        #     - notused:/adminClient/node_modules
-        #     - './packages/clients/adminClient/:/adminClient'
+        # environment:
+        #     - WATCHPACK_POLLING=true
         ports:
             - '8880:1338'
         build: './packages/clients/adminClient/'
     userClient:
         image: 'user_client'
         container_name: 'user_client'
-        environment:
-            - WATCHPACK_POLLING=true
-        # volumes:
-        #     - notused:/userClient/node_modules
-        #     - './packages/clients/userClient/:/userClient'
+        # environment:
+        #     - WATCHPACK_POLLING=true
         ports:
             - '8889:1339'
         build: './packages/clients/userClient/'
     userMobileClient:
         image: 'user_mobile_client'
         container_name: 'user_mobile_client'
-        build: './packages/clients/userMobileClient'
         environment:
             - NODE_ENV=development
         tty: true
