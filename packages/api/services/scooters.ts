@@ -1,4 +1,5 @@
 import {ScooterInterface} from '../interfaces/scooterInterface';
+import {connect} from "../db/dbConnection";
 
 export const scooters = {
     /**
@@ -7,27 +8,20 @@ export const scooters = {
 
      */
     getScooters: async () => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const db = await connect();
 
-        const data: ScooterInterface[] = [],
-            status = 200;
+        await db.getConnection();
 
-        return {
-            status: status,
-            data: data,
-        };
+        const sql = `CALL show_scooter_all()`;
+
+        const res = await db.query(sql);
+        const scooters = res.length === 2 ? res[0] : [];
+
+        await db.end();
+
+
+        return scooters;
     },
 
     /**
@@ -45,28 +39,28 @@ export const scooters = {
      * @param options.last_serviced required
 
      */
-    postScooters: async (options: ScooterInterface[]) => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
+    postScooters: async (options: ScooterInterface) => {
+        const scooterDetails = [
+            options.available,
+            options.enabled,
+            options.charge,
+            options.last_position,
+            options.is_charging,
+            options.city_id
+        ]
+        const db = await connect();
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        await db.getConnection();
 
-        const data = {},
-            status = 201;
+        const sql = `CALL add_user(?, ?, ?, ?, ?, ?)`;
 
-        return {
-            status: status,
-            data: data,
-        };
+        const res = await db.query(sql, [... scooterDetails]);
+
+        const newScooter = res[0];
+
+        await db.end();
+
+        return newScooter;
     },
 
     /**
@@ -75,40 +69,20 @@ export const scooters = {
 
      */
     getAvailable: async () => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const db = await connect();
 
-        const data = [
-                {
-                    available: '<boolean>',
-                    charge: '<number>',
-                    city_id: '<CityId>',
-                    distance_traveled: '<number>',
-                    enabled: '<boolean>',
-                    first_used: '<string>',
-                    id: '<ScooterId>',
-                    is_charging: '<boolean>',
-                    last_position: '<Coordinates>',
-                    last_serviced: '<string>',
-                },
-            ],
-            status = 200;
+        await db.getConnection();
 
-        return {
-            status: status,
-            data: data,
-        };
+        const sql = `CALL show_scooter_available()`;
+
+        const res = await db.query(sql);
+        const availableScooters = res.length === 2 ? res[0] : [];
+
+        await db.end();
+
+
+        return availableScooters;
     },
 
     /**
@@ -117,27 +91,18 @@ export const scooters = {
 
      */
     getCityCityName: async (cityName: string) => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const db = await connect();
 
-        const data: ScooterInterface[] = [],
-            status = 200;
+        await db.getConnection();
 
-        return {
-            status: status,
-            data: data,
-        };
+        const sql = `CALL show_scooter_city(?)`;
+
+        const res = await db.query(sql, cityName);
+        const scooters = res.length === 2 ? res[0] : [];
+        await db.end();
+
+        return scooters;
     },
 
     /**
@@ -146,38 +111,18 @@ export const scooters = {
 
      */
     getScooterId: async (scooterId: number) => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const db = await connect();
 
-        const data = {
-                available: '<boolean>',
-                charge: '<number>',
-                city_id: '<CityId>',
-                distance_traveled: '<number>',
-                enabled: '<boolean>',
-                first_used: '<string>',
-                id: '<ScooterId>',
-                is_charging: '<boolean>',
-                last_position: '<Coordinates>',
-                last_serviced: '<string>',
-            },
-            status = 200;
+        await db.getConnection();
 
-        return {
-            status: status,
-            data: data,
-        };
+        const sql = `CALL show_scooter_id(?)`;
+
+        const res = await db.query(sql, scooterId);
+        const scooter = res.length === 2 ? res[0] : [];
+        await db.end();
+
+        return scooter;
     },
 
     /**
@@ -197,29 +142,33 @@ export const scooters = {
      */
     putScooterId: async (options: {
         scooterId: number;
-        scooter: ScooterInterface[];
+        scooter: ScooterInterface;
     }) => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const scooterDetails = [
+            options.scooterId,
+            options.scooter.available,
+            options.scooter.enabled,
+            options.scooter.charge,
+            options.scooter.last_serviced,
+            options.scooter.first_used,
+            options.scooter.distance_traveled,
+            options.scooter.last_position,
+            options.scooter.is_charging,
+            options.scooter.city_id
+        ]
+        const db = await connect();
 
-        const data = {},
-            status = 200;
+        await db.getConnection();
 
-        return {
-            status: status,
-            data: data,
-        };
+        const sql = `CALL update_scooter(?, ?, ?, ?, ?, ?, ? ,?, ?, ?)`;
+
+        const res = await db.query(sql, [... scooterDetails]);
+
+        const updatedScooter = res[0];
+        await db.end();
+
+        return updatedScooter;
     },
 
     /**
@@ -228,27 +177,18 @@ export const scooters = {
 
      */
     deleteScooterId: async (scooterId: number) => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const db = await connect();
 
-        const data = {},
-            status = 204;
+        await db.getConnection();
 
-        return {
-            status: status,
-            data: data,
-        };
+        const sql = `CALL delete_scooter(?)`;
+
+        const res = await db.query(sql, scooterId);
+
+        await db.end();
+
+        return res;
     },
 
     /**
@@ -257,36 +197,17 @@ export const scooters = {
 
      */
     getScooterIdLogs: async (scooterId: number) => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const db = await connect();
 
-        const data = [
-                {
-                    charge: '<number>',
-                    id: '<integer>',
-                    position: '<Coordinates>',
-                    scooter_id: '<ScooterId>',
-                    speed: '<number>',
-                    status: '<string>',
-                    timestamp: '<string>',
-                },
-            ],
-            status = 200;
+        await db.getConnection();
 
-        return {
-            status: status,
-            data: data,
-        };
+        const sql = `CALL show_scooter_logs(?)`;
+
+        const res = await db.query(sql, scooterId);
+        const scooterLogs = res.length === 2 ? res[0] : [];
+        await db.end();
+
+        return scooterLogs;
     },
 };

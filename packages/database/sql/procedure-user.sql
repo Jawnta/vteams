@@ -14,7 +14,9 @@ END;
 ;
 -- Create new user
 -- POST /users
+
 CREATE PROCEDURE user_add(
+
     u_first_name VARCHAR(45),
     u_last_name VARCHAR(45),
     u_phone_nr INT,
@@ -42,11 +44,17 @@ END;
 ;
 -- Delete user
 -- DELETE /users/:userId
-CREATE PROCEDURE delete_user(u_id INT) MODIFIES SQL DATA BEGIN
-DELETE FROM user
-WHERE id = i_id;
-END;
-;
+
+CREATE PROCEDURE delete_user(
+    u_id INT
+)
+    MODIFIES SQL DATA
+BEGIN
+    DELETE FROM user WHERE id = u_id;
+END
+;;
+
+
 -- Get specific user
 -- GET /users/:userId
 CREATE PROCEDURE show_user_id(u_id INT) READS SQL DATA BEGIN

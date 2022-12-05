@@ -19,7 +19,7 @@ const router = express_1.default.Router();
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield cities_1.cities.getCities();
-        res.status(result.status || 200).send(result.data);
+        res.status(200).send(result);
     }
     catch (err) {
         return res.status(500).send({

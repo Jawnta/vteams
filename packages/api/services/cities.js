@@ -22,12 +22,8 @@ exports.cities = {
         yield db.getConnection();
         const sql = `CALL show_city_all()`;
         const res = yield db.query(sql);
-        const cities = res[0];
+        const cities = res.length === 2 ? res[0] : [];
         yield db.end();
-        const status = 200;
-        return {
-            status: status,
-            data: cities
-        };
+        return cities;
     }),
 };

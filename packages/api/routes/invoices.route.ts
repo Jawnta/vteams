@@ -6,7 +6,7 @@ const router = express.Router();
 router.get('/', async (req, res) => {
     try {
         const result = await invoices.getInvoices();
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     } catch (err) {
         return res.status(500).send({
             error: err || 'Something went wrong.',
@@ -15,11 +15,14 @@ router.get('/', async (req, res) => {
 });
 
 router.post('/', async (req, res) => {
-    const data: InvoiceInterface[] = req.body;
+    const data: InvoiceInterface = req.body;
+    if (!data.trip_id || !data.status || !data.amount) {
+        res.sendStatus(400);
+    }
 
     try {
         const result = await invoices.postInvoices(data);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     } catch (err) {
         return res.status(500).send({
             error: err || 'Something went wrong.',
@@ -32,7 +35,7 @@ router.get('/:invoiceId', async (req, res) => {
 
     try {
         const result = await invoices.getInvoiceId(invoiceId);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     } catch (err) {
         return res.status(500).send({
             error: err || 'Something went wrong.',
@@ -41,15 +44,19 @@ router.get('/:invoiceId', async (req, res) => {
 });
 
 router.put('/:invoiceId', async (req, res) => {
-    const invoice: InvoiceInterface[] = req.body;
+    const invoice: InvoiceInterface = req.body;
     const data = {
         invoiceId: +req.params.invoiceId,
         invoice: invoice,
     };
 
+    if (!invoice.trip_id || !invoice.status || !invoice.amount) {
+        res.sendStatus(400);
+    }
+
     try {
         const result = await invoices.putInvoiceId(data);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).send(result);
     } catch (err) {
         return res.status(500).send({
             error: err || 'Something went wrong.',
@@ -62,7 +69,10 @@ router.delete('/:invoiceId', async (req, res) => {
 
     try {
         const result = await invoices.deleteInvoiceId(invoiceId);
-        res.status(result.status || 200).send(result.data);
+        if (!result.affectedRows) {
+            res.sendStatus(400);
+        }
+        res.sendStatus(200);
     } catch (err) {
         return res.status(500).send({
             error: err || 'Something went wrong.',

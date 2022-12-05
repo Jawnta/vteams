@@ -1,4 +1,5 @@
 import {TripInterface} from '../interfaces/tripsInterface';
+import {connect} from "../db/dbConnection";
 export const trips = {
     /**
      *
@@ -6,27 +7,20 @@ export const trips = {
 
      */
     getTrips: async () => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const db = await connect();
 
-        const data: TripInterface[] = [],
-            status = 200;
+        await db.getConnection();
 
-        return {
-            status: status,
-            data: data,
-        };
+        const sql = `CALL show_trip_all()`;
+
+        const res = await db.query(sql);
+        const trips = res.length === 2 ? res[0] : [];
+
+        await db.end();
+
+
+        return trips;
     },
 
     /**
@@ -43,28 +37,26 @@ export const trips = {
      * @param options.user_id requiredThe unique identifier of a user
 
      */
-    postTrips: async (options: TripInterface[]) => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
+    postTrips: async (options: TripInterface) => {
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const tripDetails = [
+            options.user_id,
+            options.scooter_id,
+            options.start_position
+        ]
+        const db = await connect();
 
-        const data = {},
-            status = 201;
+        await db.getConnection();
 
-        return {
-            status: status,
-            data: data,
-        };
+        const sql = `CALL add_user(?, ?, ?)`;
+
+        const res = await db.query(sql, [... tripDetails]);
+
+        const newTrip = res[0];
+
+        await db.end();
+
+        return newTrip;
     },
 
     /**
@@ -73,37 +65,18 @@ export const trips = {
 
      */
     getTripId: async (tripId: number) => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const db = await connect();
 
-        const data = {
-                completed: '<boolean>',
-                distance: '<number>',
-                id: '<TripId>',
-                scooter_id: '<integer>',
-                start_position: '<Coordinates>',
-                start_time: '<string>',
-                stop_position: '<Coordinates>',
-                stop_time: '<string>',
-                user_id: '<UserId>',
-            },
-            status = 200;
+        await db.getConnection();
 
-        return {
-            status: status,
-            data: data,
-        };
+        const sql = `CALL show_trip_id(?)`;
+
+        const res = await db.query(sql, tripId);
+        const trip = res.length === 2 ? res[0] : [];
+        await db.end();
+
+        return trip;
     },
 
     /**
@@ -120,28 +93,31 @@ export const trips = {
      * @param options.trip.user_id requiredThe unique identifier of a user
 
      */
-    putTripId: async (options: {tripId: number; trip: TripInterface[]}) => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
+    putTripId: async (options: {tripId: number; trip: TripInterface}) => {
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const tripDetails = [
+            options.tripId,
+            options.trip.user_id,
+            options.trip.scooter_id,
+            options.trip.distance,
+            options.trip.completed,
+            options.trip.start_position,
+            options.trip.stop_position,
+            options.trip.start_time,
+            options.trip.stop_time
+        ]
+        const db = await connect();
 
-        const data = {},
-            status = 200;
+        await db.getConnection();
 
-        return {
-            status: status,
-            data: data,
-        };
+        const sql = `CALL update_trip(?, ?, ?, ?, ?, ?, ? ,?, ?)`;
+
+        const res = await db.query(sql, [... tripDetails]);
+
+        const updatedTrip = res[0];
+        await db.end();
+
+        return updatedTrip;
     },
 
     /**
@@ -150,26 +126,17 @@ export const trips = {
 
      */
     deleteTripId: async (tripId: number) => {
-        // Implement your business logic here...
-        //
-        // Return all 2xx and 4xx as follows:
-        //
-        // return {
-        //   status: 'statusCode',
-        //   data: 'response'
-        // }
 
-        // If an error happens during your business logic implementation,
-        // you can throw it as follows:
-        //
-        // throw new Error('<Error message>'); // this will result in a 500
+        const db = await connect();
 
-        const data = {},
-            status = 204;
+        await db.getConnection();
 
-        return {
-            status: status,
-            data: data,
-        };
+        const sql = `CALL delete_trip(?)`;
+
+        const res = await db.query(sql, tripId);
+
+        await db.end();
+
+        return res;
     },
 };

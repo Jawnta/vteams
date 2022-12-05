@@ -19,7 +19,7 @@ const router = express_1.default.Router();
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield trips_1.trips.getTrips();
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -29,9 +29,12 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 }));
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const tripData = req.body;
+    if (!tripData.user_id || !tripData.scooter_id || !tripData.start_position) {
+        return res.sendStatus(400);
+    }
     try {
         const result = yield trips_1.trips.postTrips(tripData);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -43,7 +46,7 @@ router.get('/:tripId', (req, res) => __awaiter(void 0, void 0, void 0, function*
     const tripId = +req.params.tripId;
     try {
         const result = yield trips_1.trips.getTripId(tripId);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -57,9 +60,12 @@ router.put('/:tripId', (req, res) => __awaiter(void 0, void 0, void 0, function*
         tripId: +req.params.tripId,
         trip: trip,
     };
+    if (!trip.id || !trip.user_id || !trip.scooter_id) {
+        res.sendStatus(400);
+    }
     try {
         const result = yield trips_1.trips.putTripId(data);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -71,7 +77,10 @@ router.delete('/:tripId', (req, res) => __awaiter(void 0, void 0, void 0, functi
     const tripId = +req.params.tripId;
     try {
         const result = yield trips_1.trips.deleteTripId(tripId);
-        res.status(result.status || 200).send(result.data);
+        if (!result.affectedRows) {
+            res.sendStatus(400);
+        }
+        res.sendStatus(200);
     }
     catch (err) {
         return res.status(500).send({

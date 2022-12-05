@@ -19,7 +19,7 @@ const router = express_1.default.Router();
 router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     try {
         const result = yield invoices_1.invoices.getInvoices();
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -29,9 +29,12 @@ router.get('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 }));
 router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const data = req.body;
+    if (!data.trip_id || !data.status || !data.amount) {
+        res.sendStatus(400);
+    }
     try {
         const result = yield invoices_1.invoices.postInvoices(data);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -43,7 +46,7 @@ router.get('/:invoiceId', (req, res) => __awaiter(void 0, void 0, void 0, functi
     const invoiceId = +req.params.invoiceId;
     try {
         const result = yield invoices_1.invoices.getInvoiceId(invoiceId);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).json(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -57,9 +60,12 @@ router.put('/:invoiceId', (req, res) => __awaiter(void 0, void 0, void 0, functi
         invoiceId: +req.params.invoiceId,
         invoice: invoice,
     };
+    if (!invoice.trip_id || !invoice.status || !invoice.amount) {
+        res.sendStatus(400);
+    }
     try {
         const result = yield invoices_1.invoices.putInvoiceId(data);
-        res.status(result.status || 200).send(result.data);
+        res.status(200).send(result);
     }
     catch (err) {
         return res.status(500).send({
@@ -71,7 +77,10 @@ router.delete('/:invoiceId', (req, res) => __awaiter(void 0, void 0, void 0, fun
     const invoiceId = +req.params.invoiceId;
     try {
         const result = yield invoices_1.invoices.deleteInvoiceId(invoiceId);
-        res.status(result.status || 200).send(result.data);
+        if (!result.affectedRows) {
+            res.sendStatus(400);
+        }
+        res.sendStatus(200);
     }
     catch (err) {
         return res.status(500).send({
