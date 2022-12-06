@@ -1,6 +1,6 @@
 -- MariaDB dump 10.19  Distrib 10.9.3-MariaDB, for osx10.17 (x86_64)
 --
--- Host: localhost    Database: vteams
+-- Host: mariadb    Database: vteams
 -- ------------------------------------------------------
 -- Server version	10.9.3-MariaDB
 
@@ -339,15 +339,15 @@ UNLOCK TABLES;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `charging_station_add`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `charging_station_add`(
     z_id INT,
     z_position VARCHAR(100),
     z_occupied TINYINT(1)
 )
     MODIFIES SQL DATA
 BEGIN
-    INSERT INTO charging_station (charging_zone_id, position, occupied)
-    VALUES (z_id, ST_GeomFromGeoJSON(z_position), z_occupied);
+INSERT INTO charging_station (charging_zone_id, position, occupied)
+VALUES (z_id, ST_GeomFromGeoJSON(z_position), z_occupied);
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -364,7 +364,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `charging_zone_add`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `charging_zone_add`(
     p_id INT,
     z_area VARCHAR(100)
 )
@@ -388,12 +388,11 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `delete_charging_station`(
-    s_id INT
-)
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `delete_charging_station`(s_id INT)
     MODIFIES SQL DATA
 BEGIN
-    DELETE FROM charging_station WHERE id = s_id;
+DELETE FROM charging_station
+WHERE id = s_id;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -410,7 +409,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `delete_charging_zone`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `delete_charging_zone`(
     z_id INT
 )
     MODIFIES SQL DATA
@@ -432,7 +431,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `delete_invoice`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `delete_invoice`(
     i_id INT
 )
     MODIFIES SQL DATA
@@ -454,7 +453,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `delete_parking_zone`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `delete_parking_zone`(
     z_id INT
 )
     MODIFIES SQL DATA
@@ -476,7 +475,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `delete_scooter`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `delete_scooter`(
     s_id INT
 )
     MODIFIES SQL DATA
@@ -498,7 +497,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `delete_trip`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `delete_trip`(
     t_id INT
 )
     MODIFIES SQL DATA
@@ -520,12 +519,12 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `delete_user`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `delete_user`(
     u_id INT
 )
     MODIFIES SQL DATA
 BEGIN
-    DELETE FROM user WHERE id = i_id;
+    DELETE FROM user WHERE id = u_id;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -542,7 +541,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `invoice_add`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `invoice_add`(
     t_id INT,
     i_status VARCHAR(45),
     i_amount FLOAT
@@ -567,7 +566,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `parking_zone_add`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `parking_zone_add`(
     c_id INT,
     z_area VARCHAR(255)
 )
@@ -591,7 +590,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `scooter_add`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `scooter_add`(
     s_available TINYINT(1),
     s_enabled TINYINT(1),
     s_charge FLOAT,
@@ -618,7 +617,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `scooter_log_add`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `scooter_log_add`(
     s_id INT,
     s_speed INT,
     s_position VARCHAR(100),
@@ -644,15 +643,15 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_charging_station_all`()
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_charging_station_all`()
     READS SQL DATA
 BEGIN
-    SELECT  id,
-            charging_zone,
-            ST_AsGeoJSON(position) as position,
-            occupied,
-            scooter_id
-    FROM charging_station;
+SELECT id,
+    charging_zone_id,
+    ST_AsGeoJSON(position) as position,
+    occupied,
+    scooter_id
+FROM charging_station;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -669,17 +668,15 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_charging_station_id`(
-    s_id INT
-)
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_charging_station_id`(s_id INT)
 BEGIN
-    SELECT
-        id,
-        charging_zone,
-        ST_AsGeoJSON(position) as position,
-        occupied,
-        scooter_id
-    FROM charging_station WHERE id = s_id;
+SELECT id,
+    charging_zone,
+    ST_AsGeoJSON(position) as position,
+    occupied,
+    scooter_id
+FROM charging_station
+WHERE id = s_id;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -696,17 +693,15 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_charging_station_zone`(
-    z_id INT
-)
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_charging_station_zone`(z_id INT)
 BEGIN
-    SELECT
-        id,
-        charging_zone,
-        ST_AsGeoJSON(position) as position,
-        occupied,
-        scooter_id
-    FROM charging_station WHERE charging_zone = z_id;
+SELECT id,
+    charging_zone,
+    ST_AsGeoJSON(position) as position,
+    occupied,
+    scooter_id
+FROM charging_station
+WHERE charging_zone = z_id;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -723,7 +718,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_charging_zone_all`()
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_charging_zone_all`()
     READS SQL DATA
 BEGIN
     SELECT  id,
@@ -746,7 +741,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_charging_zone_city`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_charging_zone_city`(
     c_name VARCHAR(20)
 )
     READS SQL DATA
@@ -778,7 +773,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_charging_zone_id`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_charging_zone_id`(
     z_id INT
 )
     READS SQL DATA
@@ -804,7 +799,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_city_all`()
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_city_all`()
     READS SQL DATA
 BEGIN
     SELECT  *
@@ -825,7 +820,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_invoice_all`()
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_invoice_all`()
     READS SQL DATA
 BEGIN
     SELECT *
@@ -846,7 +841,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_invoice_id`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_invoice_id`(
     i_id INT
 )
     READS SQL DATA
@@ -869,7 +864,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_invoice_user`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_invoice_user`(
     u_id INT
 )
     READS SQL DATA
@@ -895,7 +890,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_parking_zone_all`()
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_parking_zone_all`()
     READS SQL DATA
 BEGIN
     SELECT 
@@ -919,7 +914,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_parking_zone_city`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_parking_zone_city`(
     c_name INT
 )
     READS SQL DATA
@@ -947,7 +942,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_parking_zone_id`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_parking_zone_id`(
     p_id INT
 )
     READS SQL DATA
@@ -972,7 +967,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_scooter_all`()
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_scooter_all`()
     READS SQL DATA
 BEGIN
     SELECT  id,
@@ -1002,7 +997,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_scooter_available`()
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_scooter_available`()
     READS SQL DATA
 BEGIN
     SELECT  id,
@@ -1032,7 +1027,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_scooter_city`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_scooter_city`(
     c_name INT
 )
     READS SQL DATA
@@ -1066,7 +1061,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_scooter_id`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_scooter_id`(
     s_id INT
 )
     READS SQL DATA
@@ -1099,7 +1094,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_scooter_logs`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_scooter_logs`(
     s_id INT
 )
     READS SQL DATA
@@ -1123,7 +1118,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_trip_all`()
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_trip_all`()
     READS SQL DATA
 BEGIN
     SELECT  id,
@@ -1152,7 +1147,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_trip_id`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_trip_id`(
     t_id INT
 )
     READS SQL DATA
@@ -1183,7 +1178,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_trip_user`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_trip_user`(
     u_id INT
 )
     READS SQL DATA
@@ -1214,11 +1209,11 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_user_all`()
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_user_all`()
     READS SQL DATA
 BEGIN
-    SELECT  *
-    FROM user;
+SELECT *
+FROM user;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1235,41 +1230,12 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `show_user_id`(
-    u_id INT
-)
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_user_id`(u_id INT)
     READS SQL DATA
 BEGIN
-    SELECT  *
-    FROM user
-    WHERE id = u_id;
-END ;;
-DELIMITER ;
-/*!50003 SET sql_mode              = @saved_sql_mode */ ;
-/*!50003 SET character_set_client  = @saved_cs_client */ ;
-/*!50003 SET character_set_results = @saved_cs_results */ ;
-/*!50003 SET collation_connection  = @saved_col_connection */ ;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
-/*!50003 DROP PROCEDURE IF EXISTS `trip_add` */;
-/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
-/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
-/*!50003 SET @saved_col_connection = @@collation_connection */ ;
-/*!50003 SET character_set_client  = utf8mb3 */ ;
-/*!50003 SET character_set_results = utf8mb3 */ ;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
-DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `trip_add`(
-    u_first_name VARCHAR(45),
-    u_last_name VARCHAR(45),
-    u_phone_nr INT,
-    u_email VARCHAR(45),
-    u_social_security VARCHAR(45),
-    u_token VARCHAR(45)
-)
-BEGIN
-    INSERT INTO user (first_name, last_name, phone_number, email, social_security, token)
-    VALUES (u_first_name, u_last_name, u_phone_nr, u_email, u_social_security, u_token);
+SELECT *
+FROM user
+WHERE id = u_id;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1286,18 +1252,18 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `update_charging_station`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `update_charging_station`(
     s_id INT,
     z_id INT,
     s_position VARCHAR(100),
     s_occupied TINYINT(1)
 )
 BEGIN
-    UPDATE charging_station
-    SET charging_zone_id = z_id,
-        position         = ST_GeomFromGeoJSON(s_position),
-        occupied         = s_occupied
-    WHERE id = s_id;
+UPDATE charging_station
+SET charging_zone_id = z_id,
+    position = ST_GeomFromGeoJSON(s_position),
+    occupied = s_occupied
+WHERE id = s_id;
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1314,7 +1280,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `update_charging_zone`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `update_charging_zone`(
     z_id INT,
     pakring_z_id INT,
     z_area VARCHAR(100)
@@ -1340,7 +1306,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `update_invoice`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `update_invoice`(
     i_id INT,
     t_id INT,
     i_status VARCHAR(45),
@@ -1368,7 +1334,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `update_parking_zone`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `update_parking_zone`(
     z_id INT,
     c_id INT,
     z_area VARCHAR(100)
@@ -1394,7 +1360,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `update_scooter`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `update_scooter`(
     s_id INT,
     s_available TINYINT(1),
     s_enabled TINYINT(1),
@@ -1434,7 +1400,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `update_trip`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `update_trip`(
     t_id INT,
     u_id INT,
     s_id INT,
@@ -1472,7 +1438,7 @@ DELIMITER ;
 /*!50003 SET character_set_results = utf8mb3 */ ;
 /*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
 DELIMITER ;;
-CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `update_user`(
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `update_user`(
     u_id INT,
     u_first_name VARCHAR(45),
     u_last_name VARCHAR(45),
@@ -1485,17 +1451,59 @@ CREATE DEFINER=`dbadm`@`localhost` PROCEDURE `update_user`(
     u_token VARCHAR(45)
 )
 BEGIN
-    UPDATE user
-    SET first_name      = u_first_name,
-        last_name       = u_last_name,
-        phone_number    = u_phone_nr,
-        email           = u_email,
-        register_date   = u_reg_date,
-        social_security = u_social_security,
-        enabled         = u_enabled,
-        credit          = u_credit,
-        token           = u_token
-    WHERE id = u_id;
+UPDATE user
+SET first_name = u_first_name,
+    last_name = u_last_name,
+    phone_number = u_phone_nr,
+    email = u_email,
+    register_date = u_reg_date,
+    social_security = u_social_security,
+    enabled = u_enabled,
+    credit = u_credit,
+    token = u_token
+WHERE id = u_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `user_add` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `user_add`(
+
+    u_first_name VARCHAR(45),
+    u_last_name VARCHAR(45),
+    u_phone_nr INT,
+    u_email VARCHAR(45),
+    u_social_security VARCHAR(45),
+    u_token VARCHAR(45)
+)
+BEGIN
+INSERT INTO user (
+        first_name,
+        last_name,
+        phone_number,
+        email,
+        social_security,
+        token
+    )
+VALUES (
+        u_first_name,
+        u_last_name,
+        u_phone_nr,
+        u_email,
+        u_social_security,
+        u_token
+    );
 END ;;
 DELIMITER ;
 /*!50003 SET sql_mode              = @saved_sql_mode */ ;
@@ -1512,4 +1520,4 @@ DELIMITER ;
 /*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
 /*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
 
--- Dump completed on 2022-12-01 16:31:12
+-- Dump completed on 2022-12-06 11:06:05
