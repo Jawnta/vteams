@@ -23,7 +23,7 @@ END
 -- POST /chargingzones
 CREATE PROCEDURE charging_zone_add(
     p_id INT,
-    z_area VARCHAR(100)
+    z_area TEXT
 )
     MODIFIES SQL DATA
 BEGIN
@@ -35,7 +35,7 @@ END
 -- Get charging zones in city
 -- GET chargingzones/city/:cityName
 CREATE PROCEDURE show_charging_zone_city(
-    c_name VARCHAR(20)
+    c_name VARCHAR(45)
 )
     READS SQL DATA
 BEGIN
@@ -71,12 +71,12 @@ END
 -- PUT chargingzones/:chargingZoneId
 CREATE PROCEDURE update_charging_zone(
     z_id INT,
-    pakring_z_id INT,
-    z_area VARCHAR(100)
+    parking_z_id INT,
+    z_area TEXT
 )
 BEGIN
     UPDATE charging_zone
-    SET parking_zone_id = pakring_z_id,
+    SET parking_zone_id = parking_z_id,
         area            = ST_GeomFromGeoJSON(z_area)
     WHERE id = z_id;
 END

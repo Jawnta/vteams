@@ -1,1 +1,2 @@
-mysqldump vteams -usnaladm -p --routines > init-database.sql
+mysqldump vteams -usnaladm -p --routines --triggers > init-database.sql
+gsed -i s/localhost/mariadb/gI init-database.sql

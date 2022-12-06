@@ -21,13 +21,30 @@ DROP PROCEDURE IF EXISTS invoice_add;
 DELIMITER ;;
 CREATE PROCEDURE invoice_add(
     t_id INT,
-    i_status VARCHAR(45),
     i_amount FLOAT
 )
     MODIFIES SQL DATA
 BEGIN
-    INSERT INTO invoice (trip_id, status, amount)
-    VALUES (t_id, i_status, i_amount);
+    INSERT INTO invoice (trip_id, amount)
+    VALUES (t_id, i_amount);
+END
+;;
+
+DELIMITER ;
+
+
+-- Mark invoice as payed
+DROP PROCEDURE IF EXISTS invoice_pay;
+
+DELIMITER ;;
+CREATE PROCEDURE invoice_pay(
+    i_id INT
+)
+    MODIFIES SQL DATA
+BEGIN
+    UPDATE invoice
+    SET payed = CURRENT_TIMESTAMP()
+    WHERE id = i_id;
 END
 ;;
 
@@ -58,13 +75,11 @@ DELIMITER ;;
 CREATE PROCEDURE update_invoice(
     i_id INT,
     t_id INT,
-    i_status VARCHAR(45),
     i_amount FLOAT
 )
 BEGIN
     UPDATE invoice
     SET trip_id      = t_id,
-        status       = i_status,
         amount       = i_amount
     WHERE id = i_id;
 END
@@ -100,7 +115,7 @@ CREATE PROCEDURE show_invoice_user(
 BEGIN
     SELECT *
     FROM invoice WHERE trip_id IN
-        (SELECT user_id
+        (SELECT id
         FROM trip 
         WHERE user_id = u_id);
 END

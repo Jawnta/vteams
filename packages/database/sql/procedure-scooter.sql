@@ -7,6 +7,11 @@ DROP PROCEDURE IF EXISTS show_scooter_id;
 DROP PROCEDURE IF EXISTS update_scooter;
 DROP PROCEDURE IF EXISTS show_scooter_logs;
 DROP PROCEDURE IF EXISTS scooter_log_add;
+DROP PROCEDURE IF EXISTS disable_scooter;
+DROP PROCEDURE IF EXISTS enable_scooter;
+DROP PROCEDURE IF EXISTS show_scooter_logs_maintenance;
+DROP PROCEDURE IF EXISTS scooter_log_maintenance_add;
+
 
 DELIMITER ;;
 
@@ -35,7 +40,7 @@ CREATE PROCEDURE scooter_add(
     s_available TINYINT(1),
     s_enabled TINYINT(1),
     s_charge FLOAT,
-    s_last_position VARCHAR(100),
+    s_last_position TEXT,
     s_is_charging TINYINT(1),
     c_id INT
 )
@@ -68,7 +73,7 @@ END
 -- Get all scooters in city
 -- GET /scooters/city/:cityName
 CREATE PROCEDURE show_scooter_city(
-    c_name INT
+    c_name VARCHAR(45)
 )
     READS SQL DATA
 BEGIN
@@ -132,7 +137,7 @@ CREATE PROCEDURE update_scooter(
     s_last_serviced DATETIME,
     s_first_used DATETIME,
     s_distance_traveled FLOAT,
-    s_last_position VARCHAR(100),
+    s_last_position TEXT,
     s_is_charging TINYINT(1),
     c_id INT
 )
@@ -165,18 +170,63 @@ BEGIN
 END
 ;;
 
--- Add scooter log???
 -- POST /scooters/:scooterId/log???
 CREATE PROCEDURE scooter_log_add(
     s_id INT,
     s_speed INT,
-    s_position VARCHAR(100),
+    s_position TEXT,
     s_status VARCHAR(20),
     s_charge INT
 )
 BEGIN
     INSERT INTO scooter_log (scooter_id, speed, position, status, charge)
     VALUES (s_id, s_speed, ST_GeomFromGeoJSON(s_position), s_status, s_charge);
+END
+;;
+
+-- disable scooter?
+CREATE PROCEDURE disable_scooter(
+    s_id INT
+)
+BEGIN
+    UPDATE scooter
+    SET enabled = 0
+    WHERE id = s_id;
+END
+;;
+
+-- enable scooter?
+CREATE PROCEDURE enable_scooter(
+    s_id INT
+)
+BEGIN
+    UPDATE scooter
+    SET enabled = 1
+    WHERE id = s_id;
+END
+;;
+
+-- Get scooter maintenance_log?
+CREATE PROCEDURE show_scooter_logs_maintenance(
+    s_id INT
+)
+    READS SQL DATA
+BEGIN
+    SELECT  * FROM maintenance_log 
+    WHERE scooter_id = s_id
+    ORDER BY 'timestamp' DESC;
+END
+;;
+
+-- POST /scooters/:scooterId/log???
+CREATE PROCEDURE scooter_log_maintenance_add(
+    s_id INT,
+    l_event VARCHAR(100),
+    l_invoked_by VARCHAR(20)
+)
+BEGIN
+    INSERT INTO maintenance_log (scooter_id, event, invoked_by)
+    VALUES (s_id, l_event, l_invoked_by);
 END
 ;;
 
