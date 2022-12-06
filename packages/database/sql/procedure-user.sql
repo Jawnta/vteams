@@ -74,7 +74,6 @@ CREATE PROCEDURE update_user(
     u_last_name VARCHAR(45),
     u_phone_nr INT,
     u_email VARCHAR(45),
-    u_reg_date DATETIME,
     u_social_security VARCHAR(45),
     u_enabled TINYINT(1),
     u_credit FLOAT,
@@ -85,7 +84,6 @@ SET first_name = u_first_name,
     last_name = u_last_name,
     phone_number = u_phone_nr,
     email = u_email,
-    register_date = u_reg_date,
     social_security = u_social_security,
     enabled = u_enabled,
     credit = u_credit,
@@ -93,5 +91,7 @@ SET first_name = u_first_name,
 WHERE id = u_id;
 END
 ;;
+
+-- Procedure add credit
 
 DELIMITER ;

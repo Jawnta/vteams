@@ -22,7 +22,7 @@ END
 -- POST /chargingstations
 CREATE PROCEDURE charging_station_add(
     z_id INT,
-    z_position VARCHAR(100),
+    z_position TEXT,
     z_occupied TINYINT(1)
 ) MODIFIES SQL DATA BEGIN
 INSERT INTO charging_station (charging_zone_id, position, occupied)
@@ -34,12 +34,12 @@ END
 -- GET chargingstations/zone/:chargingZoneId
 CREATE PROCEDURE show_charging_station_zone(z_id INT) BEGIN
 SELECT id,
-    charging_zone,
+    charging_zone_id,
     ST_AsGeoJSON(position) as position,
     occupied,
     scooter_id
 FROM charging_station
-WHERE charging_zone = z_id;
+WHERE charging_zone_id = z_id;
 END
 ;;
 
@@ -48,7 +48,7 @@ END
 CREATE PROCEDURE update_charging_station(
     s_id INT,
     z_id INT,
-    s_position VARCHAR(100),
+    s_position TEXT,
     s_occupied TINYINT(1)
 ) BEGIN
 UPDATE charging_station
@@ -71,7 +71,7 @@ END
 -- GET chargingstations/:chargingStationId
 CREATE PROCEDURE show_charging_station_id(s_id INT) BEGIN
 SELECT id,
-    charging_zone,
+    charging_zone_id,
     ST_AsGeoJSON(position) as position,
     occupied,
     scooter_id
@@ -79,5 +79,7 @@ FROM charging_station
 WHERE id = s_id;
 END
 ;;
+
+
 
 DELIMITER ;

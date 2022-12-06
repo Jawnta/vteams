@@ -25,7 +25,7 @@ END
 -- POST /parkingzones
 CREATE PROCEDURE parking_zone_add(
     c_id INT,
-    z_area VARCHAR(255)
+    z_area TEXT
 )
     MODIFIES SQL DATA
 BEGIN
@@ -37,7 +37,7 @@ END
 -- Get all parking zones in city
 -- GET parkingzones/city/:cityName
 CREATE PROCEDURE show_parking_zone_city(
-    c_name INT
+    c_name VARCHAR(45)
 )
     READS SQL DATA
 BEGIN
@@ -81,7 +81,7 @@ END
 CREATE PROCEDURE update_parking_zone(
     z_id INT,
     c_id INT,
-    z_area VARCHAR(100)
+    z_area TEXT
 )
 BEGIN
     UPDATE parking_zone
