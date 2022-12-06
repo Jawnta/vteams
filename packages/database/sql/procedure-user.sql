@@ -3,15 +3,16 @@ DROP PROCEDURE IF EXISTS trip_add;
 DROP PROCEDURE IF EXISTS delete_user;
 DROP PROCEDURE IF EXISTS show_user_id;
 DROP PROCEDURE IF EXISTS update_user;
-DELIMITER;
-;
+DELIMITER ;;
+
 -- Get all users
 -- GET /users
 CREATE PROCEDURE show_user_all() READS SQL DATA BEGIN
 SELECT *
 FROM user;
-END;
-;
+END
+;;
+
 -- Create new user
 -- POST /users
 
@@ -40,8 +41,9 @@ VALUES (
         u_social_security,
         u_token
     );
-END;
-;
+END
+;;
+
 -- Delete user
 -- DELETE /users/:userId
 
@@ -61,8 +63,9 @@ CREATE PROCEDURE show_user_id(u_id INT) READS SQL DATA BEGIN
 SELECT *
 FROM user
 WHERE id = u_id;
-END;
-;
+END
+;;
+
 -- Update user data
 -- PUT /users/:userId
 CREATE PROCEDURE update_user(
@@ -88,6 +91,7 @@ SET first_name = u_first_name,
     credit = u_credit,
     token = u_token
 WHERE id = u_id;
-END;
-;
-DELIMITER;
+END
+;;
+
+DELIMITER ;

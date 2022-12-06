@@ -376,546 +376,346 @@ UNLOCK TABLES;
 -- Dumping routines for database 'vteams'
 --
 /*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `charging_station_add` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `charging_station_add`(
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `charging_station_add` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `charging_station_add`(
     z_id INT,
     z_position VARCHAR(100),
     z_occupied TINYINT(1)
-) MODIFIES SQL DATA BEGIN
+)
+    MODIFIES SQL DATA
+BEGIN
 INSERT INTO charging_station (charging_zone_id, position, occupied)
 VALUES (z_id, ST_GeomFromGeoJSON(z_position), z_occupied);
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `charging_zone_add` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `charging_zone_add`(p_id INT, z_area VARCHAR(100)) MODIFIES SQL DATA BEGIN
-INSERT INTO charging_zone (parking_zone_id, area)
-VALUES (p_id, ST_GeomFromGeoJSON(z_area));
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `delete_charging_station` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `delete_charging_station`(s_id INT) MODIFIES SQL DATA BEGIN
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `charging_zone_add` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `charging_zone_add`(
+    p_id INT,
+    z_area VARCHAR(100)
+)
+    MODIFIES SQL DATA
+BEGIN
+    INSERT INTO charging_zone (parking_zone_id, area)
+    VALUES (p_id, ST_GeomFromGeoJSON(z_area));
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `delete_charging_station` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `delete_charging_station`(s_id INT)
+    MODIFIES SQL DATA
+BEGIN
 DELETE FROM charging_station
 WHERE id = s_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `delete_charging_zone` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `delete_charging_zone`(z_id INT) MODIFIES SQL DATA BEGIN
-DELETE FROM charging_zone
-WHERE id = z_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `delete_invoice` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `delete_invoice`(i_id INT) MODIFIES SQL DATA BEGIN
-DELETE FROM invoice
-WHERE id = i_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `delete_parking_zone` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `delete_parking_zone`(z_id INT) MODIFIES SQL DATA BEGIN
-DELETE FROM parking_zone
-WHERE id = z_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `delete_scooter` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `delete_scooter`(s_id INT) MODIFIES SQL DATA BEGIN
-DELETE FROM scooter
-WHERE id = s_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `delete_trip` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `delete_trip`(t_id INT) MODIFIES SQL DATA BEGIN
-DELETE FROM trip
-WHERE id = t_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `delete_user` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `delete_user`(u_id INT) MODIFIES SQL DATA BEGIN
-DELETE FROM user
-WHERE id = i_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `invoice_add` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `invoice_add`(
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `delete_charging_zone` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `delete_charging_zone`(
+    z_id INT
+)
+    MODIFIES SQL DATA
+BEGIN
+    DELETE FROM charging_zone WHERE id = z_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `delete_invoice` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `delete_invoice`(
+    i_id INT
+)
+    MODIFIES SQL DATA
+BEGIN
+    DELETE FROM invoice WHERE id = i_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `delete_parking_zone` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `delete_parking_zone`(
+    z_id INT
+)
+    MODIFIES SQL DATA
+BEGIN
+    DELETE FROM parking_zone WHERE id = z_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `delete_scooter` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `delete_scooter`(
+    s_id INT
+)
+    MODIFIES SQL DATA
+BEGIN
+    DELETE FROM scooter WHERE id = s_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `delete_trip` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `delete_trip`(
+    t_id INT
+)
+    MODIFIES SQL DATA
+BEGIN
+    DELETE FROM trip WHERE id = t_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `delete_user` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `delete_user`(
+    u_id INT
+)
+    MODIFIES SQL DATA
+BEGIN
+    DELETE FROM user WHERE id = u_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `invoice_add` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `invoice_add`(
     t_id INT,
     i_status VARCHAR(45),
     i_amount FLOAT
-) MODIFIES SQL DATA BEGIN
-INSERT INTO invoice (trip_id, status, amount)
-VALUES (t_id, i_status, i_amount);
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `parking_zone_add` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `parking_zone_add`(c_id INT, z_area VARCHAR(255)) MODIFIES SQL DATA BEGIN
-INSERT INTO parking_zone (city_id, area)
-VALUES (c_id, ST_GeomFromGeoJSON(z_area));
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `scooter_add` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `scooter_add`(
+)
+    MODIFIES SQL DATA
+BEGIN
+    INSERT INTO invoice (trip_id, status, amount)
+    VALUES (t_id, i_status, i_amount);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `parking_zone_add` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `parking_zone_add`(
+    c_id INT,
+    z_area VARCHAR(255)
+)
+    MODIFIES SQL DATA
+BEGIN
+    INSERT INTO parking_zone (city_id, area)
+    VALUES (c_id, ST_GeomFromGeoJSON(z_area));
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `scooter_add` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `scooter_add`(
     s_available TINYINT(1),
     s_enabled TINYINT(1),
     s_charge FLOAT,
     s_last_position VARCHAR(100),
     s_is_charging TINYINT(1),
     c_id INT
-) BEGIN
-INSERT INTO scooter (
-        available,
-        enabled,
-        charge,
-        last_position,
-        is_charging,
-        city_id
-    )
-VALUES (
-        s_available,
-        s_enabled,
-        s_charge,
-        ST_GeomFromGeoJSON(s_last_position),
-        s_is_charging,
-        c_id
-    );
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `scooter_log_add` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `scooter_log_add`(
+)
+BEGIN
+    INSERT INTO scooter (available, enabled, charge, last_position, is_charging, city_id)
+    VALUES (s_available, s_enabled, s_charge, ST_GeomFromGeoJSON(s_last_position), s_is_charging, c_id);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `scooter_log_add` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `scooter_log_add`(
     s_id INT,
     s_speed INT,
     s_position VARCHAR(100),
     s_status VARCHAR(20),
     s_charge INT
-) BEGIN
-INSERT INTO scooter_log (scooter_id, speed, position, status, charge)
-VALUES (
-        s_id,
-        s_speed,
-        ST_GeomFromGeoJSON(s_position),
-        s_status,
-        s_charge
-    );
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_charging_station_all` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_charging_station_all`() READS SQL DATA BEGIN
+)
+BEGIN
+    INSERT INTO scooter_log (scooter_id, speed, position, status, charge)
+    VALUES (s_id, s_speed, ST_GeomFromGeoJSON(s_position), s_status, s_charge);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_charging_station_all` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_charging_station_all`()
+    READS SQL DATA
+BEGIN
 SELECT id,
-    charging_zone,
+    charging_zone_id,
     ST_AsGeoJSON(position) as position,
     occupied,
     scooter_id
 FROM charging_station;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_charging_station_id` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_charging_station_id`(s_id INT) BEGIN
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_charging_station_id` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_charging_station_id`(s_id INT)
+BEGIN
 SELECT id,
     charging_zone,
     ST_AsGeoJSON(position) as position,
@@ -923,38 +723,24 @@ SELECT id,
     scooter_id
 FROM charging_station
 WHERE id = s_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_charging_station_zone` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_charging_station_zone`(z_id INT) BEGIN
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_charging_station_zone` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_charging_station_zone`(z_id INT)
+BEGIN
 SELECT id,
     charging_zone,
     ST_AsGeoJSON(position) as position,
@@ -962,831 +748,792 @@ SELECT id,
     scooter_id
 FROM charging_station
 WHERE charging_zone = z_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_charging_zone_all` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_charging_zone_all`() READS SQL DATA BEGIN
-SELECT id,
-    parking_zone_id,
-    ST_AsGeoJSON(area) AS area
-FROM charging_zone;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_charging_zone_city` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_charging_zone_city`(c_name VARCHAR(20)) READS SQL DATA BEGIN
-SELECT id,
-    parking_zone_id,
-    ST_AsGeoJSON(area) as area
-FROM charging_zone
-WHERE parking_zone_id IN (
-        SELECT id
-        from parking_zone
-        WHERE city_id = (
-                SELECT id
-                FROM city
-                WHERE name = c_name
-            )
-    );
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_charging_zone_id` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_charging_zone_id`(z_id INT) READS SQL DATA BEGIN
-SELECT id,
-    parking_zone_id,
-    ST_AsGeoJSON(area) as area
-FROM charging_zone
-WHERE id = z_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_city_all` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_city_all`() READS SQL DATA BEGIN
-SELECT *
-FROM city;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_invoice_all` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_invoice_all`() READS SQL DATA BEGIN
-SELECT *
-FROM invoice;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_invoice_id` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_invoice_id`(i_id INT) READS SQL DATA BEGIN
-SELECT *
-FROM invoice
-WHERE id = i_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_invoice_user` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_invoice_user`(u_id INT) READS SQL DATA BEGIN
-SELECT *
-FROM invoice
-WHERE trip_id IN (
-        SELECT user_id
-        FROM trip
-        WHERE user_id = u_id
-    );
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_parking_zone_all` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_parking_zone_all`() READS SQL DATA BEGIN
-SELECT id,
-    city_id,
-    ST_AsGeoJSON(area) AS area
-FROM parking_zone;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_parking_zone_city` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_parking_zone_city`(c_name INT) READS SQL DATA BEGIN
-SELECT id,
-    city_id,
-    ST_AsGeoJSON(area) as area
-FROM parking_zone
-WHERE city_id = (
-        SELECT id
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_charging_zone_all` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_charging_zone_all`()
+    READS SQL DATA
+BEGIN
+    SELECT  id,
+            parking_zone_id,
+            ST_AsGeoJSON(area) AS area
+    FROM charging_zone;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_charging_zone_city` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_charging_zone_city`(
+    c_name VARCHAR(20)
+)
+    READS SQL DATA
+BEGIN
+    SELECT
+        id,
+        parking_zone_id,
+        ST_AsGeoJSON(area) as area
+    FROM charging_zone 
+    WHERE parking_zone_id IN
+        (SELECT id from parking_zone 
+        WHERE city_id = 
+            (SELECT id 
+            FROM city 
+            WHERE name = c_name));
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_charging_zone_id` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_charging_zone_id`(
+    z_id INT
+)
+    READS SQL DATA
+BEGIN
+    SELECT
+        id,
+        parking_zone_id,
+        ST_AsGeoJSON(area) as area
+    FROM charging_zone WHERE id = z_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_city_all` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_city_all`()
+    READS SQL DATA
+BEGIN
+    SELECT  *
+    FROM city;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_invoice_all` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_invoice_all`()
+    READS SQL DATA
+BEGIN
+    SELECT *
+    FROM invoice;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_invoice_id` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_invoice_id`(
+    i_id INT
+)
+    READS SQL DATA
+BEGIN
+    SELECT *
+    FROM invoice WHERE id = i_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_invoice_user` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_invoice_user`(
+    u_id INT
+)
+    READS SQL DATA
+BEGIN
+    SELECT *
+    FROM invoice WHERE trip_id IN
+        (SELECT user_id
+        FROM trip 
+        WHERE user_id = u_id);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_parking_zone_all` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_parking_zone_all`()
+    READS SQL DATA
+BEGIN
+    SELECT 
+        id,
+        city_id,
+        ST_AsGeoJSON(area) AS area
+    FROM parking_zone;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_parking_zone_city` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_parking_zone_city`(
+    c_name INT
+)
+    READS SQL DATA
+BEGIN
+    SELECT  id,
+            city_id,
+            ST_AsGeoJSON(area) as area
+    FROM parking_zone WHERE city_id = 
+        (SELECT id
         FROM city
-        WHERE name = c_name
-    );
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_parking_zone_id` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_parking_zone_id`(p_id INT) READS SQL DATA BEGIN
-SELECT id,
-    city_id,
-    ST_AsGeoJSON(area) as area
-FROM parking_zone
-WHERE id = p_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_scooter_all` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_scooter_all`() READS SQL DATA BEGIN
-SELECT id,
-    available,
-    enabled,
-    charge,
-    DATE_FORMAT(last_serviced, '%Y-%m-%d %H:%i:%s') as last_serviced,
-    DATE_FORMAT(first_used, '%Y-%m-%d %H:%i:%s') as first_used,
-    distance_traveled,
-    ST_AsGeoJSON(last_position) as last_position,
-    is_charging,
-    city_id
-FROM scooter;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_scooter_available` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_scooter_available`() READS SQL DATA BEGIN
-SELECT id,
-    available,
-    enabled,
-    charge,
-    DATE_FORMAT(last_serviced, '%Y-%m-%d %H:%i:%s') as last_serviced,
-    DATE_FORMAT(first_used, '%Y-%m-%d %H:%i:%s') as first_used,
-    distance_traveled,
-    ST_AsGeoJSON(last_position) as last_position,
-    is_charging,
-    city_id
-FROM scooter
-WHERE available = 1;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_scooter_city` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_scooter_city`(c_name INT) READS SQL DATA BEGIN
-SELECT id,
-    available,
-    enabled,
-    charge,
-    DATE_FORMAT(last_serviced, '%Y-%m-%d %H:%i:%s') as last_serviced,
-    DATE_FORMAT(first_used, '%Y-%m-%d %H:%i:%s') as first_used,
-    distance_traveled,
-    ST_AsGeoJSON(last_position) as last_position,
-    is_charging,
-    city_id
-FROM scooter
-WHERE city_id = (
-        SELECT id
-        FROM city
-        WHERE name = c_name
-    );
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_scooter_id` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_scooter_id`(s_id INT) READS SQL DATA BEGIN
-SELECT id,
-    available,
-    enabled,
-    charge,
-    DATE_FORMAT(last_serviced, '%Y-%m-%d %H:%i:%s') as last_serviced,
-    DATE_FORMAT(first_used, '%Y-%m-%d %H:%i:%s') as first_used,
-    distance_traveled,
-    ST_AsGeoJSON(last_position) as last_position,
-    is_charging,
-    city_id
-FROM scooter
-WHERE id = s_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_scooter_logs` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_scooter_logs`(s_id INT) READS SQL DATA BEGIN
-SELECT *
-FROM scooter_log
-WHERE scooter_id = s_id
-ORDER BY 'timestamp' DESC;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_trip_all` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_trip_all`() READS SQL DATA BEGIN
-SELECT id,
-    user_id,
-    scooter_id,
-    distance,
-    completed,
-    ST_AsGeoJSON(start_position) as start_position,
-    ST_AsGeoJSON(stop_position) as stop_position,
-    DATE_FORMAT(start_time, '%Y-%m-%d %H:%i:%s') as start_time,
-    DATE_FORMAT(stop_time, '%Y-%m-%d %H:%i:%s') as stop_time
-FROM trip;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_trip_id` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_trip_id`(t_id INT) READS SQL DATA BEGIN
-SELECT id,
-    user_id,
-    scooter_id,
-    distance,
-    completed,
-    ST_AsGeoJSON(start_position) as start_position,
-    ST_AsGeoJSON(stop_position) as stop_position,
-    DATE_FORMAT(start_time, '%Y-%m-%d %H:%i:%s') as start_time,
-    DATE_FORMAT(stop_time, '%Y-%m-%d %H:%i:%s') as stop_time
-FROM trip
-WHERE id = t_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_trip_user` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_trip_user`(u_id INT) READS SQL DATA BEGIN
-SELECT id,
-    user_id,
-    scooter_id,
-    distance,
-    completed,
-    ST_AsGeoJSON(start_position) as start_position,
-    ST_AsGeoJSON(stop_position) as stop_position,
-    DATE_FORMAT(start_time, '%Y-%m-%d %H:%i:%s') as start_time,
-    DATE_FORMAT(stop_time, '%Y-%m-%d %H:%i:%s') as stop_time
-FROM trip
-WHERE user_id = u_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_user_all` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_user_all`() READS SQL DATA BEGIN
+        WHERE name = c_name);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_parking_zone_id` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_parking_zone_id`(
+    p_id INT
+)
+    READS SQL DATA
+BEGIN
+    SELECT  id,
+            city_id,
+            ST_AsGeoJSON(area) as area
+    FROM parking_zone WHERE id = p_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_scooter_all` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_scooter_all`()
+    READS SQL DATA
+BEGIN
+    SELECT  id,
+            available,
+            enabled,
+            charge,
+            DATE_FORMAT(last_serviced, '%Y-%m-%d %H:%i:%s') as last_serviced,
+            DATE_FORMAT(first_used, '%Y-%m-%d %H:%i:%s') as first_used,
+            distance_traveled,
+            ST_AsGeoJSON(last_position) as last_position,
+            is_charging,
+            city_id
+    FROM scooter;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_scooter_available` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_scooter_available`()
+    READS SQL DATA
+BEGIN
+    SELECT  id,
+            available,
+            enabled,
+            charge,
+            DATE_FORMAT(last_serviced, '%Y-%m-%d %H:%i:%s') as last_serviced,
+            DATE_FORMAT(first_used, '%Y-%m-%d %H:%i:%s') as first_used,
+            distance_traveled,
+            ST_AsGeoJSON(last_position) as last_position,
+            is_charging,
+            city_id
+    FROM scooter WHERE available = 1;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_scooter_city` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_scooter_city`(
+    c_name INT
+)
+    READS SQL DATA
+BEGIN
+    SELECT  id,
+            available,
+            enabled,
+            charge,
+            DATE_FORMAT(last_serviced, '%Y-%m-%d %H:%i:%s') as last_serviced,
+            DATE_FORMAT(first_used, '%Y-%m-%d %H:%i:%s') as first_used,
+            distance_traveled,
+            ST_AsGeoJSON(last_position) as last_position,
+            is_charging,
+            city_id
+    FROM scooter WHERE city_id = 
+        (SELECT id FROM city
+        WHERE name = c_name);
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_scooter_id` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_scooter_id`(
+    s_id INT
+)
+    READS SQL DATA
+BEGIN
+    SELECT  id,
+            available,
+            enabled,
+            charge,
+            DATE_FORMAT(last_serviced, '%Y-%m-%d %H:%i:%s') as last_serviced,
+            DATE_FORMAT(first_used, '%Y-%m-%d %H:%i:%s') as first_used,
+            distance_traveled,
+            ST_AsGeoJSON(last_position) as last_position,
+            is_charging,
+            city_id
+    FROM scooter WHERE id = s_id;
+    
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_scooter_logs` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_scooter_logs`(
+    s_id INT
+)
+    READS SQL DATA
+BEGIN
+    SELECT  * FROM scooter_log 
+    WHERE scooter_id = s_id
+    ORDER BY 'timestamp' DESC;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_trip_all` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_trip_all`()
+    READS SQL DATA
+BEGIN
+    SELECT  id,
+            user_id,
+            scooter_id,
+            distance,
+            completed,
+            ST_AsGeoJSON(start_position) as start_position,
+            ST_AsGeoJSON(stop_position) as stop_position,
+            DATE_FORMAT(start_time, '%Y-%m-%d %H:%i:%s') as start_time,
+            DATE_FORMAT(stop_time, '%Y-%m-%d %H:%i:%s') as stop_time
+    FROM trip;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_trip_id` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_trip_id`(
+    t_id INT
+)
+    READS SQL DATA
+BEGIN
+    SELECT  id,
+            user_id,
+            scooter_id,
+            distance,
+            completed,
+            ST_AsGeoJSON(start_position) as start_position,
+            ST_AsGeoJSON(stop_position) as stop_position,
+            DATE_FORMAT(start_time, '%Y-%m-%d %H:%i:%s') as start_time,
+            DATE_FORMAT(stop_time, '%Y-%m-%d %H:%i:%s') as stop_time
+    FROM trip WHERE id = t_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_trip_user` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_trip_user`(
+    u_id INT
+)
+    READS SQL DATA
+BEGIN
+    SELECT  id,
+            user_id,
+            scooter_id,
+            distance,
+            completed,
+            ST_AsGeoJSON(start_position) as start_position,
+            ST_AsGeoJSON(stop_position) as stop_position,
+            DATE_FORMAT(start_time, '%Y-%m-%d %H:%i:%s') as start_time,
+            DATE_FORMAT(stop_time, '%Y-%m-%d %H:%i:%s') as stop_time
+    FROM trip WHERE user_id = u_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_user_all` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_user_all`()
+    READS SQL DATA
+BEGIN
 SELECT *
 FROM user;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `show_user_id` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `show_user_id`(u_id INT) READS SQL DATA BEGIN
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `show_user_id` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `show_user_id`(u_id INT)
+    READS SQL DATA
+BEGIN
 SELECT *
 FROM user
 WHERE id = u_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `trip_add` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `trip_add`(
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_charging_station` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `update_charging_station`(
+    s_id INT,
+    z_id INT,
+    s_position VARCHAR(100),
+    s_occupied TINYINT(1)
+)
+BEGIN
+UPDATE charging_station
+SET charging_zone_id = z_id,
+    position = ST_GeomFromGeoJSON(s_position),
+    occupied = s_occupied
+WHERE id = s_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_charging_zone` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `update_charging_zone`(
+    z_id INT,
+    pakring_z_id INT,
+    z_area VARCHAR(100)
+)
+BEGIN
+    UPDATE charging_zone
+    SET parking_zone_id = pakring_z_id,
+        area            = ST_GeomFromGeoJSON(z_area)
+    WHERE id = z_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_invoice` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `update_invoice`(
+    i_id INT,
+    t_id INT,
+    i_status VARCHAR(45),
+    i_amount FLOAT
+)
+BEGIN
+    UPDATE invoice
+    SET trip_id      = t_id,
+        status       = i_status,
+        amount       = i_amount
+    WHERE id = i_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_parking_zone` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `update_parking_zone`(
+    z_id INT,
+    c_id INT,
+    z_area VARCHAR(100)
+)
+BEGIN
+    UPDATE parking_zone
+    SET city_id       = c_id,
+        area          = ST_GeomFromGeoJSON(z_area)
+    WHERE id = z_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_scooter` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `update_scooter`(
+    s_id INT,
+    s_available TINYINT(1),
+    s_enabled TINYINT(1),
+    s_charge FLOAT,
+    s_last_serviced DATETIME,
+    s_first_used DATETIME,
+    s_distance_traveled FLOAT,
+    s_last_position VARCHAR(100),
+    s_is_charging TINYINT(1),
+    c_id INT
+)
+BEGIN
+    UPDATE scooter
+    SET available         = s_available,
+        enabled           = s_enabled,
+        charge            = s_charge,
+        last_serviced     = s_last_serviced,
+        first_used        = s_first_used,
+        distance_traveled = s_distance_traveled,
+        last_position     = ST_GeomFromGeoJSON(s_last_position),
+        is_charging       = s_is_charging,
+        city_id           = c_id
+    WHERE id = s_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_trip` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `update_trip`(
+    t_id INT,
+    u_id INT,
+    s_id INT,
+    t_distance FLOAT,
+    t_completed TINYINT(1),
+    t_start_position VARCHAR(100),
+    t_stop_position VARCHAR(100),
+    t_start_time DATETIME,
+    t_stop_time DATETIME
+)
+BEGIN
+    UPDATE trip
+    SET user_id        = u_id,
+        scooter_id     = s_id,
+        distance       = t_distance,
+        completed      = t_completed,
+        start_position = ST_GeomFromGeoJSON(t_start_position),
+        stop_position  = ST_GeomFromGeoJSON(t_start_position),
+        start_time     = t_start_time,
+        stop_time      = t_stop_time
+    WHERE id = t_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `update_user` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `update_user`(
+    u_id INT,
+    u_first_name VARCHAR(45),
+    u_last_name VARCHAR(45),
+    u_phone_nr INT,
+    u_email VARCHAR(45),
+    u_reg_date DATETIME,
+    u_social_security VARCHAR(45),
+    u_enabled TINYINT(1),
+    u_credit FLOAT,
+    u_token VARCHAR(45)
+)
+BEGIN
+UPDATE user
+SET first_name = u_first_name,
+    last_name = u_last_name,
+    phone_number = u_phone_nr,
+    email = u_email,
+    register_date = u_reg_date,
+    social_security = u_social_security,
+    enabled = u_enabled,
+    credit = u_credit,
+    token = u_token
+WHERE id = u_id;
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!50003 SET @saved_sql_mode       = @@sql_mode */ ;
+/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */ ;
+/*!50003 DROP PROCEDURE IF EXISTS `user_add` */;
+/*!50003 SET @saved_cs_client      = @@character_set_client */ ;
+/*!50003 SET @saved_cs_results     = @@character_set_results */ ;
+/*!50003 SET @saved_col_connection = @@collation_connection */ ;
+/*!50003 SET character_set_client  = utf8mb3 */ ;
+/*!50003 SET character_set_results = utf8mb3 */ ;
+/*!50003 SET collation_connection  = utf8mb3_general_ci */ ;
+DELIMITER ;;
+CREATE DEFINER=`snaladm`@`mariadb` PROCEDURE `user_add`(
+
     u_first_name VARCHAR(45),
     u_last_name VARCHAR(45),
     u_phone_nr INT,
     u_email VARCHAR(45),
     u_social_security VARCHAR(45),
     u_token VARCHAR(45)
-) BEGIN
+)
+BEGIN
 INSERT INTO user (
         first_name,
         last_name,
@@ -1803,355 +1550,20 @@ VALUES (
         u_social_security,
         u_token
     );
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `update_charging_station` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `update_charging_station`(
-    s_id INT,
-    z_id INT,
-    s_position VARCHAR(100),
-    s_occupied TINYINT(1)
-) BEGIN
-UPDATE charging_station
-SET charging_zone_id = z_id,
-    position = ST_GeomFromGeoJSON(s_position),
-    occupied = s_occupied
-WHERE id = s_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `update_charging_zone` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `update_charging_zone`(
-    z_id INT,
-    pakring_z_id INT,
-    z_area VARCHAR(100)
-) BEGIN
-UPDATE charging_zone
-SET parking_zone_id = pakring_z_id,
-    area = ST_GeomFromGeoJSON(z_area)
-WHERE id = z_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `update_invoice` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `update_invoice`(
-    i_id INT,
-    t_id INT,
-    i_status VARCHAR(45),
-    i_amount FLOAT
-) BEGIN
-UPDATE invoice
-SET trip_id = t_id,
-    status = i_status,
-    amount = i_amount
-WHERE id = i_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `update_parking_zone` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `update_parking_zone`(
-    z_id INT,
-    c_id INT,
-    z_area VARCHAR(100)
-) BEGIN
-UPDATE parking_zone
-SET city_id = c_id,
-    area = ST_GeomFromGeoJSON(z_area)
-WHERE id = z_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `update_scooter` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `update_scooter`(
-    s_id INT,
-    s_available TINYINT(1),
-    s_enabled TINYINT(1),
-    s_charge FLOAT,
-    s_last_serviced DATETIME,
-    s_first_used DATETIME,
-    s_distance_traveled FLOAT,
-    s_last_position VARCHAR(100),
-    s_is_charging TINYINT(1),
-    c_id INT
-) BEGIN
-UPDATE scooter
-SET available = s_available,
-    enabled = s_enabled,
-    charge = s_charge,
-    last_serviced = s_last_serviced,
-    first_used = s_first_used,
-    distance_traveled = s_distance_traveled,
-    last_position = ST_GeomFromGeoJSON(s_last_position),
-    is_charging = s_is_charging,
-    city_id = c_id
-WHERE id = s_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `update_trip` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `update_trip`(
-    t_id INT,
-    u_id INT,
-    s_id INT,
-    t_distance FLOAT,
-    t_completed TINYINT(1),
-    t_start_position VARCHAR(100),
-    t_stop_position VARCHAR(100),
-    t_start_time DATETIME,
-    t_stop_time DATETIME
-) BEGIN
-UPDATE trip
-SET user_id = u_id,
-    scooter_id = s_id,
-    distance = t_distance,
-    completed = t_completed,
-    start_position = ST_GeomFromGeoJSON(t_start_position),
-    stop_position = ST_GeomFromGeoJSON(t_start_position),
-    start_time = t_start_time,
-    stop_time = t_stop_time
-WHERE id = t_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!50003 SET @saved_sql_mode       = @@sql_mode */
-;
-/*!50003 SET sql_mode              = 'STRICT_TRANS_TABLES,ERROR_FOR_DIVISION_BY_ZERO,NO_AUTO_CREATE_USER,NO_ENGINE_SUBSTITUTION' */
-;
-/*!50003 DROP PROCEDURE IF EXISTS `update_user` */
-;
-/*!50003 SET @saved_cs_client      = @@character_set_client */
-;
-/*!50003 SET @saved_cs_results     = @@character_set_results */
-;
-/*!50003 SET @saved_col_connection = @@collation_connection */
-;
-/*!50003 SET character_set_client  = utf8mb3 */
-;
-/*!50003 SET character_set_results = utf8mb3 */
-;
-/*!50003 SET collation_connection  = utf8mb3_general_ci */
-;
-DELIMITER;
-;
-CREATE DEFINER = `snaladm` @`mariadb` PROCEDURE `update_user`(
-    u_id INT,
-    u_first_name VARCHAR(45),
-    u_last_name VARCHAR(45),
-    u_phone_nr INT,
-    u_email VARCHAR(45),
-    u_reg_date DATETIME,
-    u_social_security VARCHAR(45),
-    u_enabled TINYINT(1),
-    u_credit FLOAT,
-    u_token VARCHAR(45)
-) BEGIN
-UPDATE user
-SET first_name = u_first_name,
-    last_name = u_last_name,
-    phone_number = u_phone_nr,
-    email = u_email,
-    register_date = u_reg_date,
-    social_security = u_social_security,
-    enabled = u_enabled,
-    credit = u_credit,
-    token = u_token
-WHERE id = u_id;
-END;
-;
-DELIMITER;
-/*!50003 SET sql_mode              = @saved_sql_mode */
-;
-/*!50003 SET character_set_client  = @saved_cs_client */
-;
-/*!50003 SET character_set_results = @saved_cs_results */
-;
-/*!50003 SET collation_connection  = @saved_col_connection */
-;
-/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */
-;
-/*!40101 SET SQL_MODE=@OLD_SQL_MODE */
-;
-/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */
-;
-/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */
-;
-/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */
-;
-/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */
-;
-/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */
-;
-/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */
-;
--- Dump completed on 2022-12-05 11:06:59
+END ;;
+DELIMITER ;
+/*!50003 SET sql_mode              = @saved_sql_mode */ ;
+/*!50003 SET character_set_client  = @saved_cs_client */ ;
+/*!50003 SET character_set_results = @saved_cs_results */ ;
+/*!50003 SET collation_connection  = @saved_col_connection */ ;
+/*!40103 SET TIME_ZONE=@OLD_TIME_ZONE */;
+
+/*!40101 SET SQL_MODE=@OLD_SQL_MODE */;
+/*!40014 SET FOREIGN_KEY_CHECKS=@OLD_FOREIGN_KEY_CHECKS */;
+/*!40014 SET UNIQUE_CHECKS=@OLD_UNIQUE_CHECKS */;
+/*!40101 SET CHARACTER_SET_CLIENT=@OLD_CHARACTER_SET_CLIENT */;
+/*!40101 SET CHARACTER_SET_RESULTS=@OLD_CHARACTER_SET_RESULTS */;
+/*!40101 SET COLLATION_CONNECTION=@OLD_COLLATION_CONNECTION */;
+/*!40111 SET SQL_NOTES=@OLD_SQL_NOTES */;
+
+-- Dump completed on 2022-12-06 11:06:05
