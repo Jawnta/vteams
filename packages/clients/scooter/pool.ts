@@ -1,8 +1,6 @@
 import Scooter from "./scooter";
 import fetch from "node-fetch";
 
-const scooterArr: Scooter[] = [];
-
 function create() {
     const scooter = new Scooter(
         1,
@@ -11,19 +9,24 @@ function create() {
         false, '000',
         100, 30);
     scooter.sleep();
-    scooterArr.push(scooter);
+
+    return scooter;
 }
 
-async function conn() {
-    for (const scooter of scooterArr) {
-        const requestOptions = {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(scooter.get())
-        };
-        fetch(`https://localhost:3000/scooters/${scooter.getId()}`, requestOptions).then(r => 'ignored');
-    }
+function call(scooter: Scooter) {
+    const requestOptions = {
+        method: 'PUT',
+        headers: {'Content-Type': 'application/json'},
+        body: JSON.stringify(scooter.get())
+    };
+    return fetch(`http://localhost:3000/scooters/${scooter.getId()}`, requestOptions)
+        .then(response => {
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+            return response.json();
+        })
 }
 
-create();
-conn().then(r => 'ignored');
+const scooter = create();
+call(scooter).then(r => 'ignored');
