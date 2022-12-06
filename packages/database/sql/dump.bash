@@ -1,1 +1,1 @@
-mysqldump vteams --routines > init-database.sql
+mysqldump vteams -usnaladm -p --routines > init-database.sql

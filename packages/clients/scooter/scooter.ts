@@ -1,4 +1,4 @@
-class Scooter {
+export default class Scooter {
     protected id: number;
     protected enabled: boolean;
     protected available: boolean;
@@ -6,18 +6,35 @@ class Scooter {
     protected position: string; //change this to array?
     protected speed: number;
     protected charge: number;
+/*    protected currentUser: number | null;*/
 
-    constructor(id: number, position: string) {
+    constructor(id: number, enabled: boolean,
+                available: boolean, inMaintenance: boolean,
+                position: string, speed: number,
+                charge: number)
+    {
         this.id = id;
-        this.enabled = false;
-        this.available = false;
-        this.inMaintenance = false;
+        this.enabled = enabled;
+        this.available = available;
+        this.inMaintenance = inMaintenance;
         this.position = position;
-        this.speed = 0;
-        this.charge = 0;
+        this.speed = speed;
+        this.charge = charge;
     }
 
-    getId() {
+    get(): object {
+        return {
+            id: this.getId(),
+            enabled: this.getEnabled(),
+            available: this.getAvailable(),
+            inMaintenance: this.getInMaintenance(),
+            position: this.getPosition(),
+            speed: this.getSpeed(),
+            charge: this.getCharge()
+        }
+    }
+
+    getId(): number {
         return this.id;
     }
 
@@ -25,7 +42,7 @@ class Scooter {
         this.id = id;
     }
 
-    getEnabled() {
+    getEnabled(): boolean {
         return this.enabled;
     }
 
@@ -33,15 +50,15 @@ class Scooter {
         this.enabled = enabled;
     }
 
-    getAvailable() {
-        return this.available;
+    getAvailable(): boolean {
+        return this.enabled && this.available;
     }
 
     setAvailable(available: boolean) {
         this.available = available;
     }
 
-    getInMaintenance() {
+    getInMaintenance(): boolean {
         return this.inMaintenance;
     }
 
@@ -49,7 +66,7 @@ class Scooter {
         this.inMaintenance = inMaintenance;
     }
 
-    getPosition() {
+    getPosition(): string {
         return this.position;
     }
 
@@ -57,7 +74,7 @@ class Scooter {
         this.position = position;
     }
 
-    getSpeed() {
+    getSpeed(): number {
         return this.speed;
     }
 
@@ -65,11 +82,59 @@ class Scooter {
         this.speed = speed;
     }
 
-    getCharge() {
+    getCharge(): number {
         return this.charge;
     }
 
     setCharge(charge: number) {
         this.charge = charge;
     }
+
+    isRunning(): boolean {
+        return this.getSpeed() > 0;
+    }
+
+    sendReport(): void {
+        // SEND DATA TO API
+        return;
+    }
+
+    assign(userId: number) {
+        if (this.getAvailable()) {
+            this.setAvailable(false);
+            this.run();
+            // return success
+        }
+        // return error
+    }
+
+    deallocate() {
+        // if parking zone okay
+        this.sleep();
+    }
+
+    run() {
+        this.setCharge(this.getCharge() - 0.1);
+        this.sendReport();
+        setTimeout(() => this.run(), 2000);
+    }
+
+    sleep() {
+        if (!this.isRunning()) {
+            this.setCharge(this.getCharge() - 0.1);
+            this.sendReport();
+            setTimeout(() => this.sleep(), 60000);
+        }
+        this.run();
+    }
+
+    getSelf() {
+        // api call
+        // setEnabled(apicall.enabled)
+    }
 }
+
+// GET scooters from database
+// for scooter in db:
+//      scoot = new Scooter(scooter.id, scooter.position);
+//      scoot.sleep();

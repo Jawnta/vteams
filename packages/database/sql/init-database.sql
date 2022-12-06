@@ -3,329 +3,375 @@
 -- Host: mariadb    Database: vteams
 -- ------------------------------------------------------
 -- Server version	10.9.3-MariaDB
-
-/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */;
-/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */;
-/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */;
-/*!40101 SET NAMES utf8mb4 */;
-/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */;
-/*!40103 SET TIME_ZONE='+00:00' */;
-/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */;
-/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */;
-/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */;
-/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */;
-
+/*!40101 SET @OLD_CHARACTER_SET_CLIENT=@@CHARACTER_SET_CLIENT */
+;
+/*!40101 SET @OLD_CHARACTER_SET_RESULTS=@@CHARACTER_SET_RESULTS */
+;
+/*!40101 SET @OLD_COLLATION_CONNECTION=@@COLLATION_CONNECTION */
+;
+/*!40101 SET NAMES utf8mb4 */
+;
+/*!40103 SET @OLD_TIME_ZONE=@@TIME_ZONE */
+;
+/*!40103 SET TIME_ZONE='+00:00' */
+;
+/*!40014 SET @OLD_UNIQUE_CHECKS=@@UNIQUE_CHECKS, UNIQUE_CHECKS=0 */
+;
+/*!40014 SET @OLD_FOREIGN_KEY_CHECKS=@@FOREIGN_KEY_CHECKS, FOREIGN_KEY_CHECKS=0 */
+;
+/*!40101 SET @OLD_SQL_MODE=@@SQL_MODE, SQL_MODE='NO_AUTO_VALUE_ON_ZERO' */
+;
+/*!40111 SET @OLD_SQL_NOTES=@@SQL_NOTES, SQL_NOTES=0 */
+;
 --
 -- Table structure for table `admin`
 --
 
 DROP TABLE IF EXISTS `admin`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!40101 SET character_set_client = utf8 */
+;
 CREATE TABLE `admin` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `email` varchar(100) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `email` varchar(100) DEFAULT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
 --
 -- Dumping data for table `admin`
 --
 
 LOCK TABLES `admin` WRITE;
-/*!40000 ALTER TABLE `admin` DISABLE KEYS */;
-/*!40000 ALTER TABLE `admin` ENABLE KEYS */;
+/*!40000 ALTER TABLE `admin` DISABLE KEYS */
+;
+/*!40000 ALTER TABLE `admin` ENABLE KEYS */
+;
 UNLOCK TABLES;
-
 --
 -- Table structure for table `charging_station`
 --
 
 DROP TABLE IF EXISTS `charging_station`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!40101 SET character_set_client = utf8 */
+;
 CREATE TABLE `charging_station` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `charging_zone_id` int(11) DEFAULT NULL,
-  `position` point DEFAULT NULL,
-  `occupied` tinyint(4) DEFAULT 0,
-  `scooter_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `charging_station_charging_zone_idx` (`charging_zone_id`),
-  KEY `charging_station_bike_idx` (`scooter_id`),
-  CONSTRAINT `charging_station_charging_zone` FOREIGN KEY (`charging_zone_id`) REFERENCES `charging_zone` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
-  CONSTRAINT `charging_station_scooter` FOREIGN KEY (`scooter_id`) REFERENCES `scooter` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `charging_zone_id` int(11) DEFAULT NULL,
+    `position` point DEFAULT NULL,
+    `occupied` tinyint(4) DEFAULT 0,
+    `scooter_id` int(11) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `charging_station_charging_zone_idx` (`charging_zone_id`),
+    KEY `charging_station_bike_idx` (`scooter_id`),
+    CONSTRAINT `charging_station_charging_zone` FOREIGN KEY (`charging_zone_id`) REFERENCES `charging_zone` (`id`) ON DELETE CASCADE ON UPDATE CASCADE,
+    CONSTRAINT `charging_station_scooter` FOREIGN KEY (`scooter_id`) REFERENCES `scooter` (`id`) ON DELETE
+    SET NULL ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
 --
 -- Dumping data for table `charging_station`
 --
 
 LOCK TABLES `charging_station` WRITE;
-/*!40000 ALTER TABLE `charging_station` DISABLE KEYS */;
-/*!40000 ALTER TABLE `charging_station` ENABLE KEYS */;
+/*!40000 ALTER TABLE `charging_station` DISABLE KEYS */
+;
+/*!40000 ALTER TABLE `charging_station` ENABLE KEYS */
+;
 UNLOCK TABLES;
-
 --
 -- Table structure for table `charging_zone`
 --
 
 DROP TABLE IF EXISTS `charging_zone`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!40101 SET character_set_client = utf8 */
+;
 CREATE TABLE `charging_zone` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `parking_zone_id` int(11) DEFAULT NULL,
-  `area` polygon DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `charging_zone_parking_zone_idx` (`parking_zone_id`),
-  CONSTRAINT `charging_zone_parking_zone` FOREIGN KEY (`parking_zone_id`) REFERENCES `parking_zone` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `parking_zone_id` int(11) DEFAULT NULL,
+    `area` polygon DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `charging_zone_parking_zone_idx` (`parking_zone_id`),
+    CONSTRAINT `charging_zone_parking_zone` FOREIGN KEY (`parking_zone_id`) REFERENCES `parking_zone` (`id`) ON DELETE
+    SET NULL ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
 --
 -- Dumping data for table `charging_zone`
 --
 
 LOCK TABLES `charging_zone` WRITE;
-/*!40000 ALTER TABLE `charging_zone` DISABLE KEYS */;
-/*!40000 ALTER TABLE `charging_zone` ENABLE KEYS */;
+/*!40000 ALTER TABLE `charging_zone` DISABLE KEYS */
+;
+/*!40000 ALTER TABLE `charging_zone` ENABLE KEYS */
+;
 UNLOCK TABLES;
-
 --
 -- Table structure for table `city`
 --
 
 DROP TABLE IF EXISTS `city`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!40101 SET character_set_client = utf8 */
+;
 CREATE TABLE `city` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `name` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `name` varchar(45) DEFAULT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
 --
 -- Dumping data for table `city`
 --
 
 LOCK TABLES `city` WRITE;
-/*!40000 ALTER TABLE `city` DISABLE KEYS */;
-/*!40000 ALTER TABLE `city` ENABLE KEYS */;
+/*!40000 ALTER TABLE `city` DISABLE KEYS */
+;
+/*!40000 ALTER TABLE `city` ENABLE KEYS */
+;
 UNLOCK TABLES;
-
 --
 -- Table structure for table `invoice`
 --
 
 DROP TABLE IF EXISTS `invoice`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!40101 SET character_set_client = utf8 */
+;
 CREATE TABLE `invoice` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `trip_id` int(11) DEFAULT NULL,
-  `status` varchar(45) DEFAULT NULL,
-  `amount` float DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `invoice_trip_idx` (`trip_id`),
-  CONSTRAINT `invoice_trip` FOREIGN KEY (`trip_id`) REFERENCES `trip` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `trip_id` int(11) DEFAULT NULL,
+    `status` varchar(45) DEFAULT NULL,
+    `amount` float DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `invoice_trip_idx` (`trip_id`),
+    CONSTRAINT `invoice_trip` FOREIGN KEY (`trip_id`) REFERENCES `trip` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
 --
 -- Dumping data for table `invoice`
 --
 
 LOCK TABLES `invoice` WRITE;
-/*!40000 ALTER TABLE `invoice` DISABLE KEYS */;
-/*!40000 ALTER TABLE `invoice` ENABLE KEYS */;
+/*!40000 ALTER TABLE `invoice` DISABLE KEYS */
+;
+/*!40000 ALTER TABLE `invoice` ENABLE KEYS */
+;
 UNLOCK TABLES;
-
 --
 -- Table structure for table `maintenance_log`
 --
 
 DROP TABLE IF EXISTS `maintenance_log`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!40101 SET character_set_client = utf8 */
+;
 CREATE TABLE `maintenance_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `scooter_id` int(11) DEFAULT NULL,
-  `timestamp` timestamp NULL DEFAULT current_timestamp(),
-  `event` varchar(50) DEFAULT NULL,
-  `invoked_by` varchar(20) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `maintenance_log_bike_idx` (`scooter_id`),
-  CONSTRAINT `maintenance_log_scooter` FOREIGN KEY (`scooter_id`) REFERENCES `scooter` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `scooter_id` int(11) DEFAULT NULL,
+    `timestamp` timestamp NULL DEFAULT current_timestamp(),
+    `event` varchar(50) DEFAULT NULL,
+    `invoked_by` varchar(20) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `maintenance_log_bike_idx` (`scooter_id`),
+    CONSTRAINT `maintenance_log_scooter` FOREIGN KEY (`scooter_id`) REFERENCES `scooter` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
 --
 -- Dumping data for table `maintenance_log`
 --
 
 LOCK TABLES `maintenance_log` WRITE;
-/*!40000 ALTER TABLE `maintenance_log` DISABLE KEYS */;
-/*!40000 ALTER TABLE `maintenance_log` ENABLE KEYS */;
+/*!40000 ALTER TABLE `maintenance_log` DISABLE KEYS */
+;
+/*!40000 ALTER TABLE `maintenance_log` ENABLE KEYS */
+;
 UNLOCK TABLES;
-
 --
 -- Table structure for table `parking_zone`
 --
 
 DROP TABLE IF EXISTS `parking_zone`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!40101 SET character_set_client = utf8 */
+;
 CREATE TABLE `parking_zone` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `city_id` int(11) DEFAULT NULL,
-  `area` polygon DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `parking_zone_city_idx` (`city_id`),
-  CONSTRAINT `parking_zone_city` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `city_id` int(11) DEFAULT NULL,
+    `area` polygon DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `parking_zone_city_idx` (`city_id`),
+    CONSTRAINT `parking_zone_city` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
 --
 -- Dumping data for table `parking_zone`
 --
 
 LOCK TABLES `parking_zone` WRITE;
-/*!40000 ALTER TABLE `parking_zone` DISABLE KEYS */;
-/*!40000 ALTER TABLE `parking_zone` ENABLE KEYS */;
+/*!40000 ALTER TABLE `parking_zone` DISABLE KEYS */
+;
+/*!40000 ALTER TABLE `parking_zone` ENABLE KEYS */
+;
 UNLOCK TABLES;
-
 --
 -- Table structure for table `scooter`
 --
 
 DROP TABLE IF EXISTS `scooter`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!40101 SET character_set_client = utf8 */
+;
 CREATE TABLE `scooter` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `available` tinyint(4) DEFAULT NULL,
-  `enabled` tinyint(4) DEFAULT NULL,
-  `charge` int(11) DEFAULT NULL,
-  `last_serviced` timestamp NULL DEFAULT current_timestamp(),
-  `first_used` datetime DEFAULT NULL,
-  `distance_traveled` float DEFAULT 0,
-  `last_position` point DEFAULT NULL,
-  `is_charging` tinyint(4) DEFAULT NULL,
-  `city_id` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `scooter_city_idx` (`city_id`),
-  CONSTRAINT `scooter_city` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `available` tinyint(4) DEFAULT NULL,
+    `enabled` tinyint(4) DEFAULT NULL,
+    `charge` int(11) DEFAULT NULL,
+    `last_serviced` timestamp NULL DEFAULT current_timestamp(),
+    `first_used` datetime DEFAULT NULL,
+    `distance_traveled` float DEFAULT 0,
+    `last_position` point DEFAULT NULL,
+    `is_charging` tinyint(4) DEFAULT NULL,
+    `city_id` int(11) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `scooter_city_idx` (`city_id`),
+    CONSTRAINT `scooter_city` FOREIGN KEY (`city_id`) REFERENCES `city` (`id`) ON DELETE
+    SET NULL ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
 --
 -- Dumping data for table `scooter`
 --
 
 LOCK TABLES `scooter` WRITE;
-/*!40000 ALTER TABLE `scooter` DISABLE KEYS */;
-/*!40000 ALTER TABLE `scooter` ENABLE KEYS */;
+/*!40000 ALTER TABLE `scooter` DISABLE KEYS */
+;
+/*!40000 ALTER TABLE `scooter` ENABLE KEYS */
+;
 UNLOCK TABLES;
-
 --
 -- Table structure for table `scooter_log`
 --
 
 DROP TABLE IF EXISTS `scooter_log`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!40101 SET character_set_client = utf8 */
+;
 CREATE TABLE `scooter_log` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `scooter_id` int(11) DEFAULT NULL,
-  `speed` int(11) DEFAULT NULL,
-  `position` point DEFAULT NULL,
-  `status` varchar(20) DEFAULT NULL,
-  `timestamp` timestamp NULL DEFAULT current_timestamp(),
-  `charge` int(11) DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `bike_log_bike_idx` (`scooter_id`),
-  CONSTRAINT `scooter_log_scooter` FOREIGN KEY (`scooter_id`) REFERENCES `scooter` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `scooter_id` int(11) DEFAULT NULL,
+    `speed` int(11) DEFAULT NULL,
+    `position` point DEFAULT NULL,
+    `status` varchar(20) DEFAULT NULL,
+    `timestamp` timestamp NULL DEFAULT current_timestamp(),
+    `charge` int(11) DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `bike_log_bike_idx` (`scooter_id`),
+    CONSTRAINT `scooter_log_scooter` FOREIGN KEY (`scooter_id`) REFERENCES `scooter` (`id`) ON DELETE CASCADE ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
 --
 -- Dumping data for table `scooter_log`
 --
 
 LOCK TABLES `scooter_log` WRITE;
-/*!40000 ALTER TABLE `scooter_log` DISABLE KEYS */;
-/*!40000 ALTER TABLE `scooter_log` ENABLE KEYS */;
+/*!40000 ALTER TABLE `scooter_log` DISABLE KEYS */
+;
+/*!40000 ALTER TABLE `scooter_log` ENABLE KEYS */
+;
 UNLOCK TABLES;
-
 --
 -- Table structure for table `trip`
 --
 
 DROP TABLE IF EXISTS `trip`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!40101 SET character_set_client = utf8 */
+;
 CREATE TABLE `trip` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `user_id` int(11) DEFAULT NULL,
-  `scooter_id` int(11) DEFAULT NULL,
-  `distance` float DEFAULT 0,
-  `completed` tinyint(4) DEFAULT 0,
-  `start_position` point DEFAULT NULL,
-  `stop_position` point DEFAULT NULL,
-  `start_time` timestamp NULL DEFAULT current_timestamp(),
-  `stop_time` timestamp NULL DEFAULT NULL,
-  PRIMARY KEY (`id`),
-  KEY `trip_user_idx` (`user_id`),
-  KEY `trip_bike_idx` (`scooter_id`),
-  CONSTRAINT `trip_scooter` FOREIGN KEY (`scooter_id`) REFERENCES `scooter` (`id`) ON DELETE SET NULL ON UPDATE CASCADE,
-  CONSTRAINT `trip_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE SET NULL ON UPDATE CASCADE
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `user_id` int(11) DEFAULT NULL,
+    `scooter_id` int(11) DEFAULT NULL,
+    `distance` float DEFAULT 0,
+    `completed` tinyint(4) DEFAULT 0,
+    `start_position` point DEFAULT NULL,
+    `stop_position` point DEFAULT NULL,
+    `start_time` timestamp NULL DEFAULT current_timestamp(),
+    `stop_time` timestamp NULL DEFAULT NULL,
+    PRIMARY KEY (`id`),
+    KEY `trip_user_idx` (`user_id`),
+    KEY `trip_bike_idx` (`scooter_id`),
+    CONSTRAINT `trip_scooter` FOREIGN KEY (`scooter_id`) REFERENCES `scooter` (`id`) ON DELETE
+    SET NULL ON UPDATE CASCADE,
+        CONSTRAINT `trip_user` FOREIGN KEY (`user_id`) REFERENCES `user` (`id`) ON DELETE
+    SET NULL ON UPDATE CASCADE
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
 --
 -- Dumping data for table `trip`
 --
 
 LOCK TABLES `trip` WRITE;
-/*!40000 ALTER TABLE `trip` DISABLE KEYS */;
-/*!40000 ALTER TABLE `trip` ENABLE KEYS */;
+/*!40000 ALTER TABLE `trip` DISABLE KEYS */
+;
+/*!40000 ALTER TABLE `trip` ENABLE KEYS */
+;
 UNLOCK TABLES;
-
 --
 -- Table structure for table `user`
 --
 
 DROP TABLE IF EXISTS `user`;
-/*!40101 SET @saved_cs_client     = @@character_set_client */;
-/*!40101 SET character_set_client = utf8 */;
+/*!40101 SET @saved_cs_client     = @@character_set_client */
+;
+/*!40101 SET character_set_client = utf8 */
+;
 CREATE TABLE `user` (
-  `id` int(11) NOT NULL AUTO_INCREMENT,
-  `first_name` varchar(45) DEFAULT NULL,
-  `last_name` varchar(45) DEFAULT NULL,
-  `phone_number` int(11) DEFAULT NULL,
-  `email` varchar(45) DEFAULT NULL,
-  `register_date` timestamp NOT NULL DEFAULT current_timestamp(),
-  `social_security` varchar(45) DEFAULT NULL,
-  `enabled` tinyint(4) DEFAULT 1,
-  `credit` float DEFAULT 0,
-  `token` varchar(45) DEFAULT NULL,
-  PRIMARY KEY (`id`)
-) ENGINE=InnoDB DEFAULT CHARSET=utf8mb3;
-/*!40101 SET character_set_client = @saved_cs_client */;
-
+    `id` int(11) NOT NULL AUTO_INCREMENT,
+    `first_name` varchar(45) DEFAULT NULL,
+    `last_name` varchar(45) DEFAULT NULL,
+    `phone_number` int(11) DEFAULT NULL,
+    `email` varchar(45) DEFAULT NULL,
+    `register_date` timestamp NOT NULL DEFAULT current_timestamp(),
+    `social_security` varchar(45) DEFAULT NULL,
+    `enabled` tinyint(4) DEFAULT 1,
+    `credit` float DEFAULT 0,
+    `token` varchar(45) DEFAULT NULL,
+    PRIMARY KEY (`id`)
+) ENGINE = InnoDB DEFAULT CHARSET = utf8mb3;
+/*!40101 SET character_set_client = @saved_cs_client */
+;
 --
 -- Dumping data for table `user`
 --
 
 LOCK TABLES `user` WRITE;
-/*!40000 ALTER TABLE `user` DISABLE KEYS */;
-/*!40000 ALTER TABLE `user` ENABLE KEYS */;
+/*!40000 ALTER TABLE `user` DISABLE KEYS */
+;
+/*!40000 ALTER TABLE `user` ENABLE KEYS */
+;
 UNLOCK TABLES;
-
 --
 -- Dumping routines for database 'vteams'
 --

@@ -43,6 +43,8 @@ app.use((err, req, res) => {
     res.status(status).send({ status, error: msg });
 });
 module.exports = app;
+//för test
+exports.default = app;
 app.listen(PORT, () => {
     console.log(`Express Server started on Port ${app.get('port')} | Environment : ${app.get('env')}`);
 });
