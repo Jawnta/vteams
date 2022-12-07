@@ -1,0 +1,8 @@
+.main {
+    display: flex;
+    justify-content: center;
+    width: 100%;
+    min-height: 80vh;
+    background-color: #F9C87C;
+    color: black;
+}

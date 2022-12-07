@@ -9,6 +9,7 @@ const parkingzones_route_1 = require("./routes/parkingzones.route");
 const scooters_route_1 = require("./routes/scooters.route");
 const trips_route_1 = require("./routes/trips.route");
 const users_route_1 = require("./routes/users.route");
+const login_route_1 = require("./routes/login.route");
 //
 // export default function (app: {use: (arg0: string, arg1: any) => void}) {
 //     /*
@@ -35,5 +36,6 @@ const routes = function (app) {
     app.use('/scooters', scooters_route_1.scooterRouter);
     app.use('/trips', trips_route_1.tripsRouter);
     app.use('/users', users_route_1.userRouter);
+    app.use('/login', login_route_1.loginRouter);
 };
 exports.routes = routes;

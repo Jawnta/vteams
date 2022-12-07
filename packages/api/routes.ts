@@ -7,6 +7,7 @@ import { parkingZonesRouter } from './routes/parkingzones.route';
 import { scooterRouter } from './routes/scooters.route';
 import { tripsRouter } from './routes/trips.route';
 import { userRouter } from './routes/users.route';
+import { loginRouter } from "./routes/login.route";
 //
 // export default function (app: {use: (arg0: string, arg1: any) => void}) {
 //     /*
@@ -35,5 +36,6 @@ export const routes = function (app: {use: (arg0: string, arg1: Router) => void}
     app.use('/scooters', scooterRouter);
     app.use('/trips', tripsRouter);
     app.use('/users', userRouter);
+    app.use('/login', loginRouter);
 
 };
