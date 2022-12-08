@@ -1,8 +1,7 @@
 {
-
-  "host":     "mariadb",
-  "user":     "%",
-  "password": "password",
+  "host":     "localhost",
+  "user":     "snaladm",
+  "password": "lejonkungen",
   "database": "vteams",
   "multipleStatements": true
 }
