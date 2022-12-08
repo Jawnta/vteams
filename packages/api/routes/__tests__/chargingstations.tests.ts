@@ -1,6 +1,9 @@
 import app from "../../index"
 import  request  from "supertest"
-
+const fakeGeo = {
+    long: 100,
+    lat: 100
+}
 describe("get /chargingstations", () => {
 
         it("returns status code 200 and contains json", async () => {
@@ -35,3 +38,17 @@ describe("get /chargingstations/0", () => {
     });
 
 });
+
+describe('Post to endpoints in Chargingstations', () => {
+    it('should create a new chargingstation', async () => {
+      const res = await request(app)
+        .post('/chargingstations')
+        .send({
+            position: fakeGeo,
+            charging_zone_id: 1,
+            occupied: false,
+        })
+      .expect(200)
+      .expect("Content-Type", /json/)
+    })
+})

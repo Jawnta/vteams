@@ -11,9 +11,9 @@ const cors_1 = __importDefault(require("cors"));
 const routes_1 = require("./routes");
 // const upload = multer();
 const app = (0, express_1.default)();
-const PORT = process.env.PORT || 3000;
+// const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
-app.set('port', PORT);
+// app.set('port', PORT);
 app.set('env', NODE_ENV);
 app.use((0, cors_1.default)());
 app.use((0, morgan_1.default)('tiny'));
@@ -42,9 +42,5 @@ app.use((err, req, res) => {
     // log.error(`Error ${status} (${msg}) on ${req.method} ${req.url} with payload ${req.body}.`);
     res.status(status).send({ status, error: msg });
 });
-module.exports = app;
 //för test
 exports.default = app;
-app.listen(PORT, () => {
-    console.log(`Express Server started on Port ${app.get('port')} | Environment : ${app.get('env')}`);
-});

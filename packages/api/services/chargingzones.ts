@@ -65,7 +65,6 @@ export const chargingZones = {
         await db.getConnection();
 
         const sql = `CALL show_charging_zone_city()`;
-
         const res = await db.query(sql, cityName);
         const chargingZones = res.length === 2 ? res[0] : [];
 

@@ -17,7 +17,7 @@ describe("get /chargingzones/city/karlskrona", () => {
 
     it("returns status code 200 and contains json", async () => {
         const res = await request(app)
-        .get("/chargingzones/city/karlskrona")
+        .get("/chargingzones/city/Karlskrona")
         .expect("Content-Type", /json/)
         .expect(200);
     });

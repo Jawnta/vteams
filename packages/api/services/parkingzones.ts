@@ -67,7 +67,7 @@ export const parkingZones = {
 
         const sql = `CALL show_parking_zone_city(?)`;
 
-        const res = await db.query(sql, cityName);
+        const res = await db.query(sql, [cityName]);
         const parkingZones = res.length === 2 ? res[0] : [];
         await db.end();
 
