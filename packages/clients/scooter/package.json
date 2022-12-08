@@ -1,0 +1,20 @@
+{
+  "name": "scooter",
+  "version": "1.0.0",
+  "main": "scooter.js",
+  "scripts": {
+    "test": "echo \"Error: no test specified\" && exit 1",
+    "start": "ts-node server.ts"
+  },
+  "author": "",
+  "license": "ISC",
+  "dependencies": {
+    "express": "^4.18.2",
+    "node-fetch": "^3.3.0",
+    "ts-node": "^10.9.1"
+  },
+  "devDependencies": {
+    "@types/node-fetch": "^2.6.2"
+  },
+  "description": ""
+}
