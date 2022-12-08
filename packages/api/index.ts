@@ -8,10 +8,10 @@ import { routes } from "./routes";
 
 // const upload = multer();
 const app = express();
-const PORT = process.env.PORT || 3000;
+// const PORT = process.env.PORT || 3000;
 const NODE_ENV = process.env.NODE_ENV || 'development';
 
-app.set('port', PORT);
+// app.set('port', PORT);
 app.set('env', NODE_ENV);
 
 app.use(cors());

@@ -36,6 +36,7 @@ router.get('/city/:cityName', async (req, res) => {
     const cityName: string = req.params.cityName;
 
     try {
+        console.log(cityName)
         const result = await parkingZones.getCityCityName(cityName);
         res.status(200).json(result);
     } catch (err) {

@@ -14,8 +14,16 @@ var __importDefault = (this && this.__importDefault) || function (mod) {
 Object.defineProperty(exports, "__esModule", { value: true });
 exports.connect = void 0;
 const mariadb_1 = __importDefault(require("mariadb"));
-const conf_json_1 = __importDefault(require("./config/conf.json"));
+const Conf_json_1 = __importDefault(require("./config/Conf.json"));
+const testConf_json_1 = __importDefault(require("./config/testConf.json"));
+const productionConf_json_1 = __importDefault(require("./config/productionConf.json"));
 const connect = () => __awaiter(void 0, void 0, void 0, function* () {
-    return mariadb_1.default.createPool(conf_json_1.default);
+    if (process.env.NODE_ENV === 'test') {
+        return mariadb_1.default.createPool(testConf_json_1.default);
+    }
+    else if (process.env.NODE_ENV === 'production') {
+        return mariadb_1.default.createPool(productionConf_json_1.default);
+    }
+    return mariadb_1.default.createPool(Conf_json_1.default);
 });
 exports.connect = connect;
