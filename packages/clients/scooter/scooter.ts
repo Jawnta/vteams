@@ -128,6 +128,14 @@ export default class Scooter {
         this.run();
     }
 
+    initiate() {
+        if (this.isRunning()) {
+            this.run();
+        }
+
+        this.sleep();
+    }
+
     getSelf() {
         // api call
         // setEnabled(apicall.enabled)

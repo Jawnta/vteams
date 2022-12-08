@@ -56,6 +56,6 @@ services:
             - notused:/opt/userMobileClient/app/node_modules
         healthcheck:
             disable: true
-
+        build: './packages/clients/userMobileClient/'
 volumes:
     notused:
