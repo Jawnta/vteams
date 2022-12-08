@@ -2,7 +2,7 @@ import Scooter from "./scooter";
 import fetch from "node-fetch";
 
 export default class Pool {
-    protected scooters
+    protected scooters;
 
     getScooters() {
         return this.scooters;
@@ -18,8 +18,8 @@ export default class Pool {
         if (!response.ok) {
             throw new Error(response.statusText);
         }
-        const result = response.json();
-        for (let s of result) {
+        const result = await response.json();
+        for (const s of result) {
             const scooter = new Scooter(
                 s.id,
                 s.enabled,
