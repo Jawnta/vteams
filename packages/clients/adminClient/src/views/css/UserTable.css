@@ -1,0 +1,27 @@
+.user-table table {
+    width: 100%;
+    background: #507aa1;
+    border-radius: 0.25em;
+    border-collapse: collapse;
+}
+.user-table th {
+    border-bottom: 1px solid #364043;
+    color: #ffb900;
+    font-size: 0.85em;
+    font-weight: 600;
+    padding: 0.5em 1em;
+    text-align: left;
+}
+
+.user-table td {
+    color: #fff;
+    font-weight: 400;
+    padding: 0.65em 1em;
+}
+
+.user-table tbody tr {
+    transition: background 0.25s ease;
+}
+.user-table tbody tr:hover {
+    background: #014055;
+}
