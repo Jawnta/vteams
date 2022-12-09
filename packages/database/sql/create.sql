@@ -183,7 +183,7 @@ CREATE TABLE IF NOT EXISTS `vteams`.`trip` (
   `distance` FLOAT NULL DEFAULT 0,
   `completed` TINYINT(1) NULL DEFAULT 0,
   `start_position` POINT NOT NULL,
-  `stop_position` POINT NOT NULL,
+  `stop_position` POINT,
   `start_time` TIMESTAMP NULL DEFAULT CURRENT_TIMESTAMP(),
   `stop_time` TIMESTAMP NULL,
   PRIMARY KEY (`id`),
