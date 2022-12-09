@@ -1,0 +1,27 @@
+.home table {
+    width: 100%;
+    background: #507aa1;
+    border-radius: 0.25em;
+    border-collapse: collapse;
+}
+.home th {
+    border-bottom: 1px solid #364043;
+    color: #ffb900;
+    font-size: 0.85em;
+    font-weight: 600;
+    padding: 0.5em 1em;
+    text-align: left;
+}
+
+.home td {
+    color: #fff;
+    font-weight: 400;
+    padding: 0.65em 1em;
+}
+
+.home tbody tr {
+    transition: background 0.25s ease;
+}
+.home tbody tr:hover {
+    background: #014055;
+}

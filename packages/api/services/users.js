@@ -131,8 +131,10 @@ exports.users = {
         yield db.getConnection();
         const sql = `CALL show_invoice_user(?)`;
         const res = yield db.query(sql, userId);
+        const invoices = res.length === 2 ? res[0] : [];
+        console.log(res);
         yield db.end();
-        return res;
+        return invoices;
     }),
     /**
      *
@@ -144,7 +146,8 @@ exports.users = {
         yield db.getConnection();
         const sql = `CALL show_trip_user(?)`;
         const res = yield db.query(sql, userId);
+        const trips = res.length === 2 ? res[0] : [];
         yield db.end();
-        return res;
+        return trips;
     }),
 };

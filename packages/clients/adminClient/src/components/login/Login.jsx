@@ -3,7 +3,7 @@ import PropTypes from 'prop-types';
 import '../css/Login.css';
 
 const loginUser = async (credentials) => {
-    return fetch('http://localhost:3000/login', {
+    return fetch('/login', {
         method: 'POST',
         headers: {
             'Content-Type': 'application/json'
@@ -23,7 +23,9 @@ export const Login = ({ setToken }) => {
             username,
             password
         });
-        setToken(token);
+        setToken(token.token);
+        sessionStorage.setItem("token", token.token);
+
     }
 
     return(
