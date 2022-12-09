@@ -45,6 +45,7 @@ router.post('/', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
 router.get('/city/:cityName', (req, res) => __awaiter(void 0, void 0, void 0, function* () {
     const cityName = req.params.cityName;
     try {
+        console.log(cityName);
         const result = yield parkingzones_1.parkingZones.getCityCityName(cityName);
         res.status(200).json(result);
     }

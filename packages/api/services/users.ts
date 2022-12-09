@@ -160,10 +160,11 @@ export const users = {
         const sql = `CALL show_invoice_user(?)`;
 
         const res = await db.query(sql, userId);
-
+        const invoices = res.length === 2 ? res[0] : [];
+        console.log(res);
         await db.end();
 
-        return res;
+        return invoices;
     },
 
     /**
@@ -181,8 +182,10 @@ export const users = {
 
         const res = await db.query(sql, userId);
 
+        const trips = res.length === 2 ? res[0] : [];
+
         await db.end();
 
-        return res;
+        return trips;
     },
 };

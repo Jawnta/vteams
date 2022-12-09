@@ -56,7 +56,7 @@ exports.parkingZones = {
         const db = yield (0, dbConnection_1.connect)();
         yield db.getConnection();
         const sql = `CALL show_parking_zone_city(?)`;
-        const res = yield db.query(sql, 'Karlskrona');
+        const res = yield db.query(sql, [cityName]);
         const parkingZones = res.length === 2 ? res[0] : [];
         yield db.end();
         return parkingZones;
