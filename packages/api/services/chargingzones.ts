@@ -97,20 +97,16 @@ export const chargingZones = {
     /**
      *
      * @param options.chargingZoneId The unique identifier of the charging zone
-     * @param options.chargingZone.area required
-     * @param options.chargingZone.id requiredThe unique identifier of a charging zone
-     * @param options.chargingZone.parking_zone_id required
+     * @param options.parking_zone_id requiredThe unique identifier of a charging zone
+     * @param options.area required
 
      */
-    putChargingZoneId: async (options: {
-        chargingZoneId: number;
-        chargingZone: ChargingZoneInterface;
-    }) => {
+    putChargingZoneId: async (options: ChargingZoneInterface) => {
 
         const chargingZoneDetails = [
-            options.chargingZoneId,
-            options.chargingZone.parking_zone_id,
-            options.chargingZone.area
+            options.id,
+            options.parking_zone_id,
+            options.area
         ]
         const db = await connect();
 

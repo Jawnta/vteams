@@ -96,21 +96,17 @@ export const parkingZones = {
 
     /**
      *
-     * @param options.parkingZoneId The unique identifier of the parking zone
      * @param options.parkingZone.area required
-     * @param options.parkingZone.city_id requiredThe unique identifier of a city
-     * @param options.parkingZone.id requiredThe unique identifier of a parking zone
+     * @param options.city_id requiredThe unique identifier of a city
+     * @param options.id required The unique identifier of a parking zone
 
      */
-    putParkingZoneId: async (options: {
-        parkingZoneId: number;
-        parkingZone: ParkingZoneInterface;
-    }) => {
+    putParkingZoneId: async (options: ParkingZoneInterface) => {
 
         const parkingZoneDetails = [
-            options.parkingZoneId,
-            options.parkingZone.city_id,
-            options.parkingZone.area
+            options.id,
+            options.city_id,
+            options.area
         ]
         const db = await connect();
 

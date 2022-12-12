@@ -45,17 +45,13 @@ router.get('/:invoiceId', async (req, res) => {
 
 router.put('/:invoiceId', async (req, res) => {
     const invoice: InvoiceInterface = req.body;
-    const data = {
-        invoiceId: +req.params.invoiceId,
-        invoice: invoice,
-    };
 
     if (!invoice.trip_id || !invoice.status || !invoice.amount) {
         res.sendStatus(400);
     }
 
     try {
-        const result = await invoices.putInvoiceId(data);
+        const result = await invoices.putInvoiceId(invoice);
         res.status(200).send(result);
     } catch (err) {
         return res.status(500).send({

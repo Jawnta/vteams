@@ -63,17 +63,14 @@ router.get('/:chargingStationId', async (req, res) => {
 
 router.put('/:chargingStationId', async (req, res) => {
     const chargingStation: ChargingStationInterface = req.body;
-    const data = {
-        chargingStationId: +req.params.chargingStationId,
-        chargingStation: chargingStation,
-    };
+
 
     if (!chargingStation.charging_zone_id || !chargingStation.position || !chargingStation.occupied) {
         res.sendStatus(400);
     }
 
     try {
-        const result = await chargingStations.putChargingStationId(data);
+        const result = await chargingStations.putChargingStationId(chargingStation);
         res.status(200).json(result);
     } catch (err) {
         return res.status(500).send({

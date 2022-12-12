@@ -77,23 +77,20 @@ export const invoices = {
 
     /**
      *
-     * @param options.invoiceId The unique identifier of the invoice
-     * @param options.invoice.amount required
-     * @param options.invoice.id requiredThe unique identifier of an invoice
-     * @param options.invoice.status required
-     * @param options.invoice.trip_id requiredThe unique identifier of a trip
+     * @param options.id The unique identifier of the invoice
+     * @param options.amount required
+     * @param options.id requiredThe unique identifier of an invoice
+     * @param options.status required
+     * @param options.trip_id requiredThe unique identifier of a trip
 
      */
-    putInvoiceId: async (options: {
-        invoiceId: number;
-        invoice: InvoiceInterface;
-    }) => {
+    putInvoiceId: async (options: InvoiceInterface) => {
 
         const invoiceDetails = [
-            options.invoiceId,
-            options.invoice.trip_id,
-            options.invoice.status,
-            options.invoice.amount
+            options.id,
+            options.trip_id,
+            options.status,
+            options.amount
         ]
         const db = await connect();
 
