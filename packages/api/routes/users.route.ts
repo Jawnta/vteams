@@ -45,7 +45,6 @@ router.get('/:userId', async (req, res) => {
 
 router.put('/:userId', async (req, res) => {
     const user = req.body;
-    console.log(user);
 
     if (!user.first_name || !user.last_name) {
         res.sendStatus(400);

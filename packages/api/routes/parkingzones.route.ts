@@ -61,17 +61,13 @@ router.get('/:parkingZoneId', async (req, res) => {
 
 router.put('/:parkingZoneId', async (req, res) => {
     const parkingZone: ParkingZoneInterface = req.body;
-    const data = {
-        parkingZoneId: +req.params.parkingZoneId,
-        parkingZone: parkingZone,
-    };
 
     if (!parkingZone.city_id || !parkingZone.area) {
         res.sendStatus(400);
     }
 
     try {
-        const result = await parkingZones.putParkingZoneId(data);
+        const result = await parkingZones.putParkingZoneId(parkingZone);
         res.status(200).json(result);
     } catch (err) {
         return res.status(500).send({

@@ -46,17 +46,13 @@ router.get('/:tripId', async (req, res) => {
 
 router.put('/:tripId', async (req, res) => {
     const trip: TripInterface = req.body;
-    const data = {
-        tripId: +req.params.tripId,
-        trip: trip,
-    };
 
     if (!trip.id || !trip.user_id || !trip.scooter_id) {
         res.sendStatus(400);
     }
 
     try {
-        const result = await trips.putTripId(data);
+        const result = await trips.putTripId(trip);
         res.status(200).json(result);
     } catch (err) {
         return res.status(500).send({

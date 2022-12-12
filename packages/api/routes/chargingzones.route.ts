@@ -59,16 +59,13 @@ router.get('/:chargingZoneId', async (req, res) => {
 
 router.put('/:chargingZoneId', async (req, res) => {
     const chargingZone: ChargingZoneInterface = req.body;
-    const data = {
-        chargingZoneId: +req.params.chargingZoneId,
-        chargingZone: chargingZone,
-    };
+
 
     if (!chargingZone.parking_zone_id || !chargingZone.area) {
         res.sendStatus(400);
     }
     try {
-        const result = await chargingZones.putChargingZoneId(data);
+        const result = await chargingZones.putChargingZoneId(chargingZone);
         res.status(200).json(result);
     } catch (err) {
         return res.status(500).send({

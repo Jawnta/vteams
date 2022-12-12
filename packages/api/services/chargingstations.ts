@@ -93,21 +93,18 @@ export const chargingStations = {
 
     /**
      *
-     * @param options.chargingStationId The unique identifier of the charging station
+     * @param options.id The unique identifier of the charging station
      * @param options.chargingStation.charging_zone_id requiredThe unique identifier of a charging zone
-     * @param options.chargingStation.id requiredThe unique identifier of a charging station
-     * @param options.chargingStation.occupied required
-     * @param options.chargingStation.position required
+     * @param options.charging_zone_id requiredThe unique identifier of a charging station
+     * @param options.occupied required
+     * @param options.position required
 
      */
-    putChargingStationId: async (options: {
-        chargingStationId: number;
-        chargingStation: ChargingStationInterface;
-    }) => {
+    putChargingStationId: async (options: ChargingStationInterface) => {
         const chargingStationDetails = [
-            options.chargingStationId,
-            options.chargingStation.charging_zone_id,
-            options.chargingStation.position,
+            options.id,
+            options.charging_zone_id,
+            options.position,
             0
         ]
         const db = await connect();

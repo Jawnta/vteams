@@ -127,35 +127,32 @@ export const scooters = {
 
     /**
      *
-     * @param options.scooterId The unique identifier of the scooter
-     * @param options.scooter.available requiredReturns false if scooter is unavailable
-     * @param options.scooter.charge required
-     * @param options.scooter.city_id requiredThe unique identifier of a city
-     * @param options.scooter.distance_traveled required
-     * @param options.scooter.enabled required
-     * @param options.scooter.first_used required
-     * @param options.scooter.id requiredThe unique identifier of a scooter
-     * @param options.scooter.is_charging required
-     * @param options.scooter.last_position required
-     * @param options.scooter.last_serviced required
+     * @param options.id The unique identifier of the scooter
+     * @param options.available requiredReturns false if scooter is unavailable
+     * @param options.charge required
+     * @param options.city_id requiredThe unique identifier of a city
+     * @param options.distance_traveled required
+     * @param options.enabled required
+     * @param options.first_used required
+     * @param options.id requiredThe unique identifier of a scooter
+     * @param options.is_charging required
+     * @param options.last_position required
+     * @param options.last_serviced required
 
      */
-    putScooterId: async (options: {
-        scooterId: number;
-        scooter: ScooterInterface;
-    }) => {
+    putScooterId: async (options: ScooterInterface) => {
 
         const scooterDetails = [
-            options.scooterId,
-            options.scooter.available,
-            options.scooter.enabled,
-            options.scooter.charge,
-            options.scooter.last_serviced,
-            options.scooter.first_used,
-            options.scooter.distance_traveled,
-            options.scooter.last_position,
-            options.scooter.is_charging,
-            options.scooter.city_id
+            options.id,
+            options.available,
+            options.enabled,
+            options.charge,
+            options.last_serviced,
+            options.first_used,
+            options.distance_traveled,
+            options.last_position,
+            options.is_charging,
+            options.city_id
         ]
         const db = await connect();
 

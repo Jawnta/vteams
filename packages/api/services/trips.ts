@@ -81,30 +81,29 @@ export const trips = {
 
     /**
      *
-     * @param options.tripId The unique identifier of the trip
-     * @param options.trip.completed required
-     * @param options.trip.distance required
-     * @param options.trip.id requiredThe unique identifier of a trip
-     * @param options.trip.scooter_id required
-     * @param options.trip.start_position required
-     * @param options.trip.start_time required
-     * @param options.trip.stop_position required
-     * @param options.trip.stop_time required
-     * @param options.trip.user_id requiredThe unique identifier of a user
+     * @param options.completed required
+     * @param options.distance required
+     * @param options.id requiredThe unique identifier of a trip
+     * @param options.scooter_id required
+     * @param options.start_position required
+     * @param options.start_time required
+     * @param options.stop_position required
+     * @param options.stop_time required
+     * @param options.user_id requiredThe unique identifier of a user
 
      */
-    putTripId: async (options: {tripId: number; trip: TripInterface}) => {
+    putTripId: async (options: TripInterface) => {
 
         const tripDetails = [
-            options.tripId,
-            options.trip.user_id,
-            options.trip.scooter_id,
-            options.trip.distance,
-            options.trip.completed,
-            options.trip.start_position,
-            options.trip.stop_position,
-            options.trip.start_time,
-            options.trip.stop_time
+            options.id,
+            options.user_id,
+            options.scooter_id,
+            options.distance,
+            options.completed,
+            options.start_position,
+            options.stop_position,
+            options.start_time,
+            options.stop_time
         ]
         const db = await connect();
 
