@@ -9,12 +9,8 @@ export const UserDetailsForm = ({...props}) => {
 
 
     const updateUserDetails = async (user) => {
-        const data = {
-            userId: user.id,
-            user: user
-        }
 
-        await updateUser(data);
+        await updateUser(user);
     };
     const handleSubmit = async (event) => {
         event.preventDefault();
