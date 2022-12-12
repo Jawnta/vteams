@@ -1,0 +1,4 @@
+.user-details {
+    display: flex;
+    flex-flow: column wrap;
+}

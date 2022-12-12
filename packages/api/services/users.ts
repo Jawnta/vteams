@@ -101,22 +101,22 @@ export const users = {
      */
     putUserId: async (options: {userId: number; user: UserInterface}) => {
         const userDetails = [
-            options.userId,
+            +options.userId,
             options.user.first_name,
             options.user.last_name,
-            options.user.phone_number || null,
+            +options.user.phone_number || null,
             options.user.email || null,
             options.user.register_date || null,
             options.user.social_security || null,
             options.user.enabled || null,
-            options.user.credit || null,
+            +options.user.credit || null,
             options.user.token || null
         ]
         const db = await connect();
 
         await db.getConnection();
 
-        const sql = `CALL update_user(?, ?, ?, ?, ?, ?, ? ,?, ?, ?)`;
+        const sql = `CALL update_user(?, "?", "?", ?, "?", "?", "?", ?, ?, "?")`;
 
         const res = await db.query(sql, [... userDetails]);
 

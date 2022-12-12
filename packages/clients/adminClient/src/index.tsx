@@ -2,11 +2,11 @@ import ReactDOM from "react-dom";
 import {useEffect, useState} from 'react';
 import { BrowserRouter, Routes, Route } from "react-router-dom";
 import {Layout} from "./components/layout/Layout";
-import {Map} from "./views/Map";
+import {Map} from "./views/map/Map";
 import {Home} from "./views/home/Home";
 import {NoPage} from "./views/NoPage";
 import { Login } from "./components/login/Login";
-import {UserDetails} from "./views/UserDetails";
+import {UserDetails} from "./views/userdetails/UserDetails";
 
 
 export default function App() {
@@ -25,7 +25,7 @@ export default function App() {
                 <Route path="/" element={<Layout />}>
                     <Route index element={<Home />} />
                     <Route path="map" element={<Map />} />
-                    <Route path='users/:id' element={<UserDetails />} />
+                    <Route path='users/:userId' element={<UserDetails />} />
                     <Route path="*" element={<NoPage />} />
                 </Route>
             </Routes>
