@@ -44,13 +44,11 @@ router.get('/:userId', async (req, res) => {
 });
 
 router.put('/:userId', async (req, res) => {
-    const user: UserInterface = req.body;
-    const data = {
-        userId: +req.params.userId,
-        user: user,
-    };
+    const data = req.body;
+    console.log(data, "<----");
+    console.log(data.user.first_name, "<-- first name");
 
-    if (!user.first_name && !user.last_name) {
+    if (!data.user.first_name || !data.last_name) {
         res.sendStatus(400);
     }
 

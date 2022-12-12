@@ -1,22 +1,27 @@
 import React, {useEffect, useState} from 'react';
 import "../css/Home.css";
 
-import {Link} from "react-router-dom";
 import {UserTable} from "./UserTable";
 import {UserForm} from "./UserForm";
 
 
 
 export const Home = ({...props}) => {
-    const { children } = this.props
+
     const [users, setUsers] = useState([]);
     const [hasSearched, setHasSearched] = useState(false);
+    const [userId, setUserId] = useState("");
+    const [firstName, setFirstName] = useState("");
+    const [lastName, setLastName] = useState("");
+
+
+
     useEffect(() => {
-        const getUsersLol = async () => {
+        const getAllUsers = async () => {
         const response = await fetch(`/users/`);
         return await response.json();
         }
-        getUsersLol().then(r => setUsers(r));
+        getAllUsers().then(r => setUsers(r));
 
     },[])
 
@@ -25,14 +30,22 @@ export const Home = ({...props}) => {
         <div className="home-wrapper">
         <UserForm
             setHasSearched={setHasSearched}
+            userId={userId}
+            setUserId={setUserId}
+            setFirstName={setFirstName}
+            setLastName={setLastName}
+
 
         />
 
             {
                 <UserTable
                 hasSearched={hasSearched}
+                setHasSearched={setHasSearched}
                 users={users}
-                filterId={props.userId}
+                userId={userId}
+                firstName={firstName}
+                lastName={lastName}
                 />
             }
         </div>
