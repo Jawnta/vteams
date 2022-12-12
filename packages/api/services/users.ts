@@ -86,37 +86,36 @@ export const users = {
 
     /**
      *
-     * @param options.userId The unique identifier of the user
-     * @param options.user.creditCurrent credit balance
-     * @param options.user.email required
-     * @param options.user.enabled requiredReturns false if user is disabled
-     * @param options.user.first_name required
-     * @param options.user.id requiredThe unique identifier of a user
-     * @param options.user.last_name required
-     * @param options.user.phone_number required
-     * @param options.user.register_date required
-     * @param options.user.social_security requiredSocial security number such as Swedish personnummer
-     * @param options.user.tokenLogin token for authentication
+     * @param options.id The unique identifier of the user
+     * @param options.creditCurrent credit balance
+     * @param options.email required
+     * @param options.enabled requiredReturns false if user is disabled
+     * @param options.first_name required
+     * @param options.id requiredThe unique identifier of a user
+     * @param options.last_name required
+     * @param options.phone_number required
+     * @param options.register_date required
+     * @param options.social_security requiredSocial security number such as Swedish personnummer
+     * @param options.tokenLogin token for authentication
 
      */
-    putUserId: async (options: {userId: number; user: UserInterface}) => {
+    putUserId: async (options: UserInterface) => {
         const userDetails = [
-            +options.userId,
-            options.user.first_name,
-            options.user.last_name,
-            +options.user.phone_number || null,
-            options.user.email || null,
-            options.user.register_date || null,
-            options.user.social_security || null,
-            options.user.enabled || null,
-            +options.user.credit || null,
-            options.user.token || null
+            options.id,
+            options.first_name,
+            options.last_name,
+            options.phone_number || null,
+            options.email || null,
+            options.social_security || null,
+            options.enabled || null,
+            options.credit || null,
+            options.token || null
         ]
         const db = await connect();
 
         await db.getConnection();
 
-        const sql = `CALL update_user(?, "?", "?", ?, "?", "?", "?", ?, ?, "?")`;
+        const sql = `CALL update_user(?, ?, ?, ?, ?, ?, ?, ?, ?)`;
 
         const res = await db.query(sql, [... userDetails]);
 

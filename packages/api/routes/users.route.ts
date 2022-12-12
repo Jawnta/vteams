@@ -44,16 +44,15 @@ router.get('/:userId', async (req, res) => {
 });
 
 router.put('/:userId', async (req, res) => {
-    const data = req.body;
-    console.log(data, "<----");
-    console.log(data.user.first_name, "<-- first name");
+    const user = req.body;
+    console.log(user);
 
-    if (!data.user.first_name || !data.last_name) {
+    if (!user.first_name || !user.last_name) {
         res.sendStatus(400);
     }
 
     try {
-        const result = await users.putUserId(data);
+        const result = await users.putUserId(user);
         res.status(200).json(result);
     } catch (err) {
         return res.status(500).send({

@@ -1,3 +1,8 @@
+.home-wrapper {
+    display: flex;
+    width: 70%;
+    flex-flow: column wrap;
+}
 .home table {
     width: 100%;
     background: #507aa1;
