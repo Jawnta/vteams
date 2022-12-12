@@ -1,36 +1,40 @@
+import fetch from "node-fetch";
+
 export default class Scooter {
     protected id: number;
-    protected enabled: boolean;
     protected available: boolean;
-    protected inMaintenance: boolean;
-    protected position: string; //change this to array?
-    protected speed: number;
+    protected enabled: boolean;
     protected charge: number;
-/*    protected currentUser: number | null;*/
+    protected distance_traveled: number;
+    protected last_position: string;
+    protected is_charging: boolean;
+    protected city_id: number;
 
-    constructor(id: number, enabled: boolean,
-                available: boolean, inMaintenance: boolean,
-                position: string, speed: number,
-                charge: number)
+    constructor(id: number, available: boolean, enabled: boolean,
+                charge: number,
+                distanceTraveled: number, lastPosition: string,
+                isCharging: boolean, cityId: number)
     {
         this.id = id;
-        this.enabled = enabled;
         this.available = available;
-        this.inMaintenance = inMaintenance;
-        this.position = position;
-        this.speed = speed;
+        this.enabled = enabled;
         this.charge = charge;
+        this.distance_traveled = distanceTraveled;
+        this.last_position = lastPosition;
+        this.is_charging = isCharging;
+        this.city_id = cityId;
     }
 
     get(): object {
         return {
             id: this.getId(),
-            enabled: this.getEnabled(),
             available: this.getAvailable(),
-            inMaintenance: this.getInMaintenance(),
-            position: this.getPosition(),
-            speed: this.getSpeed(),
-            charge: this.getCharge()
+            enabled: this.getEnabled(),
+            charge: this.getCharge(),
+            distance_traveled: this.getDistanceTraveled(),
+            last_position: this.getLastPosition(),
+            is_charging: this.getIsCharging(),
+            city_id: this.getCityId()
         }
     }
 
@@ -58,28 +62,36 @@ export default class Scooter {
         this.available = available;
     }
 
-    getInMaintenance(): boolean {
-        return this.inMaintenance;
+    getDistanceTraveled(): number {
+        return this.distance_traveled;
     }
 
-    setInMaintenance(inMaintenance: boolean) {
-        this.inMaintenance = inMaintenance;
+    setDistanceTraveled(distanceTraveled: number) {
+        this.distance_traveled = distanceTraveled;
     }
 
-    getPosition(): string {
-        return this.position;
+    getLastPosition(): string {
+        return this.last_position;
     }
 
-    setPosition(position: string) {
-        this.position = position;
+    setLastPosition(lastPosition: string) {
+        this.last_position = lastPosition;
     }
 
-    getSpeed(): number {
-        return this.speed;
+    getIsCharging(): boolean {
+        return this.is_charging;
     }
 
-    setSpeed(speed: number) {
-        this.speed = speed;
+    setIsCharging(isCharging: boolean) {
+        this.is_charging = isCharging;
+    }
+
+    getCityId(): number {
+        return this.city_id;
+    }
+
+    setCityId(cityId: number) {
+        this.city_id = cityId;
     }
 
     getCharge(): number {
@@ -90,59 +102,29 @@ export default class Scooter {
         this.charge = charge;
     }
 
-    isRunning(): boolean {
-        return this.getSpeed() > 0;
-    }
+    async sendReport() {
+        const data = this.get();
+        const requestOptions = {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(data)  
+        };
 
-    sendReport(): void {
-        // SEND DATA TO API
-        return;
-    }
-
-    assign(userId: number) {
-        if (this.getAvailable()) {
-            this.setAvailable(false);
-            this.run();
-            // return success
+        const response = await fetch(`http://localhost:1337/${this.getId()}`, requestOptions);
+        if (!response.ok) {
+            throw new Error(response.statusText);
         }
-        // return error
-    }
-
-    deallocate() {
-        // if parking zone okay
-        this.sleep();
-    }
-
-    run() {
-        this.setCharge(this.getCharge() - 0.1);
-        this.sendReport();
-        setTimeout(() => this.run(), 2000);
-    }
-
-    sleep() {
-        if (!this.isRunning()) {
-            this.setCharge(this.getCharge() - 0.1);
-            this.sendReport();
-            setTimeout(() => this.sleep(), 60000);
-        }
-        this.run();
     }
 
     initiate() {
-        if (this.isRunning()) {
-            this.run();
+        if (this.getAvailable()) {
+            this.setCharge(this.getCharge() - 0.1);
+            this.sendReport();
+            setTimeout(() => this.initiate(), 5000);
+        } else {
+            this.setCharge(this.getCharge() - 1);
+            this.sendReport();
+            setTimeout(() => this.initiate(), 2500);
         }
-
-        this.sleep();
-    }
-
-    getSelf() {
-        // api call
-        // setEnabled(apicall.enabled)
     }
 }
-
-// GET scooters from database
-// for scooter in db:
-//      scoot = new Scooter(scooter.id, scooter.position);
-//      scoot.sleep();
