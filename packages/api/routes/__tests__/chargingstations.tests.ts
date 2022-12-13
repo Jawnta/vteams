@@ -1,9 +1,6 @@
 import app from "../../index"
 import  request  from "supertest"
-const fakeGeo = {
-    long: 100,
-    lat: 100
-}
+const fakeGeo = '{ "type": "Point", "coordinates": [15.623310868629314, 56.17424951262469]}'
 describe("get /chargingstations", () => {
 
         it("returns status code 200 and contains json", async () => {
@@ -15,24 +12,22 @@ describe("get /chargingstations", () => {
 
 });
 
-//get chargingstations from zone 0
-describe("get /chargingstations/zone/0'", () => {
+describe("get /chargingstations/zone/1'", () => {
 
     it("returns status code 200 and contains json", async () => {
         const res = await request(app)
-        .get("/chargingstations/zone/0")
+        .get("/chargingstations/zone/1")
         .expect("Content-Type", /json/)
         .expect(200);
     });
 
 });
 
-// get chargingstation with id 0
-describe("get /chargingstations/0", () => {
+describe("get /chargingstations/1", () => {
 
     it("returns status code 200 and contains json", async () => {
         const res = await request(app)
-        .get("/chargingstations/0")
+        .get("/chargingstations/1")
         .expect("Content-Type", /json/)
         .expect(200);
     });
