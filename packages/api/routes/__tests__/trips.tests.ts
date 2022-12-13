@@ -12,11 +12,11 @@ describe("get /trips", () => {
 
 });
 
-describe("get /trips/0", () => {
+describe("get /trips/1", () => {
 
     it("returns status code 200 and contains json", async () => {
         const res = await request(app)
-        .get("/trips/0")
+        .get("/trips/1")
         .expect("Content-Type", /json/)
         .expect(200);
     });

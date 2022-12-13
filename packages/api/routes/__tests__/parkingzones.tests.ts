@@ -11,7 +11,6 @@ describe("get /parkingzones", () => {
         });
 });
 
-
 describe("get /parkingzones/city/karlskrona", () => {
 
     it("returns status code 200 and contains json", async () => {
@@ -22,11 +21,11 @@ describe("get /parkingzones/city/karlskrona", () => {
     });
 });
 
-describe("get /parkingzones/0", () => {
+describe("get /parkingzones/1", () => {
 
     it("returns status code 200 and contains json", async () => {
         const res = await request(app)
-        .get("/parkingzones/0")
+        .get("/parkingzones/1")
         .expect("Content-Type", /json/)
         .expect(200);
     });

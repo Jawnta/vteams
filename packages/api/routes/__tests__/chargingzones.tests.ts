@@ -12,7 +12,6 @@ describe("get /chargingzones", () => {
 
 });
 
-//get chargingzones from karlskrona
 describe("get /chargingzones/city/karlskrona", () => {
 
     it("returns status code 200 and contains json", async () => {
@@ -24,13 +23,12 @@ describe("get /chargingzones/city/karlskrona", () => {
 
 });
 
-describe("get /chargingzones/0", () => {
+describe("get /chargingzones/1", () => {
 
     it("returns status code 200 and contains json", async () => {
         const res = await request(app)
-        .get("/chargingzones/0")
+        .get("/chargingzones/1")
         .expect("Content-Type", /json/)
         .expect(200);
     });
-
 });
