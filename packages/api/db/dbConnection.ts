@@ -1,5 +1,5 @@
 import mariadb from 'mariadb';
-import conf from "./config/Conf.json"
+import conf from "./config/conf.json"
 import testConf from "./config/testConf.json"
 import prodConf from "./config/productionConf.json"
 

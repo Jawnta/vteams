@@ -2,18 +2,15 @@ version: '3'
 
 services:
     mariadb:
-        image: lscr.io/linuxserver/mariadb:latest
+        image: mariadb:latest
         container_name: mariadb
         environment:
-            - PUID=1000
-            - PGID=1000
             - MYSQL_ROOT_PASSWORD=password
             - MYSQL_USER=snaladm #optional
             - MYSQL_PASSWORD=lejonkungen #optional
             - MYSQL_DATABASE=vteams
-            - TZ=Europe/London
         volumes:
-            - ./packages/database/sql/init-database.sql:/config/initdb.d/initdb.sql
+            - ./packages/database/sql/init-database.sql:/docker-entrypoint-initdb.d/initdb.sql
     api:
         image: 'api'
         container_name: 'api_server'
