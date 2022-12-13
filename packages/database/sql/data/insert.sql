@@ -3,6 +3,7 @@ use vteams;
 DELETE FROM charging_station;
 DELETE FROM charging_zone;
 DELETE FROM parking_zone;
+DELETE FROM invoice;
 DELETE FROM trip;
 DELETE FROM scooter;
 DELETE FROM user;
