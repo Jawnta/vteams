@@ -1,4 +1,3 @@
-import fetch from "node-fetch";
 import {CoordinatesInterface} from "./interface/CoordinatesInterface";
 
 export default class Scooter {

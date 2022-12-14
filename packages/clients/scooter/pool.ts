@@ -1,5 +1,4 @@
 import Scooter from "./scooter";
-import fetch from "node-fetch";
 import ScooterInterface from "./interface/ScooterInterface";
 
 export default class Pool {
@@ -28,7 +27,7 @@ export default class Pool {
             })
     }
 
-    async populate(res: Array<ScooterInterface>) {
+    async populate(res: ScooterInterface[]) {
         const timer = (ms: number | undefined) => new Promise(res => setTimeout(res, ms))
         if (Array.isArray(res)) {
 /*            const scooter = new Scooter(
