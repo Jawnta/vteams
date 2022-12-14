@@ -13,6 +13,9 @@ export const Navbar = () => {
                     <li>
                         <Link to="/map">Map</Link>
                     </li>
+                    <li>
+                        <Link to="/scooters">Scooters</Link>
+                    </li>
                 </ul>
             </nav>
         </div>

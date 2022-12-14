@@ -1,11 +1,10 @@
-.user-details {
+.user-details-invoices-wrapper {
     display: flex;
     flex-flow: column wrap;
     width: 100%;
+
 }
 
-.user-details-main {
-    display: flex;
-    align-self: center;
+.user-details-invoices {
     padding: 20px;
 }

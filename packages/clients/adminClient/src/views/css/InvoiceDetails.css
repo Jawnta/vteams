@@ -1,0 +1,8 @@
+.invoice-details-wrapper {
+    display: flex;
+    flex-flow: column wrap;
+}
+
+.invoice-details {
+    padding: 20px;
+}

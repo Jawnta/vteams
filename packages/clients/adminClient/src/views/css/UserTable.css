@@ -1,12 +1,26 @@
+.user-table-wrapper {
+    height: 500px;
+    background-color: #ff9404;
+    margin-bottom: 20px;
+}
+
+.user-table {
+    max-height: 100%;
+    overflow: auto;
+}
+
 .user-table table {
     width: 100%;
-    background: #507aa1;
+    background: #ff9404;
     border-radius: 0.25em;
     border-collapse: collapse;
+    max-height: 100%;
 }
+
+
 .user-table th {
     border-bottom: 1px solid #364043;
-    color: #ffb900;
+    color: white;
     font-size: 0.85em;
     font-weight: 600;
     padding: 0.5em 1em;
@@ -23,5 +37,5 @@
     transition: background 0.25s ease;
 }
 .user-table tbody tr:hover {
-    background: #014055;
+    background: black;
 }

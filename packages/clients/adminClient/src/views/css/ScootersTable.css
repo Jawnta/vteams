@@ -1,0 +1,59 @@
+.scooter-table-main h2 {
+    margin: 10px;
+    text-align: center;
+}
+.comp-wrapper {
+    display: flex;
+    height: 500px;
+    margin-bottom: 20px;
+}
+.scooter-table-wrapper {
+    display: flex;
+    flex-flow: column wrap;
+    height: 500px;
+    min-width: 400px;
+    margin: 10px;
+    background-color: #ff9404;
+}
+
+
+.scooter-table {
+    display: flex;
+    height: auto;
+    flex-flow: column;
+    flex: 1 0 30%;
+    max-height: 100%;
+    overflow: auto;
+    width: 100%;
+}
+
+.scooter-table table {
+    width: 100%;
+    background: #ff9404;
+    border-radius: 0.25em;
+    border-collapse: collapse;
+    max-height: 100%;
+}
+
+
+.scooter-table th {
+    border-bottom: 1px solid #364043;
+    color: white;
+    font-size: 0.85em;
+    font-weight: 600;
+    padding: 0.5em 1em;
+    text-align: left;
+}
+
+.scooter-table td {
+    color: #fff;
+    font-weight: 400;
+    padding: 0.65em 1em;
+}
+
+.scooter-table tbody tr {
+    transition: background 0.25s ease;
+}
+.scooter-table tbody tr:hover {
+    background: black;
+}

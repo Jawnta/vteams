@@ -30,10 +30,10 @@ export const Home = ({...props}) => {
         <div className="home-wrapper">
         <UserForm
             setHasSearched={setHasSearched}
-            userId={userId}
             setUserId={setUserId}
             setFirstName={setFirstName}
             setLastName={setLastName}
+
 
 
         />

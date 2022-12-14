@@ -1,25 +1,23 @@
-import React from 'react';
+import React, {useState} from 'react';
 import "../css/UserForm.css";
 
 
 
 export const UserForm = ({...props}) => {
 
-    let filters = {
-        userId: 0,
-        firstName: "",
-        lastName: "",
-        phoneNumber: null,
-
-    };
+    const [filterId, setFilterId] = useState(null);
+    const [filterFirstName, setFilterFirstName] = useState("");
+    const [filterLastName, setFilterLastName] = useState("");
 
     const handleSubmit = (event) => {
         event.preventDefault();
-        props.setUserId(filters.userId);
-        props.setFirstName(filters.firstName);
-        props.setLastName(filters.lastName);
+        props.setUserId(filterId);
+        props.setFirstName(filterFirstName);
+        props.setLastName(filterLastName);
         props.setHasSearched(true);
-
+        setFilterId("");
+        setFilterFirstName("");
+        setFilterLastName("");
     };
 
 
@@ -33,8 +31,8 @@ export const UserForm = ({...props}) => {
                         id="f_userId"
                         placeholder="User id..."
                         type="text"
-                        value={props.userId}
-                        onChange={(e) => filters['userId'] = +e.target.value}
+                        value={filterId}
+                        onChange={(e) => setFilterId(+e.target.value)}
                     />
                         </div>
                         <div className="user-form-input">
@@ -43,8 +41,8 @@ export const UserForm = ({...props}) => {
                         id="f_firstName"
                         placeholder="First name..."
                         type="text"
-                        value={props.firstName}
-                        onChange={(e) => filters['firstName'] = e.target.value}
+                        value={filterFirstName}
+                        onChange={(e) => setFilterFirstName(e.target.value)}
                     />
                         </div>
                         <div className="user-form-input">
@@ -53,8 +51,8 @@ export const UserForm = ({...props}) => {
                         id="f_lastName"
                         placeholder="Last name..."
                         type="text"
-                        value={props.lastName}
-                        onChange={(e) => filters['lastName'] = e.target.value}
+                        value={filterLastName}
+                        onChange={(e) => setFilterLastName(e.target.value)}
                     />
                     </div>
                     </div>

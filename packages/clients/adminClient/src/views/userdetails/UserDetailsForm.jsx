@@ -1,11 +1,12 @@
 import React from 'react';
 import "../css/UserDetailsForm.css";
 import {updateUser} from "../../endpoints/UserDetailsEndpoints";
+import { useOutletContext } from "react-router-dom";
 
 
 
-export const UserDetailsForm = ({...props}) => {
-
+export const UserDetailsForm = () => {
+    const [user, setUser] = useOutletContext();
 
 
     const updateUserDetails = async (user) => {
@@ -22,7 +23,7 @@ export const UserDetailsForm = ({...props}) => {
 
     const updateState = (key, value) => {
 
-        props.setUser({ ...props.user, [key]: value })
+        setUser({ ...user, [key]: value })
     }
 
 
@@ -36,7 +37,7 @@ export const UserDetailsForm = ({...props}) => {
                     id="f_userId"
                     placeholder="User id..."
                     type="text"
-                    value={props.user.id}
+                    value={user.id}
                     onChange={e => updateState("id", e.target.value)}
                 />
                 </div>
@@ -46,7 +47,7 @@ export const UserDetailsForm = ({...props}) => {
                     id="f_firstName"
                     placeholder="First name..."
                     type="text"
-                    value={props.user.first_name}
+                    value={user.first_name}
                     onChange={e => updateState("first_name", e.target.value)}
                 />
                 </div>
@@ -56,7 +57,7 @@ export const UserDetailsForm = ({...props}) => {
                     id="f_lastName"
                     placeholder="Last name..."
                     type="text"
-                    value={props.user.last_name}
+                    value={user.last_name}
                     onChange={e => updateState("last_name", e.target.value)}
                 />
                 </div>
@@ -66,7 +67,7 @@ export const UserDetailsForm = ({...props}) => {
                     id="f_phoneNumber"
                     placeholder="Phone number..."
                     type="text"
-                    value={props.user.phone_number}
+                    value={user.phone_number}
                     onChange={e => updateState("phone_number", e.target.value)}
                 />
                 </div>
@@ -76,7 +77,7 @@ export const UserDetailsForm = ({...props}) => {
                     id="f_email"
                     placeholder="Email..."
                     type="text"
-                    value={props.user.email}
+                    value={user.email}
                     onChange={e => updateState("email", e.target.value)}
                 />
                 </div>
@@ -86,7 +87,7 @@ export const UserDetailsForm = ({...props}) => {
                     id="f_registerDate"
                     placeholder="Register date..."
                     type="text"
-                    value={props.user.register_date}
+                    value={user.register_date}
                     onChange={e => updateState("register_date", e.target.value)}
                 />
                 </div>
@@ -96,7 +97,7 @@ export const UserDetailsForm = ({...props}) => {
                     id="f_socialSecurity"
                     placeholder="Social security number..."
                     type="text"
-                    value={props.user.social_security}
+                    value={user.social_security}
                     onChange={e => updateState("social_security", e.target.value)}
                 />
                 </div>
@@ -106,7 +107,7 @@ export const UserDetailsForm = ({...props}) => {
                     id="f_active"
                     placeholder="Last name..."
                     type="text"
-                    value={props.user.active ? "No" : "Yes"}
+                    value={user.active ? "No" : "Yes"}
                     onChange={e => updateState("active", e.target.value)}
                 />
                 </div>
@@ -116,7 +117,7 @@ export const UserDetailsForm = ({...props}) => {
                     id="f_credit"
                     placeholder="Balance..."
                     type="text"
-                    value={props.user.credit}
+                    value={user.credit}
                     onChange={e => updateState("credit", e.target.value)}
                 />
                 </div>
@@ -124,7 +125,7 @@ export const UserDetailsForm = ({...props}) => {
 
                 <div className="user-details-button">
                 <button
-                    onClick={async (e) => {await handleSubmit(e); await updateUserDetails(props.user);}}>Update customer
+                    onClick={async (e) => {await handleSubmit(e); await updateUserDetails(user);}}>Update customer
                 </button>
                 </div>
             </form>

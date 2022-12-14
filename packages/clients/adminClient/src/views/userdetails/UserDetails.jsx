@@ -1,9 +1,10 @@
 import React, {useEffect, useState} from 'react';
-import {UserDetailsForm} from "./UserDetailsForm";
 import { useParams} from 'react-router-dom';
 import "../css/UserDetails.css";
+import {UserDetailsNav} from "./UserDetailsNav";
+import {UserDetailsMain} from "./UserDetailsMain";
 
-export const UserDetails = ({...props}) => {
+export const UserDetails = () => {
     const [user, setUser] = useState([]);
 
     const params = useParams();
@@ -19,11 +20,16 @@ export const UserDetails = ({...props}) => {
 
     return (
         <div className="user-details">
-            <h1>Customer details</h1>
-            <UserDetailsForm
+            <UserDetailsNav
+            userId={params.userId}
+            />
+            <div className="user-details-main">
+            <UserDetailsMain
                 user={user}
                 setUser={setUser}
+                userId={params.userId}
             />
+            </div>
         </div>
     );
 }
