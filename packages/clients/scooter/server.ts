@@ -1,7 +1,6 @@
 import express from 'express';
 import Pool from "./pool";
 import cookieParser from "cookie-parser";
-import http from 'http';
 
 const PORT = process.env.PORT || 1337;
 const app = express();

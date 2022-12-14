@@ -31,12 +31,28 @@ export default class Pool {
     async populate(res: Array<ScooterInterface>) {
         const timer = (ms: number | undefined) => new Promise(res => setTimeout(res, ms))
         if (Array.isArray(res)) {
+/*            const scooter = new Scooter(
+                res[0].id,
+                res[0].available,
+                res[0].enabled,
+                res[0].charge,
+                res[0].last_serviced,
+                res[0].first_used,
+                res[0].distance_traveled,
+                res[0].last_position,
+                res[0].is_charging,
+                res[0].city_id
+            )
+            scooter.initiate();
+            this.scooters[scooter.getId()] = scooter;*/
             for (const s of res) {
                 const scooter = new Scooter(
                     s.id,
                     s.available,
                     s.enabled,
                     s.charge,
+                    s.last_serviced,
+                    s.first_used,
                     s.distance_traveled,
                     s.last_position,
                     s.is_charging,
@@ -65,6 +81,8 @@ export default class Pool {
             scooter.available,
             scooter.enabled,
             scooter.charge,
+            scooter.last_serviced,
+            scooter.first_used,
             scooter.distance_traveled,
             scooter.last_position,
             scooter.is_charging,
