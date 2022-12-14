@@ -66,6 +66,15 @@ WHERE id = u_id;
 END
 ;;
 
+-- Get specific user
+-- GET /users/:token
+CREATE PROCEDURE show_user_token(u_token VARCHAR(45)) READS SQL DATA BEGIN
+SELECT *
+FROM user
+WHERE token = u_token;
+END
+;;
+
 -- Update user data
 -- PUT /users/:userId
 CREATE PROCEDURE update_user(
