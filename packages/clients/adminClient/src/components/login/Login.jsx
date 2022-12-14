@@ -30,7 +30,7 @@ export const Login = ({ setToken }) => {
 
     return(
         <div className="login-wrapper">
-            <h1>Please Log In</h1>
+            <div className="login">
             <form onSubmit={handleSubmit}>
                 <label>
                     <p>Username</p>
@@ -41,9 +41,10 @@ export const Login = ({ setToken }) => {
                     <input type="password" onChange={e => setPassword(e.target.value)} />
                 </label>
                 <div>
-                    <button type="submit">Submit</button>
+                    <button className="login-button" type="submit">Login</button>
                 </div>
             </form>
+        </div>
         </div>
     )
 }

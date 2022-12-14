@@ -31,7 +31,7 @@ export const UserTable = ({...props}) => {
 
     const navigate = useNavigate();
     const navigateUserDetails = (id) =>{
-        navigate(`/users/${id}`);
+        navigate(`/users/${id}/overview`);
     };
 
 
@@ -57,6 +57,7 @@ export const UserTable = ({...props}) => {
 
 
     return (
+            <div className="user-table-wrapper">
             <div className="user-table">
                 <table>
                     <thead>
@@ -76,6 +77,7 @@ export const UserTable = ({...props}) => {
 
                     </tbody>
                 </table>
+            </div>
             </div>
     );
 }
