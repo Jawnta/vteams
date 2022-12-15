@@ -1,5 +1,5 @@
 import {ParkingZoneInterface} from '../interfaces/parkingzoneInterface';
-import {connect} from "../db/dbConnection";
+import {fetchConn} from "../db/dbConnection";
 
 export const parkingZones = {
     /**
@@ -8,18 +8,11 @@ export const parkingZones = {
 
      */
     getParkingZones: async () => {
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL show_parking_zone_all()`;
-
-        const res = await db.query(sql);
-
+        const res = await conn.query(sql);
         const parkingZones = res.length === 2 ? res[0] : [];
-
-        await db.end();
-  
+        await conn.release();
 
         return parkingZones;
 
@@ -34,22 +27,15 @@ export const parkingZones = {
 
      */
     postParkingZones: async (options: ParkingZoneInterface) => {
-
         const parkingZoneDetails = [
             options.city_id,
             options.area
         ]
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL parking_zone_add(?, ?)`;
-
-        const res = await db.query(sql, [... parkingZoneDetails]);
-
+        const res = await conn.query(sql, [... parkingZoneDetails]);
         const newParkingZone = res[0];
-
-        await db.end();
+        await conn.release();
 
         return newParkingZone;
     },
@@ -60,16 +46,11 @@ export const parkingZones = {
 
      */
     getCityCityName: async (cityName: string) => {
-
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL show_parking_zone_city(?)`;
-
-        const res = await db.query(sql, [cityName]);
+        const res = await conn.query(sql, [cityName]);
         const parkingZones = res.length === 2 ? res[0] : [];
-        await db.end();
+        await conn.release();
 
         return parkingZones;
     },
@@ -80,16 +61,11 @@ export const parkingZones = {
 
      */
     getParkingZoneId: async (parkingZoneId: number) => {
-
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL show_parking_zone_id(?)`;
-
-        const res = await db.query(sql, parkingZoneId);
+        const res = await conn.query(sql, parkingZoneId);
         const parkingZone = res.length === 2 ? res[0] : [];
-        await db.end();
+        await conn.release();
 
         return parkingZone;
     },
@@ -102,22 +78,16 @@ export const parkingZones = {
 
      */
     putParkingZoneId: async (options: ParkingZoneInterface) => {
-
         const parkingZoneDetails = [
             options.id,
             options.city_id,
             options.area
         ]
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL update_parking_zone(?, ?, ?)`;
-
-        const res = await db.query(sql, [... parkingZoneDetails]);
-
+        const res = await conn.query(sql, [... parkingZoneDetails]);
         const updatedParkingZone = res[0];
-        await db.end();
+        await conn.release();
 
         return updatedParkingZone;
     },
@@ -128,16 +98,10 @@ export const parkingZones = {
 
      */
     deleteParkingZoneId: async (parkingZoneId: number) => {
-
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL delete_parking_zone(?)`;
-
-        const res = await db.query(sql, parkingZoneId);
-
-        await db.end();
+        const res = await conn.query(sql, parkingZoneId);
+        await conn.release();
 
         return res;
     },

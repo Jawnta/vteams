@@ -3,5 +3,6 @@
   "user":     "snaladm",
   "password": "lejonkungen",
   "database": "vteams",
-  "multipleStatements": true
+  "multipleStatements": true,
+  "connectionLimit": 100
 }
