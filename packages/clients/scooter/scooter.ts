@@ -35,12 +35,17 @@ export default class Scooter {
             available: this.getAvailable(),
             enabled: this.getEnabled(),
             charge: this.getCharge(),
+            first_used: this.getFirstUsed(),
             last_serviced: this.getLastServiced(),
             distance_traveled: this.getDistanceTraveled(),
             last_position: this.getLastPosition(),
             is_charging: this.getIsCharging(),
             city_id: this.getCityId()
         }
+    }
+
+    getFirstUsed(): Date | null {
+        return this.first_used;
     }
 
     getId(): number {
@@ -118,7 +123,7 @@ export default class Scooter {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
         };
-
+        console.log(requestOptions.body);
         const response = await fetch(`http://localhost:3000/scooters/${this.getId()}`, requestOptions);
         if (!response.ok) {
             throw new Error(response.statusText);
@@ -127,13 +132,13 @@ export default class Scooter {
 
     initiate() {
         if (this.getAvailable()) {
-            this.setCharge(this.getCharge() - 1);
+            this.setCharge(this.getCharge() - 0.1);
             this.sendReport();
-            setTimeout(() => this.initiate(), 5000);
+            setTimeout(() => this.initiate(), 50);
         } else {
-            this.setCharge(this.getCharge() - 1);
+            this.setCharge(this.getCharge() - 0.1);
             this.sendReport();
-            setTimeout(() => this.initiate(), 2500);
+            setTimeout(() => this.initiate(), 50);
         }
     }
 }

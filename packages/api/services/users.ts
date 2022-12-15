@@ -1,5 +1,5 @@
 import {UserInterface} from '../interfaces/userInterface';
-import {connect} from "../db/dbConnection";
+import {connect, fetchConn} from "../db/dbConnection";
 
 export const users = {
     /**
@@ -8,18 +8,11 @@ export const users = {
 
      */
     getUsers: async () => {
-
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL show_user_all()`;
-
-        const res = await db.query(sql);
+        const res = await conn.query(sql);
         const users = res.length === 2 ? res[0] : [];
-
-        await db.end();
-
+        await conn.release();
 
         return users;
     },
@@ -49,17 +42,11 @@ export const users = {
             options.social_security || null,
             options.token || null
         ]
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL add_user(?, ?, ?, ?, ?, ?)`;
-
-        const res = await db.query(sql, [... userDetails]);
-
+        const res = await conn.query(sql, [... userDetails]);
         const newUser = res[0];
-
-        await db.end();
+        await conn.release();
 
         return newUser;
     },
@@ -70,15 +57,11 @@ export const users = {
 
      */
     getUserId: async (userId: number) => {
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL show_user_id(?)`;
-
-        const res = await db.query(sql, userId);
+        const res = await conn.query(sql, userId);
         const user = res.length === 2 ? res[0] : [];
-        await db.end();
+        await conn.release();
 
         return user;
 
@@ -111,16 +94,11 @@ export const users = {
             options.credit || null,
             options.token || null
         ]
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL update_user(?, ?, ?, ?, ?, ?, ?, ?, ?)`;
-
-        const res = await db.query(sql, [... userDetails]);
-
+        const res = await conn.query(sql, [... userDetails]);
         const updatedUser = res[0];
-        await db.end();
+        await conn.release();
 
         return updatedUser;
     },
@@ -131,16 +109,10 @@ export const users = {
 
      */
     deleteUserId: async (userId: number) => {
-
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL delete_user(?)`;
-
-        const res = await db.query(sql, userId);
-
-        await db.end();
+        const res = await conn.query(sql, userId);
+        await conn.release();
 
         return res;
     },
@@ -151,17 +123,11 @@ export const users = {
 
      */
     getUserIdInvoices: async (userId: number) => {
-
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL show_invoice_user(?)`;
-
-        const res = await db.query(sql, userId);
+        const res = await conn.query(sql, userId);
         const invoices = res.length === 2 ? res[0] : [];
-        console.log(res);
-        await db.end();
+        await conn.release();
 
         return invoices;
     },
@@ -172,18 +138,11 @@ export const users = {
 
      */
     getUserIdTrips: async (userId: number) => {
-
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL show_trip_user(?)`;
-
-        const res = await db.query(sql, userId);
-
+        const res = await conn.query(sql, userId);
         const trips = res.length === 2 ? res[0] : [];
-
-        await db.end();
+        await conn.release();
 
         return trips;
     },

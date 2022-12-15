@@ -1,5 +1,5 @@
 import {ChargingStationInterface} from '../interfaces/chargingstationInterface';
-import {connect} from "../db/dbConnection";
+import {fetchConn} from "../db/dbConnection";
 
 export const chargingStations = {
     /**
@@ -8,15 +8,11 @@ export const chargingStations = {
 
      */
     getChargingStations: async () => {
-        const db = await connect();
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL show_charging_station_all()`;
-
-        const res = await db.query(sql);
+        const res = await conn.query(sql);
         const chargingStations = res.length === 2 ? res[0] : [];
-
-        await db.end();
+        await conn.release();
 
         return chargingStations;
     },
@@ -36,17 +32,11 @@ export const chargingStations = {
             options.position,
             0
         ]
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL charging_station_add(?, ?, ?)`;
-
-        const res = await db.query(sql, [... chargingStationDetails]);
-
+        const res = await conn.query(sql, [... chargingStationDetails]);
         const newChargingStation = res[0];
-
-        await db.end();
+        await conn.release();
 
         return newChargingStation;
     },
@@ -57,16 +47,11 @@ export const chargingStations = {
 
      */
     getZoneChargingZoneId: async (chargingZoneId: number) => {
-
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL show_charging_station_zone(?)`;
-
-        const res = await db.query(sql, chargingZoneId);
+        const res = await conn.query(sql, chargingZoneId);
         const chargingStations = res.length === 2 ? res[0] : [];
-        await db.end();
+        await conn.release();
 
         return chargingStations;
     },
@@ -77,16 +62,11 @@ export const chargingStations = {
 
      */
     getChargingStationId: async (chargingStationId: number) => {
-
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL show_charging_station_id(?)`;
-
-        const res = await db.query(sql, chargingStationId);
+        const res = await conn.query(sql, chargingStationId);
         const chargingStation = res.length === 2 ? res[0] : [];
-        await db.end();
+        await conn.release();
 
         return chargingStation;
     },
@@ -107,16 +87,11 @@ export const chargingStations = {
             options.position,
             0
         ]
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL update_charging_station(?, ?, ?, ?)`;
-
-        const res = await db.query(sql, [... chargingStationDetails]);
-
+        const res = await conn.query(sql, [... chargingStationDetails]);
         const updatedChargingStation = res[0];
-        await db.end();
+        await conn.release();
 
         return updatedChargingStation;
     },
@@ -127,16 +102,10 @@ export const chargingStations = {
 
      */
     deleteChargingStationId: async (chargingStationId: number) => {
-
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL delete_charging_station(?)`;
-
-        const res = await db.query(sql, chargingStationId);
-
-        await db.end();
+        const res = await conn.query(sql, chargingStationId);
+        await conn.release();
 
         return res;
     },

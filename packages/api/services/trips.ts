@@ -1,5 +1,5 @@
 import {TripInterface} from '../interfaces/tripsInterface';
-import {connect} from "../db/dbConnection";
+import {fetchConn} from "../db/dbConnection";
 export const trips = {
     /**
      *
@@ -7,18 +7,11 @@ export const trips = {
 
      */
     getTrips: async () => {
-
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL show_trip_all()`;
-
-        const res = await db.query(sql);
+        const res = await conn.query(sql);
         const trips = res.length === 2 ? res[0] : [];
-
-        await db.end();
-
+        await conn.release();
 
         return trips;
     },
@@ -38,23 +31,16 @@ export const trips = {
 
      */
     postTrips: async (options: TripInterface) => {
-
         const tripDetails = [
             options.user_id,
             options.scooter_id,
             options.start_position
         ]
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL add_user(?, ?, ?)`;
-
-        const res = await db.query(sql, [... tripDetails]);
-
+        const res = await conn.query(sql, [... tripDetails]);
         const newTrip = res[0];
-
-        await db.end();
+        await conn.release();
 
         return newTrip;
     },
@@ -65,16 +51,11 @@ export const trips = {
 
      */
     getTripId: async (tripId: number) => {
-
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL show_trip_id(?)`;
-
-        const res = await db.query(sql, tripId);
+        const res = await conn.query(sql, tripId);
         const trip = res.length === 2 ? res[0] : [];
-        await db.end();
+        await conn.release();
 
         return trip;
     },
@@ -93,7 +74,6 @@ export const trips = {
 
      */
     putTripId: async (options: TripInterface) => {
-
         const tripDetails = [
             options.id,
             options.user_id,
@@ -105,16 +85,11 @@ export const trips = {
             options.start_time,
             options.stop_time
         ]
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL update_trip(?, ?, ?, ?, ?, ?, ? ,?, ?)`;
-
-        const res = await db.query(sql, [... tripDetails]);
-
+        const res = await conn.query(sql, [... tripDetails]);
         const updatedTrip = res[0];
-        await db.end();
+        await conn.release();
 
         return updatedTrip;
     },
@@ -125,16 +100,10 @@ export const trips = {
 
      */
     deleteTripId: async (tripId: number) => {
-
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL delete_trip(?)`;
-
-        const res = await db.query(sql, tripId);
-
-        await db.end();
+        const res = await conn.query(sql, tripId);
+        await conn.release();
 
         return res;
     },
