@@ -66,6 +66,25 @@ export const users = {
         return user;
 
     },
+    /**
+     *
+     * @param userToken The unique identifier of the user
+
+     */
+    getUserToken: async (userToken: string) => {
+        const db = await connect();
+
+        await db.getConnection();
+
+        const sql = `CALL show_user_token(?)`;
+
+        const res = await db.query(sql, userToken);
+        const user = res.length === 2 ? res[0] : [];
+        await db.end();
+
+        return user;
+
+    },
 
     /**
      *
