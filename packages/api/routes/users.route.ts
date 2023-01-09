@@ -101,5 +101,17 @@ router.get('/:userId/trips', async (req, res) => {
         });
     }
 });
+router.get('/:token', async (req, res) => {
+    const userToken: string = req.params.token;
+
+    try {
+        const result = await users.getUserToken(userToken);
+        res.status(200).send(result);
+    } catch (err) {
+        return res.status(500).send({
+            error: err || 'Something went wrong.',
+        });
+    }
+});
 
 export const userRouter = router;

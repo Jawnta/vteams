@@ -1,12 +1,12 @@
 export interface UserInterface {
-    id: number;
+    id?: number;
     first_name: string;
     last_name: string;
-    phone_number: number;
+    phone_number?: number;
     email: string;
-    register_date: Date;
-    social_security: string;
-    enabled: boolean;
-    credit: number;
+    register_dat?: Date;
+    social_security?: string;
+    enabled?: boolean;
+    credit?: number;
     token: string;
 }
