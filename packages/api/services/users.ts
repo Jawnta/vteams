@@ -1,5 +1,5 @@
 import {UserInterface} from '../interfaces/userInterface';
-import {connect, fetchConn} from "../db/dbConnection";
+import {fetchConn} from "../db/dbConnection";
 
 export const users = {
     /**
@@ -72,15 +72,13 @@ export const users = {
 
      */
     getUserToken: async (userToken: string) => {
-        const db = await connect();
-
-        await db.getConnection();
+        const conn = await fetchConn();
 
         const sql = `CALL show_user_token(?)`;
 
-        const res = await db.query(sql, userToken);
+        const res = await conn.query(sql, userToken);
         const user = res.length === 2 ? res[0] : [];
-        await db.end();
+        await conn.release();
 
         return user;
 
