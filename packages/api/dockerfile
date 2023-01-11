@@ -1,15 +1,15 @@
-FROM node:16-alpine 
+FROM node:16-alpine
 
 WORKDIR /api
 
 COPY package*.json ./
-RUN npm install 
+RUN npm install
 COPY . ./
 # For deploy
 # RUN npm run build
 
 ENTRYPOINT [ "npm" ]
-CMD [ "run", "dev" ]
+CMD [ "run", "start" ]
 
 # lägg till dev script: i npm i api
 # "dev": "concurrently \"npx tsc --watch\" \"nodemon -q dist/index.js\""

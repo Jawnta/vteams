@@ -1,27 +1,34 @@
 import {ScooterInterface} from '../interfaces/scooterInterface';
-import {connect} from "../db/dbConnection";
+import {fetchConn} from "../db/dbConnection";
 
-const db = connect();
+
+function getScooterParams (options: ScooterInterface) {
+    return [
+        options.id,
+        options.available,
+        options.enabled,
+        options.charge,
+        options.last_serviced,
+        "2012-10-05 13:55:00",
+        options.distance_traveled,
+        options.last_position,
+        options.is_charging,
+        options.city_id
+    ];
+}
 
 export const scooters = {
+
     /**
      *
 
-
      */
     getScooters: async () => {
-
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL show_scooter_all()`;
-
-        const res = await db.query(sql);
+        const res = await conn.query(sql);
         const scooters = res.length === 2 ? res[0] : [];
-
-        await db.end();
-
+        await conn.release();
 
         return scooters;
     },
@@ -42,25 +49,12 @@ export const scooters = {
 
      */
     postScooters: async (options: ScooterInterface) => {
-        const scooterDetails = [
-            options.available,
-            options.enabled,
-            options.charge,
-            options.last_position,
-            options.is_charging,
-            options.city_id
-        ]
-        const db = await connect();
-
-        await db.getConnection();
-
+        const scooterDetails = getScooterParams(options);
+        const conn = await fetchConn();
         const sql = `CALL add_user(?, ?, ?, ?, ?, ?)`;
-
-        const res = await db.query(sql, [... scooterDetails]);
-
+        const res = await conn.query(sql, [... scooterDetails]);
         const newScooter = res[0];
-
-        await db.end();
+        await conn.end();
 
         return newScooter;
     },
@@ -71,18 +65,11 @@ export const scooters = {
 
      */
     getAvailable: async () => {
-
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL show_scooter_available()`;
-
-        const res = await db.query(sql);
+        const res = await conn.query(sql);
         const availableScooters = res.length === 2 ? res[0] : [];
-
-        await db.end();
-
+        await conn.end();
 
         return availableScooters;
     },
@@ -93,16 +80,11 @@ export const scooters = {
 
      */
     getCityCityName: async (cityName: string) => {
-
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL show_scooter_city(?)`;
-
-        const res = await db.query(sql, cityName);
+        const res = await conn.query(sql, cityName);
         const scooters = res.length === 2 ? res[0] : [];
-        await db.end();
+        await conn.end();
 
         return scooters;
     },
@@ -113,16 +95,11 @@ export const scooters = {
 
      */
     getScooterId: async (scooterId: number) => {
-
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL show_scooter_id(?)`;
-
-        const res = await db.query(sql, scooterId);
+        const res = await conn.query(sql, scooterId);
         const scooter = res.length === 2 ? res[0] : [];
-        await db.end();
+        await conn.end();
 
         return scooter;
     },
@@ -143,25 +120,12 @@ export const scooters = {
 
      */
     putScooterId: async (options: ScooterInterface) => {
-
-        const scooterDetails = [
-            options.id,
-            options.available,
-            options.enabled,
-            options.charge,
-            options.last_serviced,
-            options.first_used,
-            options.distance_traveled,
-            options.last_position,
-            options.is_charging,
-            options.city_id
-        ]
-
+        const scooterDetails = getScooterParams(options);
+        const conn = await fetchConn();
         const sql = `CALL update_scooter(?, ?, ?, ?, ?, ?, ? ,?, ?, ?)`;
-
-        const res = await db.query(sql, [... scooterDetails]);
-
+        const res = await conn.query(sql, [... scooterDetails]);
         const updatedScooter = res[0];
+        await conn.release();
 
         return updatedScooter;
     },
@@ -172,16 +136,10 @@ export const scooters = {
 
      */
     deleteScooterId: async (scooterId: number) => {
-
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL delete_scooter(?)`;
-
-        const res = await db.query(sql, scooterId);
-
-        await db.end();
+        const res = await conn.query(sql, scooterId);
+        await conn.end();
 
         return res;
     },
@@ -192,16 +150,11 @@ export const scooters = {
 
      */
     getScooterIdLogs: async (scooterId: number) => {
-
-        const db = await connect();
-
-        await db.getConnection();
-
+        const conn = await fetchConn();
         const sql = `CALL show_scooter_logs(?)`;
-
-        const res = await db.query(sql, scooterId);
+        const res = await conn.query(sql, scooterId);
         const scooterLogs = res.length === 2 ? res[0] : [];
-        await db.end();
+        await conn.end();
 
         return scooterLogs;
     },
