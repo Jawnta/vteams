@@ -9,11 +9,12 @@ export const UserDetailsInvoices = () => {
 
     const [invoices, setInvoices] = useState([]);
     const params = useParams();
+    // @ts-ignore
     const [user] = useOutletContext();
 
 
     useEffect(() => {
-        const getInvoices = async (id) => {
+        const getInvoices = async (id: string | undefined) => {
             const response = await fetch(`/users/${id}/invoices`);
             return await response.json();
         }

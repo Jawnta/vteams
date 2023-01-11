@@ -5,17 +5,17 @@ import "../css/UserForm.css";
 
 export const UserForm = ({...props}) => {
 
-    const [filterId, setFilterId] = useState(null);
+    const [filterId, setFilterId] = useState(0);
     const [filterFirstName, setFilterFirstName] = useState("");
     const [filterLastName, setFilterLastName] = useState("");
 
-    const handleSubmit = (event) => {
+    const handleSubmit = (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
         props.setUserId(filterId);
         props.setFirstName(filterFirstName);
         props.setLastName(filterLastName);
         props.setHasSearched(true);
-        setFilterId("");
+        setFilterId(0);
         setFilterFirstName("");
         setFilterLastName("");
     };
@@ -31,7 +31,7 @@ export const UserForm = ({...props}) => {
                         id="f_userId"
                         placeholder="User id..."
                         type="text"
-                        value={filterId}
+                        value={!filterId ? "" : filterId}
                         onChange={(e) => setFilterId(+e.target.value)}
                     />
                         </div>

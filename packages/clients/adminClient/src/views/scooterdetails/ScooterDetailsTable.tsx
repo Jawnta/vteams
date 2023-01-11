@@ -1,22 +1,25 @@
 import React from 'react';
 import "../css/ScooterDetailsTable.css";
+import {ScooterInterface} from "../../components/interfaces/scooterInterface";
+import {CityInterface} from "../../components/interfaces/cityInterface";
+
 
 export const ScooterDetailsTable = ({...props}) => {
 
     const updateScooterTable = () => {
 
-        return props.scooter.map((scooter, index) => {
+        return props.scooter.map((scooter:ScooterInterface, index:number) => {
             return(
                 <tr key={index}>
                     <td>{scooter.id}</td>
                     <td>{scooter.available}</td>
                     <td>{scooter.enabled}</td>
                     <td>{scooter.charge}%</td>
-                    <td>{scooter.last_serviced}</td>
-                    <td>{scooter.first_used}</td>
+                    <td>{scooter.last_serviced.toString()}</td>
+                    <td>{scooter.first_used.toString()}</td>
                     <td>{scooter.distance_traveled}</td>
                     <td>{scooter.is_charging}</td>
-                    <td>{props.cities.map((city) => {
+                    <td>{props.cities.map((city:CityInterface) => {
                         if (city.id === scooter.city_id) {
                             return city.name;
                     }

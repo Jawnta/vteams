@@ -2,6 +2,7 @@ import React from 'react';
 import "../css/UserDetailsForm.css";
 import {updateUser} from "../../endpoints/UserDetailsEndpoints";
 import { useOutletContext } from "react-router-dom";
+import dayjs from "dayjs";
 
 
 
@@ -18,8 +19,6 @@ export const UserDetailsForm = () => {
 
 
     };
-
-
 
     const updateState = (key, value) => {
 
@@ -87,7 +86,7 @@ export const UserDetailsForm = () => {
                     id="f_registerDate"
                     placeholder="Register date..."
                     type="text"
-                    value={user.register_date}
+                    value={dayjs(user.register_date).format("YYYY-MM-DD").toString()}
                     onChange={e => updateState("register_date", e.target.value)}
                 />
                 </div>

@@ -17,7 +17,7 @@ import {ScooterDetails} from "./views/scooterdetails/ScooterDetails";
 export default function App() {
     const [token, setToken] = useState<string | null>();
     useEffect(() => {
-        setToken(sessionStorage.getItem("token"));
+        setToken(localStorage.getItem("token"));
 
     }, []);
 

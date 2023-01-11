@@ -1,13 +1,14 @@
 import React from 'react';
 import "../css/UserTable.css";
 import { useNavigate } from 'react-router-dom'
-
+import dayjs from "dayjs";
+import {UserInterface} from '../../components/interfaces/userInterface';
 
 export const UserTable = ({...props}) => {
     if (props.hasSearched){
     }
     const checkFilter = () => {
-        const filtersToApply = [];
+        const filtersToApply: { (user: UserInterface): boolean; (user: UserInterface): any; (user: UserInterface): any; }[] = [];
 
         if (props.userId) {
             filtersToApply.push((user) => user.id === props.userId);
@@ -20,7 +21,7 @@ export const UserTable = ({...props}) => {
             filtersToApply.push((user) => user.last_name.toLowerCase().includes(props.lastName.toLowerCase()));
         }
 
-        props.users = props.users.filter((item) =>
+        props.users = props.users.filter((item: any) =>
             filtersToApply.every((fn) => fn(item))
         );
 
@@ -30,7 +31,7 @@ export const UserTable = ({...props}) => {
     };
 
     const navigate = useNavigate();
-    const navigateUserDetails = (id) =>{
+    const navigateUserDetails = (id: number) =>{
         navigate(`/users/${id}/overview`);
     };
 
@@ -38,7 +39,7 @@ export const UserTable = ({...props}) => {
 
         const updateUserTable = () => {
         checkFilter();
-        return props.users.map((user, index) => {
+        return props.users.map((user: UserInterface, index: number) => {
             return(
                 <tr key={index} onClick={() => {navigateUserDetails(user.id)}}>
                     <td>{user.id}</td>
@@ -46,7 +47,7 @@ export const UserTable = ({...props}) => {
                     <td>{user.last_name}</td>
                     <td>{user.phone_number}</td>
                     <td>{user.email}</td>
-                    <td>{user.register_date}</td>
+                    <td>{dayjs(user.register_date).format("YYYY-MM-DD").toString()}</td>
                     <td>{user.social_security}</td>
                 </tr>
             )

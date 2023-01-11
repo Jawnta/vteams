@@ -1,4 +1,5 @@
 import React from 'react';
+import dayjs from 'dayjs';
 
 import "../css/InvoiceDetailsTable.css";
 
@@ -29,7 +30,7 @@ export const InvoiceDetailsTable = ({...props}) => {
                                                     <table className="invoice">
                                                         <tbody>
                                                         <tr>
-                                                            <td>{`${props.data.user.first_name} ${props.data.user.last_name}`}<br/>{props.data.invoice.billed}</td>
+                                                            <td>{`${props.data.user.first_name} ${props.data.user.last_name}`}<br/>{dayjs(props.data.invoice.billed).format("YYYY-MM-DD").toString()}</td>
                                                         </tr>
                                                         <tr>
                                                             <td>

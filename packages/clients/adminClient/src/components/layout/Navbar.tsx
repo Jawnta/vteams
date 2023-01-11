@@ -16,6 +16,13 @@ export const Navbar = () => {
                     <li>
                         <Link to="/scooters">Scooters</Link>
                     </li>
+                    <li>
+                        <Link onClick={() => {
+                            localStorage.removeItem("token")
+                            window.location.reload()
+                        }
+                        }>Log out</Link>
+                    </li>
                 </ul>
             </nav>
         </div>

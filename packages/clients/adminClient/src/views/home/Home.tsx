@@ -6,7 +6,7 @@ import {UserForm} from "./UserForm";
 
 
 
-export const Home = ({...props}) => {
+export const Home = () => {
 
     const [users, setUsers] = useState([]);
     const [hasSearched, setHasSearched] = useState(false);

@@ -10,7 +10,7 @@ export const ScooterDetails = () => {
 
 
     useEffect(() => {
-        const getScooter = async (id) => {
+        const getScooter = async (id:number) => {
 
             const response = await fetch(`/scooters/${id}`);
             return await response.json();

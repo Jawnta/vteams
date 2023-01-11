@@ -1,13 +1,15 @@
 import React from 'react';
 import "../css/UserTable.css";
 import { useNavigate } from 'react-router-dom'
+import dayjs from "dayjs";
+import {InvoiceInterface} from "../../components/interfaces/invoiceInterface";
 
 
 export const UserDetailsInvoicesTable = ({...props}) => {
 
     let invoice = {};
     const navigate = useNavigate();
-    const navigateUserDetails = (id, billed, trip_id, amount, payed) =>{
+    const navigateUserDetails = (id: number, billed: Date, trip_id: number, amount: number, payed: boolean) =>{
         invoice = {
             id: id,
             billed: billed,
@@ -23,7 +25,7 @@ export const UserDetailsInvoicesTable = ({...props}) => {
 
     const updateInvoiceTable = () => {
 
-        return props.invoices.map((invoice, index) => {
+        return props.invoices.map((invoice: InvoiceInterface, index: number) => {
             return(
                 <tr key={index} onClick={() => {
                     navigateUserDetails(
@@ -35,7 +37,7 @@ export const UserDetailsInvoicesTable = ({...props}) => {
                     )}
                 }>
                     <td>{invoice.id}</td>
-                    <td>{invoice.billed}</td>
+                    <td>{dayjs(invoice.billed).format("YYYY-MM-DD").toString()}</td>
                     <td>{invoice.trip_id}</td>
                     <td>{invoice.amount}</td>
                     <td>{invoice.payed}</td>

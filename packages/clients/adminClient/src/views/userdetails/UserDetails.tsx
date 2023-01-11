@@ -11,7 +11,7 @@ export const UserDetails = () => {
 
 
     useEffect(() => {
-        const getUser = async (id) => {
+        const getUser = async (id: undefined | string) => {
             const response = await fetch(`/users/${id}`);
             return await response.json();
         }
@@ -21,6 +21,7 @@ export const UserDetails = () => {
     return (
         <div className="user-details">
             <UserDetailsNav
+            // @ts-ignore
             userId={params.userId}
             />
             <div className="user-details-main">
