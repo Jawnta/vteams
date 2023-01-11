@@ -45,9 +45,11 @@ router.get("/google/success", login.checkAuthenticated, cors(), (req, res) => {
     // const backURL=req.header('Referer') || "/"
     // const test = req.get('Referrer')
     // console.log(test)
+    // const expires = body.exp.toUTCString();
     const token = getToken(req.user)
+    res.cookie('id_token', token);
     // res.redirect(test +`worked?${token}`)
-    res.status(302).redirect(`http://localhost:1339?${token}`)
+    res.redirect(`http://localhost:1339`)
     // return res.status(200).header('Access-Control-Allow-Origin', '*').json(req.user).redirect("back")
   })
 

@@ -101,7 +101,7 @@ router.get('/:userId/trips', async (req, res) => {
         });
     }
 });
-router.get('/:token', async (req, res) => {
+router.get('/token/:token', async (req, res) => {
     const userToken: string = req.params.token;
 
     try {

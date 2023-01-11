@@ -1,46 +1,50 @@
-import React, {useState} from 'react';
+import React, {useState, useEffect} from 'react';
 import logo from './logo.svg';
-import './App.css';
-
-const apiUrl = 'http://localhost:3000';
+import './css/App.css';
+import Login from './components/login';
+import getCookie from './helperFunc/cookie';
+import Profile from './components/profile';
+import UserTrips from './components/userTrips';
+import UserInvoices from './components/userInvoices';
+import NavBar from './components/navBar';
+import User from './interfaces/user';
 function App() {
-    const [users, setUsers] = useState<any[]>([]);
-    async function fetchData() {
-        await fetch('http://localhost:3000/login/google', {method: 'GET', headers: { 'Access-Control-Allow-Origin': '*',
-        'Access-Control-Allow-Methods': '*'}, credentials: 'same-origin'})
-        .then((res) => res.json())
-        .then((json) => {
-            setUsers(json);
-            console.log(json);
-        });
-    }
-    const handleSignInGoogle = () => {
-        window.open("http://localhost:3000/login/google", "_self");   
-    }
-    function testLog() {
-        console.log(users);
+    const authCookie = getCookie('id_token')
+    const [user, setUser] = useState<User>();
+    const [page, setPage] = useState('Profile');
+
+    useEffect(() => {
+        const getUser = async () => {
+            const response = await fetch(`/users/token/${authCookie}`);
+            const jsonResp = await response.json()
+            setUser(jsonResp[0]);
+        };
+        getUser()
+    }, []);
+    function updatePage(pageToShow : string){
+        setPage(pageToShow)
     }
 
-    let testcount = 0;
+    if(!authCookie) {
+        return <Login />
+    }
+
     return (
         <div className="App">
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
-                <h1>HELLO WORLD</h1>
-
-                <h3>Hello From API</h3>
-                <button onClick={fetchData}>Get Users</button>
-                <button onClick={handleSignInGoogle}>GOOGLE</button>
-                <ul>
-                    {Array.isArray(users)
-                        ? users.map((user) => (
-                              <li key={testcount++}>
-                                  {user.name} - {user.test}{' '}
-                              </li>
-                          ))
-                        : null}
-                </ul>
+                <h1>Snålåk Main</h1>
+                <NavBar updatePage={updatePage}/>
             </header>
+            <div>
+            {
+                {
+                'Profile': <Profile  userData={user}/>,
+                'Trips': <UserTrips userData={user}/>,
+                'Invoices': <UserInvoices userData={user}/>
+                }[page]
+            }
+            </div>
         </div>
     );
 }
