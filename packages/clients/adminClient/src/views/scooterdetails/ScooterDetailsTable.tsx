@@ -3,7 +3,6 @@ import "../css/ScooterDetailsTable.css";
 import {ScooterInterface} from "../../components/interfaces/scooterInterface";
 import {CityInterface} from "../../components/interfaces/cityInterface";
 
-
 export const ScooterDetailsTable = ({...props}) => {
 
     const updateScooterTable = () => {
@@ -16,10 +15,10 @@ export const ScooterDetailsTable = ({...props}) => {
                     <td>{scooter.enabled}</td>
                     <td>{scooter.charge}%</td>
                     <td>{scooter.last_serviced.toString()}</td>
-                    <td>{scooter.first_used.toString()}</td>
+                    <td>{!scooter.first_used ? "" : scooter.first_used.toString()}</td>
                     <td>{scooter.distance_traveled}</td>
                     <td>{scooter.is_charging}</td>
-                    <td>{props.cities.map((city:CityInterface) => {
+                    <td>{props.cities.map((city: CityInterface) => {
                         if (city.id === scooter.city_id) {
                             return city.name;
                     }

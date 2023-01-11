@@ -3,24 +3,26 @@ import "../css/UserDetailsForm.css";
 import {updateUser} from "../../endpoints/UserDetailsEndpoints";
 import { useOutletContext } from "react-router-dom";
 import dayjs from "dayjs";
+import {UserInterface} from "../../components/interfaces/userInterface";
 
 
 
 export const UserDetailsForm = () => {
+    //@ts-ignore
     const [user, setUser] = useOutletContext();
 
 
-    const updateUserDetails = async (user) => {
+    const updateUserDetails = async (user: UserInterface) => {
 
         await updateUser(user);
     };
-    const handleSubmit = async (event) => {
+    const handleSubmit = async (event: React.MouseEvent<HTMLButtonElement>) => {
         event.preventDefault();
 
 
     };
 
-    const updateState = (key, value) => {
+    const updateState = (key:string, value: string) => {
 
         setUser({ ...user, [key]: value })
     }

@@ -21,7 +21,7 @@ export const Navbar = () => {
                             localStorage.removeItem("token")
                             window.location.reload()
                         }
-                        }>Log out</Link>
+                        } to={""}>Log out</Link>
                     </li>
                 </ul>
             </nav>

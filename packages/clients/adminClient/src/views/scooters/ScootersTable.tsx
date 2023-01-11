@@ -1,19 +1,21 @@
 import React from 'react';
 import "../css/ScootersTable.css";
 import {useNavigate} from "react-router-dom";
+import {ScooterInterface} from "../../components/interfaces/scooterInterface";
+import {CityInterface} from "../../components/interfaces/cityInterface";
 
 
 export const ScootersTable = ({...props}) => {
 
     const navigate = useNavigate();
-    const navigateScooterDetails = (id) =>{
+    const navigateScooterDetails = (id: number) =>{
 
         navigate('/scooterDetails', {state: {scooter: id, cities: props.cities}});
     };
 
     const createTables = () => {
-        const tables = [];
-        props.cities.forEach((city) => {
+        const tables: JSX.Element[] = [];
+        props.cities.forEach((city: CityInterface) => {
             tables.push(
                 <div className="scooter-table-main">
                     <h2>{city.name}</h2>
@@ -31,7 +33,7 @@ export const ScootersTable = ({...props}) => {
                     </thead>
                     <tbody>
 
-                    {props.scooters.map((scooter, index) => {
+                    {props.scooters.map((scooter: ScooterInterface, index: number) => {
                         if (scooter.city_id === city.id) {
                             return (
                                 <tr key={index} onClick={() => {navigateScooterDetails(scooter.id);}}>

@@ -6,6 +6,7 @@ export const Main = ({...props}) => {
     return (
         <div className="main">
             <Outlet
+                //@ts-ignore
                 user={props.user}
                 setUser={props.setUser}
             />
