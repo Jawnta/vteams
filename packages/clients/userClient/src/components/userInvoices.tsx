@@ -6,16 +6,18 @@ function UserInvoices({...props}) {
     useEffect(() => {
         const userId = props.userData.id
         const getInvoices = async () => {
-            const response = await fetch(`/users/${userId}/invoices`);
+            const response = await fetch(`http://localhost:8080/users/${userId}/invoices`);
             setInvoice(await response.json());
         };
         getInvoices()
     }, []);
 
     return(
-        <div>
-            <h1>Fakturor</h1>
-            <InvoiceTable invoices={invoice}/>
+        <div className="centerTable">
+            <div>
+                <h1>Fakturor</h1>
+                <InvoiceTable invoices={invoice}/>
+            </div>
         </div>
     )
 }

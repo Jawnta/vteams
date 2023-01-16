@@ -11,6 +11,9 @@ function NavBar({...props}) {
             <button onClick={()=>{
                 props.updatePage("Invoices")
             }}>Fakturor</button>
+            <button onClick={()=>{
+                props.updatePage("Payment")
+            }}>Kredit</button>
 
         </div>
     );
