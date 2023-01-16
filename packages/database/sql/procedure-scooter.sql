@@ -42,7 +42,7 @@ CREATE PROCEDURE scooter_add(
     s_charge FLOAT,
     s_last_position TEXT,
     s_is_charging TINYINT(1),
-    c_id INT
+    c_id VARCHAR(20)
 )
 BEGIN
     INSERT INTO scooter (available, enabled, charge, last_position, is_charging, city_id)
@@ -139,7 +139,7 @@ CREATE PROCEDURE update_scooter(
     s_distance_traveled FLOAT,
     s_last_position TEXT,
     s_is_charging TINYINT(1),
-    c_id INT
+    c_id VARCHAR(20)
 )
 BEGIN
     UPDATE scooter
