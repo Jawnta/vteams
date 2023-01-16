@@ -1,6 +1,6 @@
-import express from 'express';
+// @ts-ignore
+import express, {Request, Response, NextFunction} from 'express';
 import Pool from "./pool";
-import cookieParser from "cookie-parser";
 
 const PORT = process.env.PORT || 1337;
 const app = express();
@@ -11,16 +11,16 @@ app.use(express.json());
 app.use(express.text());
 // parse application/x-www-form-urlencoded
 app.use(express.urlencoded({extended: true}));
-app.use(cookieParser());
-app.use(function(req, res, next) {
+app.use(function(req: Request, res: Response, next: NextFunction) {
     res.setHeader('Connection', 'close');
     next();
 });
 
 const pool = new Pool();
+// @ts-ignore
 pool.getScootersFromDb().then(r => pool.populate(r));
 
-app.get('/', async (req, res) => {
+app.get('/', async (req: Request, res: Response) => {
     try {
         const scooters = pool.getScooters();
         return res.status(200).json(scooters).send();
@@ -31,7 +31,7 @@ app.get('/', async (req, res) => {
     }
 });
 
-app.get('/:scooterId', async(req, res) => {
+app.get('/:scooterId', async(req: Request, res: Response) => {
     try {
         const scooterId = +req.params.scooterId;
         if (!pool.scooterExists(scooterId)) {
@@ -48,7 +48,7 @@ app.get('/:scooterId', async(req, res) => {
     }
 })
 
-app.put('/:scooterId', async (req, res) => {
+app.put('/:scooterId', async (req: Request, res: Response) => {
     try {
         const scooterId = +req.params.scooterId;
         if (!pool.scooterExists(scooterId)) {
@@ -57,6 +57,7 @@ app.put('/:scooterId', async (req, res) => {
             });
         }
         const scooter = pool.setScooter(scooterId, req.body);
+        // call snålåk api with put request
         return res.status(204).json(scooter).send;
     } catch (err) {
         return res.status(500).send({
