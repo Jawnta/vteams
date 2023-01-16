@@ -4,7 +4,10 @@ WORKDIR /api
 
 COPY package*.json ./
 RUN npm install
+RUN npm install --save-dev @types/express-session @types/dotenv
+RUN npm install passport-google-oauth20
 COPY . ./
+
 # For deploy
 # RUN npm run build
 
