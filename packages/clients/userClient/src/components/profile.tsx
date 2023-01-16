@@ -18,6 +18,8 @@ function Profile({...props}) {
                 <h1>Ändra</h1>
                 <UpdateProfileForm user={props.userData}/>
             </div>
+            <div>
+            </div>
             
         </div>
     );

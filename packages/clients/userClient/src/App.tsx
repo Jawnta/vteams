@@ -8,6 +8,8 @@ import UserTrips from './components/userTrips';
 import UserInvoices from './components/userInvoices';
 import NavBar from './components/navBar';
 import User from './interfaces/user';
+import Payment from './components/payment';
+
 function App() {
     const authCookie = getCookie('id_token')
     const [user, setUser] = useState<User>();
@@ -15,7 +17,7 @@ function App() {
 
     useEffect(() => {
         const getUser = async () => {
-            const response = await fetch(`/users/token/${authCookie}`);
+            const response = await fetch(`http://localhost:8080/users/token/${authCookie}`);
             const jsonResp = await response.json()
             setUser(jsonResp[0]);
         };
@@ -34,6 +36,7 @@ function App() {
             <header className="App-header">
                 <img src={logo} className="App-logo" alt="logo" />
                 <h1>Snålåk Main</h1>
+                <h3>Testing Testing</h3>
                 <NavBar updatePage={updatePage}/>
             </header>
             <div>
@@ -41,7 +44,8 @@ function App() {
                 {
                 'Profile': <Profile  userData={user}/>,
                 'Trips': <UserTrips userData={user}/>,
-                'Invoices': <UserInvoices userData={user}/>
+                'Invoices': <UserInvoices userData={user}/>,
+                'Payment': <Payment userData={user}/>
                 }[page]
             }
             </div>

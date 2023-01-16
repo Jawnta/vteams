@@ -6,16 +6,18 @@ function UserTrips({...props}) {
     useEffect(() => {
         const userId = props.userData.id
         const getTrips = async () => {
-            const response = await fetch(`/users/${userId}/trips`);
+            const response = await fetch(`http://localhost:8080/users/${userId}/trips`);
             setTrips(await response.json());
         };
         getTrips()
     }, []);
 
     return(
-        <div>
-            <h1>Resor</h1>
-            <TripTable trips={trips}/>
+        <div className="centerTable">
+            <div>
+                <h1>Resor</h1>
+                <TripTable trips={trips}/>
+            </div>
         </div>
         
     )

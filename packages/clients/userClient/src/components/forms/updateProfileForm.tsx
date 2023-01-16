@@ -21,7 +21,7 @@ function UpdateProfileForm({...props}) {
             body: JSON.stringify(user),
         };
         try{
-            const response = await fetch(`/users/${user.id}`, requestOptions);
+            const response = await fetch(`http://localhost:8080/users/${user.id}`, requestOptions);
             setTempUser(user)
         } catch (error) {
             console.error(error);

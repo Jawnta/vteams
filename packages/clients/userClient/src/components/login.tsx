@@ -1,7 +1,7 @@
 function Login() {
 
     const handleSignInGoogle = () => {
-        window.open("http://localhost:3000/login/google", "_self");   
+        window.open("http://localhost:8080/login/google", "_self");   
     }
     return (
         <div className="login">
