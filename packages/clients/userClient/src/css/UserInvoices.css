@@ -1,0 +1,41 @@
+.user-invoice-table-wrapper {
+    height: 500px;
+    background-color: #ff9404;
+    margin-bottom: 20px;
+}
+
+.user-invoice-table {
+    max-height: 100%;
+    overflow: auto;
+}
+
+.user-invoice-table table {
+    width: 100%;
+    background: #ff9404;
+    border-radius: 0.25em;
+    border-collapse: collapse;
+    max-height: 100%;
+}
+
+
+.user-invoice-table th {
+    border-bottom: 1px solid #364043;
+    color: white;
+    font-size: 0.85em;
+    font-weight: 600;
+    padding: 0.5em 1em;
+    text-align: left;
+}
+
+.user-invoice-table td {
+    color: #fff;
+    font-weight: 400;
+    padding: 0.65em 1em;
+}
+
+.user-invoice-table tbody tr {
+    transition: background 0.25s ease;
+}
+.user-invoice-table tbody tr:hover {
+    background: black;
+}

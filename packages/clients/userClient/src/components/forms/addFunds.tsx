@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react'
 import User from '../../interfaces/user';
+import "../../css/UpdateProfileForm.css";
 
 function AddFunds({...props}) {
     const [payBool, setPayBool] = useState(false);
@@ -42,8 +43,9 @@ function AddFunds({...props}) {
     }
     if(props.user && !payBool){
         return (
+            <div className="user-form">
             <form >
-                <label>Lägg till kredit:
+                <div className="user-form-input">
                     <input 
                         type="number"
                         name="credit"
@@ -52,21 +54,26 @@ function AddFunds({...props}) {
                         value={tempFund}
                         onChange={e => updateFund(+e.target.value)}
                     />
-                </label>
+                </div>
 
+                <div className="user-form-button">
                 <button
                     onClick={async (e) => {
                     handleSubmit(e);
                     setPayBool(true);
                     }}>Lägg till kredit
                 </button>
+                </div>
             </form>
+            </div>
         );
     }
     if(payBool){
         return (
+            <div className="user-form">
             <form >
-                <label>Ange kreditkort:
+                <div className="user-form-input">
+                <label>Ange kreditkort:</label>
                     <input 
                         type="int"
                         name="credit"
@@ -76,8 +83,10 @@ function AddFunds({...props}) {
                         value={tempCard || 0}
                         onChange={e => updateCard(+e.target.value)}
                     />
-                </label>
-                <label>Ange CVC:
+
+                </div>
+                <div className="user-form-input">
+                <label>Ange CVC:</label>
                     <input 
                         type="int"
                         name="cvc"
@@ -87,15 +96,19 @@ function AddFunds({...props}) {
                         value={tempCVC || 0}
                         onChange={e => updateCVC(+e.target.value)}
                     />
-                </label>
 
+                </div>
+                <div className="user-form-button">
                 <button
                     onClick={async (e) => {
                     handleSubmit(e);
                     await addFundsToUser(tempFund);
                     }}>Lägg till kredit
                 </button>
+                </div>
             </form>
+            </div>
+
         );
     }
     return (

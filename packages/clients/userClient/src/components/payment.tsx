@@ -1,4 +1,5 @@
 import AddFunds from "./forms/addFunds";
+import '../css/AddFunds.css';
 
 function Payment({...props}) {
     if(!props.userData){
@@ -7,12 +8,11 @@ function Payment({...props}) {
         )
     }
     return (
-        <div className="payment">
-            <div>
+
+            <div className="add-funds">
                 <h1>Lägg till kredit</h1>
                 <AddFunds user={props.userData}/>
             </div>
-        </div>
     );
 }
 

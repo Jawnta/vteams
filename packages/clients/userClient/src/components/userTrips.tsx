@@ -1,5 +1,6 @@
 import React, {useState, useEffect} from 'react';
 import TripTable from './tables/tripTable';
+import '../css/UserTrips.css';
 function UserTrips({...props}) {
     
     const [trips, setTrips] = useState([]);
@@ -14,10 +15,8 @@ function UserTrips({...props}) {
 
     return(
         <div className="centerTable">
-            <div>
                 <h1>Resor</h1>
                 <TripTable trips={trips}/>
-            </div>
         </div>
         
     )

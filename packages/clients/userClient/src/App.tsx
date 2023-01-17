@@ -9,6 +9,7 @@ import UserInvoices from './components/userInvoices';
 import NavBar from './components/navBar';
 import User from './interfaces/user';
 import Payment from './components/payment';
+import "./css/Header.css";
 
 function App() {
     const authCookie = getCookie('id_token')
@@ -32,13 +33,11 @@ function App() {
     }
 
     return (
-        <div className="App">
-            <header className="App-header">
-                <img src={logo} className="App-logo" alt="logo" />
+        <div className="main-wrapper">
+        <div className="header">
                 <h1>Snålåk Main</h1>
-                <h3>Testing Testing</h3>
-                <NavBar updatePage={updatePage}/>
-            </header>
+        </div>
+            <NavBar updatePage={updatePage}/>
             <div>
             {
                 {

@@ -1,0 +1,6 @@
+.centerTable {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+    background-color: #f9c87c;
+}

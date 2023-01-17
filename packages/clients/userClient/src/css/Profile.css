@@ -1,0 +1,17 @@
+.profile-wrapper {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+
+}
+
+.profile {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}
+.update-profile {
+    display: flex;
+    flex-flow: column;
+    align-items: center;
+}

@@ -14,10 +14,8 @@ function UserInvoices({...props}) {
 
     return(
         <div className="centerTable">
-            <div>
                 <h1>Fakturor</h1>
                 <InvoiceTable invoices={invoice}/>
-            </div>
         </div>
     )
 }
