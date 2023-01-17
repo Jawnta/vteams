@@ -5,7 +5,8 @@ import "../css/Map.css";
 // @ts-ignore
 import L from 'leaflet';
 import scooterIcon from '../img/scooter.png';
-import csIcon from '../img/chargingstation.png';
+import csIconG from '../img/greenMarker.png';
+import csIconR from '../img/redMarker.png';
 
 
 const iconS = new L.Icon({
@@ -15,11 +16,18 @@ const iconS = new L.Icon({
     iconSize: [32,45],
 });
 
-const iconCs = new L.Icon({
-    iconUrl: csIcon,
-    iconRetinaUrl: csIcon,
+const iconCsG = new L.Icon({
+    iconUrl: csIconG,
+    iconRetinaUrl: csIconG,
     popupAnchor:  [-0, -0],
-    iconSize: [32,45],
+    iconSize: [8,8],
+});
+
+const iconCsR = new L.Icon({
+    iconUrl: csIconR,
+    iconRetinaUrl: csIconR,
+    popupAnchor:  [-0, -0],
+    iconSize: [8,8],
 });
 
 export const MapView = ({...props}) => {
@@ -38,7 +46,6 @@ export const MapView = ({...props}) => {
                 enabled: scooter.enabled,
                 position: last_position
             };
-
             markerList.push(data);
 
         });
@@ -58,7 +65,6 @@ export const MapView = ({...props}) => {
             };
 
             markerList.push(data);
-            console.log(markerList);
         });
         return markerList
     };
@@ -76,21 +82,62 @@ export const MapView = ({...props}) => {
             polygonList.push(data);
         }
         )
-
         return polygonList;
     };
 
-    const test = createChargingZonePolygons();
-    let latLongs: Array<Number> = [];
-    test.forEach(x => {
-        latLongs.push(x.area.coordinates[0][0]);
-        latLongs.push(x.area.coordinates[0][1]);
-        latLongs.push(x.area.coordinates[0][2]);
-    });
+    const createParkingZonePolygons = () => {
+        const polygonList: { id: string; cid: string; area: {coordinates: Array<Array<Number>>}; }[] = [];
 
-    const purpleOptions = { color: 'purple' }
+        props.pzones.forEach((pz: { id: string; city_id: string; area: string; }) => {
+                const area:{coordinates: Array<Array<Number>>} = JSON.parse(pz.area);
+                const data = {
+                    id: pz.id,
+                    cid: pz.city_id,
+                    area: area
+                };
+                polygonList.push(data);
+            }
+        )
+        return polygonList;
+    };
 
 
+
+    const createCzPolygonMarker = (data: { id: number; pid: number; area: { coordinates: Number[][]; }; }[]) => {
+        let latLongs: Array<Number[]> = [];
+        data.forEach(x => {
+            latLongs.push(x.area.coordinates[0]);
+
+        });
+        return latLongs;
+    };
+
+    const createPzPolygonMarker = (data: { id: string; cid: string; area: { coordinates: Number[][]; }}[]) => {
+        let latLongs: Array<Number[]> = [];
+        data.forEach(x => {
+            latLongs.push(x.area.coordinates[0]);
+
+        });
+        return latLongs;
+    };
+
+
+    const chargingZones = createChargingZonePolygons();
+    const parkingZones = createParkingZonePolygons()
+
+    const chargingZoneMarkers = createCzPolygonMarker(chargingZones);
+    const parkingZoneMarkers = createPzPolygonMarker(parkingZones);
+
+    const purple = { color: 'purple' }
+    const green = { color: 'green'}
+
+    if (parkingZoneMarkers.length < 1) {
+        return (
+            <div>
+                <p>Loading...</p>
+            </div>
+        )
+    }
     return (
             <div className="map-main">
 
@@ -107,7 +154,7 @@ export const MapView = ({...props}) => {
                     />
                     {
                         createScooterMarkers().map((scooter) => (
-                            <Marker position={[scooter.position.coordinates[1], scooter.position.coordinates[0]]}
+                            <Marker position={[scooter.position.coordinates[0], scooter.position.coordinates[1]]}
                                     //@ts-ignore
                                     icon={iconS}>
                             <Popup>
@@ -128,9 +175,9 @@ export const MapView = ({...props}) => {
                     {
                         createChargingStationMarkers().map((cs) => (
                             <Marker
-                                position={[cs.position.coordinates[0], cs.position.coordinates[1]]}
+                                position={[cs.position.coordinates[1], cs.position.coordinates[0]]}
                                 //@ts-ignore
-                                    icon={iconCs}>
+                                    icon={!cs.occupied ? iconCsG : iconCsR}>
                                 <Popup>
                                     Id: {cs.id}
                                     <br/>
@@ -141,13 +188,28 @@ export const MapView = ({...props}) => {
                         ))
                     }
 
-                    <Polygon pathOptions={purpleOptions} positions={latLongs}>
-                        <Popup>
-                            test
-                        </Popup>
-                    </Polygon>
+                    {
+                        parkingZoneMarkers.map((pz) => (
+                            <Polygon pathOptions={purple} positions={pz}>
+                                <Popup>
+                                    test
+                                </Popup>
+                            </Polygon>
+                        ))
+                    }
+
+                    {
+                        chargingZoneMarkers.map((cz) => (
+                            <Polygon pathOptions={green} positions={cz}>
+                                <Popup>
+                                    test
+                                </Popup>
+                            </Polygon>
+                        ))
+                    }
 
                 </MapContainer>
             </div>
     )
 }
+
