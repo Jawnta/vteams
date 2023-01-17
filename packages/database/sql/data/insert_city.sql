@@ -1,5 +1,8 @@
 USE 'vteams'
 INSERT INTO city
-	(name)
+	(id, name)
 VALUES
- ('Karlskrona');
+ ('kna', 'Karlskrona'),
+ ('sthlm', 'Stockholm'),
+ ('jkpg', 'Jönköping');
+

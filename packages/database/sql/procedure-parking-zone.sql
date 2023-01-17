@@ -24,7 +24,7 @@ END
 -- Create new parkingzone
 -- POST /parkingzones
 CREATE PROCEDURE parking_zone_add(
-    c_id INT,
+    c_id VARCHAR(20),
     z_area TEXT
 )
     MODIFIES SQL DATA
@@ -54,7 +54,7 @@ END
 -- Delete specific parkingzone
 -- DELETE /parkingzones/:parkingZoneId
 CREATE PROCEDURE delete_parking_zone(
-    z_id INT
+    z_id VARCHAR(20)
 )
     MODIFIES SQL DATA
 BEGIN
@@ -65,7 +65,7 @@ END
 -- Get spcific parkingzone
 -- GET /parkingzones/:parkingZoneId
 CREATE PROCEDURE show_parking_zone_id(
-    p_id INT
+    p_id VARCHAR(20)
 )
     READS SQL DATA
 BEGIN
@@ -79,8 +79,8 @@ END
 -- Update parking zone
 -- PUT /parkingzones/:parkingZoneId
 CREATE PROCEDURE update_parking_zone(
-    z_id INT,
-    c_id INT,
+    z_id VARCHAR(20),
+    c_id VARCHAR(20),
     z_area TEXT
 )
 BEGIN

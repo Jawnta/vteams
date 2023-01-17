@@ -22,7 +22,7 @@ END
 -- Create new charging zone
 -- POST /chargingzones
 CREATE PROCEDURE charging_zone_add(
-    p_id INT,
+    p_id VARCHAR(20),
     z_area TEXT
 )
     MODIFIES SQL DATA
@@ -70,8 +70,8 @@ END
 -- Update charging zone
 -- PUT chargingzones/:chargingZoneId
 CREATE PROCEDURE update_charging_zone(
-    z_id INT,
-    parking_z_id INT,
+    z_id VARCHAR(20),
+    parking_z_id VARCHAR(20),
     z_area TEXT
 )
 BEGIN
@@ -86,7 +86,7 @@ END
 -- Get specific charging zone
 -- GET chargingzones/:chargingZoneId
 CREATE PROCEDURE show_charging_zone_id(
-    z_id INT
+    z_id VARCHAR(20)
 )
     READS SQL DATA
 BEGIN

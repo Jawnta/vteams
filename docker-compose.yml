@@ -17,7 +17,7 @@ services:
         build: './packages/api/'
         ports:
             - '8080:3000'
-        depends_on: 
+        depends_on:
             - mariadb
         environment:
             - NODE_ENV=development
@@ -54,5 +54,17 @@ services:
         healthcheck:
             disable: true
         build: './packages/clients/userMobileClient/'
+    simulationApi:
+        image: 'simulation_api'
+        container_name: 'simulation_api'
+        tty: true
+        ports:
+            - '1337:1337'
+        environment:
+            - NODE_ENV=development
+        depends_on:
+            - api
+        restart: 'always'
+        build: './packages/clients/scooter/'
 volumes:
     notused:
