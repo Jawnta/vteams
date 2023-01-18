@@ -42,9 +42,31 @@ CREATE PROCEDURE invoice_pay(
 )
     MODIFIES SQL DATA
 BEGIN
+    START TRANSACTION;
+    SELECT trip_id, amount INTO @t,@a FROM invoice WHERE id = i_id;
+    SELECT @user:=user_id FROM trip WHERE id=@t;
+    UPDATE user SET credit = credit + @a WHERE id = @user;
     UPDATE invoice
     SET payed = CURRENT_TIMESTAMP()
     WHERE id = i_id;
+    COMMIT;
+END
+;;
+
+DELIMITER ;
+
+DROP PROCEDURE IF EXISTS invoice_pay_all;
+
+DELIMITER ;;
+CREATE PROCEDURE invoice_pay_all()
+    MODIFIES SQL DATA
+BEGIN
+    START TRANSACTION;
+    UPDATE user SET credit = 0 WHERE credit < 0;
+    UPDATE invoice
+    SET payed = CURRENT_TIMESTAMP()
+    WHERE payed IS NULL;
+    COMMIT;
 END
 ;;
 
