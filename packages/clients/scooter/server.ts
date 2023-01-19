@@ -1,4 +1,3 @@
-// @ts-ignore
 import express, {Request, Response, NextFunction} from 'express';
 import Pool from "./pool";
 
@@ -17,7 +16,6 @@ app.use(function(req: Request, res: Response, next: NextFunction) {
 });
 
 const pool = new Pool();
-// @ts-ignore
 pool.getScootersFromDb().then(r => pool.populate(r));
 
 app.get('/', async (req: Request, res: Response) => {
@@ -57,7 +55,17 @@ app.put('/:scooterId', async (req: Request, res: Response) => {
             });
         }
         const scooter = pool.setScooter(scooterId, req.body);
-        // call snålåk api with put request
+        const requestOptions = {
+            method: 'PUT',
+            headers: {'Content-Type': 'application/json'},
+            body: JSON.stringify(req.body)
+        };
+        const snalResponse = await fetch(`http://localhost:3000/scooters/${scooterId}`, requestOptions);
+        if (!snalResponse.ok) {
+            return res.status(500).send({
+                error: snalResponse.statusText || 'Something went wrong.',
+            });
+        }
         return res.status(204).json(scooter).send;
     } catch (err) {
         return res.status(500).send({

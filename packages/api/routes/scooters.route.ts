@@ -70,11 +70,6 @@ router.get('/:scooterId', async (req, res) => {
 
 router.put('/:scooterId', async (req, res) => {
     const scooter: ScooterInterface = req.body;
-
-    // if (!scooter.charge) {
-    //     return res.sendStatus(400);
-    // }
-
     try {
         const result = await scooters.putScooterId(scooter);
         res.status(200).json(result);

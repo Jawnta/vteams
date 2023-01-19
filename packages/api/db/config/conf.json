@@ -1,5 +1,5 @@
 {
-  "host":     "mariadb",
+  "host":     "localhost",
   "user":     "snaladm",
   "password": "lejonkungen",
   "database": "vteams",
