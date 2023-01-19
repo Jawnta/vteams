@@ -158,4 +158,36 @@ export const scooters = {
 
         return scooterLogs;
     },
+
+    /**
+     *
+     * @param id The unique identifier of the scooter
+
+
+     */
+    enableScooter: async (id: number) => {
+        const conn = await fetchConn();
+        const sql = `CALL enable_scooter(?)`;
+        const res = await conn.query(sql, [id]);
+        const updatedScooter = res[0];
+        await conn.release();
+
+        return updatedScooter;
+    },
+
+    /**
+     *
+     * @param id The unique identifier of the scooter
+
+
+     */
+    disableScooter: async (id: number) => {
+        const conn = await fetchConn();
+        const sql = `CALL disable_scooter(?)`;
+        const res = await conn.query(sql, [id]);
+        const updatedScooter = res[0];
+        await conn.release();
+
+        return updatedScooter;
+    },
 };

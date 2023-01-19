@@ -36,14 +36,14 @@ export const users = {
 
         const userDetails = [
             options.first_name,
-            options.last_name,
+            options.last_name || null,
             options.phone_number || null,
             options.email,
             options.social_security || null,
             options.token || null
         ]
         const conn = await fetchConn();
-        const sql = `CALL add_user(?, ?, ?, ?, ?, ?)`;
+        const sql = `CALL user_add(?, ?, ?, ?, ?, ?)`;
         const res = await conn.query(sql, [... userDetails]);
         const newUser = res[0];
         await conn.release();
@@ -103,7 +103,7 @@ export const users = {
         const userDetails = [
             options.id,
             options.first_name,
-            options.last_name,
+            options.last_name || null,
             options.phone_number || null,
             options.email || null,
             options.social_security || null,

@@ -8,9 +8,3 @@ export const updateUser = async (userDetails: UserInterface ) => {
     };
     await fetch(`/users/${userDetails.id}`, requestOptions);
 }
-
-export const getUserInvoices = async () => {
-    const response = await fetch(`/users/`);
-    return await response.json();
-
-};

@@ -6,7 +6,6 @@ export const Map = () => {
     const [chargingStations, setChargingStations] = useState([]);
     const [chargingZones, setChargingZones] = useState([]);
     const [parkingZones, setParkingZones] = useState([]);
-
     useEffect(() => {
         const getScooters = async () => {
 

@@ -114,4 +114,30 @@ router.get('/:scooterId/logs', async (req, res) => {
     }
 });
 
+router.put('/enable/:scooterId', async (req, res) => {
+    const scooterId: number = +req.params.scooterId;
+
+    try {
+        const result = await scooters.enableScooter(scooterId);
+        res.status(200).json(result);
+    } catch (err) {
+        return res.status(500).send({
+            error: err || 'Something went wrong.',
+        });
+    }
+});
+
+router.put('/disable/:scooterId', async (req, res) => {
+    const scooterId: number = +req.params.scooterId;
+
+    try {
+        const result = await scooters.disableScooter(scooterId);
+        res.status(200).json(result);
+    } catch (err) {
+        return res.status(500).send({
+            error: err || 'Something went wrong.',
+        });
+    }
+});
+
 export const scooterRouter = router;

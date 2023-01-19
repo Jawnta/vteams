@@ -41,16 +41,10 @@ router.get("/google/failed", (req, res) => {
 })
 
 router.get("/google/success", login.checkAuthenticated, cors(), (req, res) => {
-    // const query = stringify(req.user[0].token)
-    // const backURL=req.header('Referer') || "/"
-    // const test = req.get('Referrer')
-    // console.log(test)
-    // const expires = body.exp.toUTCString();
+
     const token = getToken(req.user)
     res.cookie('id_token', token);
-    // res.redirect(test +`worked?${token}`)
-    res.redirect(`http://localhost:1339`)
-    // return res.status(200).header('Access-Control-Allow-Origin', '*').json(req.user).redirect("back")
+    res.redirect(`http://localhost:8889`)
   })
 
 export const loginRouter = router;

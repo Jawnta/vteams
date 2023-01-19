@@ -1,12 +1,15 @@
-import React from 'react';
-import { MapContainer, TileLayer, Marker, Popup, Polygon } from 'react-leaflet'
+import React, {useRef} from 'react';
+import {MapContainer, TileLayer, Marker, Popup, Polygon, } from 'react-leaflet'
 import 'leaflet/dist/leaflet.css';
 import "../css/Map.css";
 // @ts-ignore
 import L from 'leaflet';
+import {enableScooter, disableScooter} from "../../endpoints/ScooterEndpoints";
 import scooterIcon from '../img/scooter.png';
 import csIconG from '../img/greenMarker.png';
 import csIconR from '../img/redMarker.png';
+
+
 
 
 const iconS = new L.Icon({
@@ -131,6 +134,13 @@ export const MapView = ({...props}) => {
     const purple = { color: 'purple' }
     const green = { color: 'green'}
 
+
+    const mapRef: any = useRef();
+    function handleOnFlyTo(latLong: Array<number>) {
+        mapRef.current.setView(latLong, 13);
+    }
+
+
     if (parkingZoneMarkers.length < 1) {
         return (
             <div>
@@ -138,13 +148,26 @@ export const MapView = ({...props}) => {
             </div>
         )
     }
+    
+    const Karlskrona: number[] = [56.16149014522431, 15.58699586271063];
+    const Jonkoping: number[] = [57.78145, 14.15618];
+    const Stockholm: number[] = [59.33258, 18.0649];
+
     return (
+        <div className="map-view-wrapper">
+            <div className="change-city">
+                <button onClick={() => {handleOnFlyTo(Karlskrona)}}>Karlskrona</button>
+                <button onClick={() => {handleOnFlyTo(Jonkoping)}}>Jönköping</button>
+                <button onClick={() => {handleOnFlyTo(Stockholm)}}>Stockholm</button>
+            </div>
             <div className="map-main">
 
                 <MapContainer
                     //@ts-ignore
-                    center={[56.16149014522431, 15.58699586271063]} zoom={13}
-                              style={{ height: '100vh', width: '100wh' }}
+                    center={[56.16149014522431, 15.58699586271063]}
+                    zoom={13}
+                    style={{ height: '100vh', width: '100wh' }}
+                    ref={mapRef}
                 >
 
                     <TileLayer
@@ -156,7 +179,8 @@ export const MapView = ({...props}) => {
                         createScooterMarkers().map((scooter) => (
                             <Marker position={[scooter.position.coordinates[0], scooter.position.coordinates[1]]}
                                     //@ts-ignore
-                                    icon={iconS}>
+                                    icon={iconS}
+                            >
                             <Popup>
                                 Id: {scooter.id}
                                 <br/>
@@ -166,7 +190,25 @@ export const MapView = ({...props}) => {
                                 <br />
                                 Enabled: {!scooter.enabled ? "No" : "Yes"}
                                 <br />
-                                <button>{!scooter.enabled ? "Activate" : "Deactivate"}</button>
+                                {!scooter.enabled ? <button
+                                    onClick={
+                                        async () => {
+                                            await enableScooter(scooter.id);
+                                        }
+                                    }>
+                                    Activate
+                                </button>
+                                    :
+                                    <button
+                                        onClick={
+                                            async () => {
+                                                await disableScooter(scooter.id);
+
+                                            }
+                                            }
+                                    >
+                                        Disable
+                                    </button>}
                             </Popup>
                             </Marker>
                         ))
@@ -175,7 +217,7 @@ export const MapView = ({...props}) => {
                     {
                         createChargingStationMarkers().map((cs) => (
                             <Marker
-                                position={[cs.position.coordinates[1], cs.position.coordinates[0]]}
+                                position={[cs.position.coordinates[0], cs.position.coordinates[1]]}
                                 //@ts-ignore
                                     icon={!cs.occupied ? iconCsG : iconCsR}>
                                 <Popup>
@@ -210,6 +252,10 @@ export const MapView = ({...props}) => {
 
                 </MapContainer>
             </div>
+
+
+            </div>
+
     )
 }
 
