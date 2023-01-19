@@ -1,5 +1,4 @@
 import {CoordinatesInterface} from "./interface/CoordinatesInterface";
-import getRouteResponse from "./route";
 import {OpenRouteServiceResponse} from "./interface/OpenRouteServiceResponse";
 
 export default class Scooter {
@@ -12,14 +11,14 @@ export default class Scooter {
     protected distance_traveled: number;
     protected last_position: CoordinatesInterface | string;
     protected is_charging: boolean;
-    protected city_id: number;
+    protected city_id: string;
     protected route: OpenRouteServiceResponse | undefined;
     protected routeIndex: number;
 
     constructor(id: number, available: boolean, enabled: boolean,
                 charge: number, last_serviced: Date, first_used: Date | null,
                 distanceTraveled: number, lastPosition: CoordinatesInterface | string,
-                isCharging: boolean, cityId: number) {
+                isCharging: boolean, cityId: string) {
         this.id = id;
         this.available = available;
         this.enabled = enabled;
@@ -104,11 +103,11 @@ export default class Scooter {
         this.is_charging = isCharging;
     }
 
-    getCityId(): number {
+    getCityId(): string {
         return this.city_id;
     }
 
-    setCityId(cityId: number) {
+    setCityId(cityId: string) {
         this.city_id = cityId;
     }
 
@@ -119,101 +118,4 @@ export default class Scooter {
     setCharge(charge: number) {
         this.charge = charge;
     }
-
-    async sendReport() {
-        const data = this.get();
-        const requestOptions = {
-            method: 'PUT',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
-        };
-        console.log(requestOptions.body);
-        const response = await fetch(`http://api:3000/scooters/${this.getId()}`, requestOptions);
-        if (!response.ok) {
-            throw new Error(response.statusText);
-        }
-    }
-
-    async simulateMovement() {
-        const routeResponse = this.getRoute();
-        const currentCoords = routeResponse.features[0]?.geometry?.coordinates[this.routeIndex];
-        if (currentCoords) {
-            const coordinatesObj = {type: "Point", coordinates: [currentCoords[0], currentCoords[1]]};
-            this.setLastPosition(JSON.stringify(coordinatesObj));
-            this.routeIndex++;
-        }
-    }
-
-    async initiateRoute() {
-        if (this.getAvailable()) {
-            if (this.route === undefined) {
-                await this.setRoute();
-            }
-            const routeResponse = this.getRoute();
-            console.log("SCOOTER ID, ", this.getId());
-            console.log(routeResponse);
-            this.setCharge(this.getCharge() - 0.3);
-            try {
-                let duration = routeResponse.features[0]?.properties?.segments[0]?.steps[this.routeIndex]?.duration;
-                duration = duration * 1000;
-                await this.simulateMovement();
-                await this.sendReport();
-                setTimeout(() => this.initiateRoute(), duration);
-            } catch (e) {
-                await this.idle();
-                return;
-            }
-        }
-    }
-
-    async setRoute() {
-        this.route = await getRouteResponse(this);
-    }
-
-    getRoute(): OpenRouteServiceResponse {
-        return <OpenRouteServiceResponse>this.route;
-    }
-
-    async idle() {
-        const duration = 60000;
-        await this.sendReport();
-        setTimeout(() => this.idle(), duration);
-    }
-
-    // async initiate() {
-    //     if (this.route === null) {
-    //         await this.setRoute();
-    //     }
-    //     if (this.getAvailable()) {
-    //         this.setCharge(this.getCharge() - 0.3);
-    //         const currentCoords = this.route.features[0].geometry.coordinates[this.routeIndex];
-    //         const coordinatesObj = {type: "Point", coordinates: [currentCoords[0], currentCoords[1]]};
-    //         this.setLastPosition(JSON.stringify(coordinatesObj));
-    //         this.routeIndex++;
-    //         await this.sendReport();
-    //         setTimeout(() => this.initiate(), 10000);
-    //     } else {
-    //         this.setCharge(this.getCharge() - 0.1);
-    //         await this.sendReport();
-    //         setTimeout(() => this.initiate(), 10000);
-    //     }
-    // }
-    //
-
-    //
-    // async startRoute() {
-    //     console.log(this);
-    //     const route = await getRouteResponse(this);
-    //     console.log(route);
-    //     let segment;
-    //     let longitude;
-    //     let latitude;
-    //     for (segment of route.features[0].geometry.coordinates) {
-    //         longitude = segment[0];
-    //         latitude = segment[1];
-    //         this.last_position = JSON.stringify({type: "Point", coordinates: [longitude, latitude]});
-    //         await this.sendReport();
-    //         setTimeout(() => null, 5000);
-    //     }
-    // }
 }

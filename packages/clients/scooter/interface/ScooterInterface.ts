@@ -10,5 +10,5 @@ export default interface ScooterInterface {
     distance_traveled: number;
     last_position: CoordinatesInterface;
     is_charging: boolean;
-    city_id: number;
+    city_id: string;
 }
