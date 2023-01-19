@@ -65,7 +65,7 @@ BEGIN
             ST_AsGeoJSON(last_position) as last_position,
             is_charging,
             city_id
-    FROM scooter WHERE available = 1;
+    FROM scooter WHERE available = 1 AND enabled = 1;
 END
 ;;
 
