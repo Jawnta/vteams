@@ -1,8 +1,10 @@
 DROP PROCEDURE IF EXISTS show_user_all;
-DROP PROCEDURE IF EXISTS trip_add;
+DROP PROCEDURE IF EXISTS user_add;
 DROP PROCEDURE IF EXISTS delete_user;
 DROP PROCEDURE IF EXISTS show_user_id;
 DROP PROCEDURE IF EXISTS update_user;
+DROP PROCEDURE IF EXISTS show_user_token;
+
 DELIMITER ;;
 
 -- Get all users
