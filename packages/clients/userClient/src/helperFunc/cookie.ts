@@ -1,9 +1,9 @@
 
 function getCookie(cookieName: string) {
     let name = cookieName + "=";
-    let spli = document.cookie.split(';');
-    for(var j = 0; j < spli.length; j++) {
-      let char = spli[j];
+    let split = document.cookie.split(';');
+    for(let j = 0; j < split.length; j++) {
+      let char = split[j];
       while (char.charAt(0) === ' ') {
         char = char.substring(1);
       }
@@ -15,3 +15,7 @@ function getCookie(cookieName: string) {
   }
 
   export default getCookie;
+
+export const deleteCookie = () => {
+    document.cookie = "id_token=; expires=Thu, 01 Jan 1970 00:00:00 UTC; path=/;";
+};

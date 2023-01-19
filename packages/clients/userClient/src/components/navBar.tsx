@@ -1,4 +1,5 @@
 import "../css/Navbar.css";
+import {deleteCookie} from "../helperFunc/cookie";
 function NavBar({...props}) {
 
     return (
@@ -24,6 +25,13 @@ function NavBar({...props}) {
                 props.updatePage("Payment")
             }}>Kredit</button>
                         </li>
+
+                    <li>
+                        <button onClick={()=>{
+                            deleteCookie();
+                            window.location.reload();
+                        }}>Log out</button>
+                    </li>
                 </ul>
 
         </div>
