@@ -37,7 +37,7 @@ export const trips = {
             options.start_position
         ]
         const conn = await fetchConn();
-        const sql = `CALL add_user(?, ?, ?)`;
+        const sql = `CALL trip_add(?, ?, ?)`;
         const res = await conn.query(sql, [... tripDetails]);
         const newTrip = res[0];
         await conn.release();
