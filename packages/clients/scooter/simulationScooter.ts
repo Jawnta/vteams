@@ -29,6 +29,8 @@ export default class SimulationScooter extends Scooter {
 
     async setRoute() {
         const response = await getRouteResponse(this);
+        console.log('ROUTE RESPONSE');
+        console.log(response);
         if (response.type === undefined) {
             await this.setRoute();
         }
@@ -55,7 +57,8 @@ export default class SimulationScooter extends Scooter {
         const routeResponse = this.getRoute();
         const currentCoords = routeResponse.features[0]?.geometry?.coordinates[this.routeIndex];
         if (currentCoords) {
-            const coordinatesObj = {type: "Point", coordinates: [currentCoords[0], currentCoords[1]]};
+            console.log('Current coordinates: ', currentCoords);
+            const coordinatesObj = {type: "Point", coordinates: [currentCoords[1], currentCoords[0]]};
             this.setLastPosition(JSON.stringify(coordinatesObj));
             this.routeIndex++;
         }
@@ -63,30 +66,41 @@ export default class SimulationScooter extends Scooter {
 
     async startTrip() {
         await this.setRoute();
-        // options.user_id,
-        //     options.scooter_id,
-        //     options.start_position
-        const userId = Math.floor(Math.random() * (999 - 1) + 1);
-        const data = {
-            user_id: userId,
-            scooter_id: this.getId(),
-            start_position: this.getLastPosition()
-        }
-        const requestOptions = {
-            method: 'POST',
-            headers: {'Content-Type': 'application/json'},
-            body: JSON.stringify(data)
-        }
-        const response = await fetch(`http://localhost:3000/trips`, requestOptions);
-        console.log('START TRIP RESPONSE ', await response.json());
-        if (!response.ok) {
-            throw new Error(response.statusText);
+        if (this.route !== undefined) {
+            const userId = await this.getEligibleUser();
+            const scooterId = this.id;
+            const startPosition = this.last_position;
+            const data = {
+                user_id: userId,
+                scooter_id: scooterId,
+                start_position: startPosition
+            }
+            console.log('Trip started with data: ', data);
+            const requestOptions = {
+                method: 'POST',
+                headers: {'Content-Type': 'application/json'},
+                body: JSON.stringify(data)
+            }
+            const response = await fetch(`http://localhost:3000/trips`, requestOptions);
+            if (!response.ok) {
+                throw new Error(response.statusText);
+            }
+            console.log(await response);
         }
     }
 
+    async getEligibleUser() {
+        const userId = Math.floor(Math.random() * (999 - 1) + 1);
+        const response = await fetch(`http://localhost:3000/users/${userId}`);
+        const result = await response.json();
+        if (result.enabled === false) {
+            await this.getEligibleUser();
+        }
+        return userId;
+    }
+
     async endTrip() {
-        // stop_position
-        // sql trigger: when stop position is set?
+        console.log("Trip ended");
         const data = {
             scooter_id: this.getId(),
             stop_position: this.getLastPosition()
@@ -96,6 +110,7 @@ export default class SimulationScooter extends Scooter {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
         }
+        // change link to be slash trip id
         const response = await fetch(`http://localhost:3000/trips`, requestOptions);
         if (!response.ok) {
             throw new Error(response.statusText);
@@ -109,7 +124,8 @@ export default class SimulationScooter extends Scooter {
     }
 
     async simulateTrip() {
-        if (this.route === undefined && this.getAvailable()) {
+        console.log(this);
+        if (this.getRoute() === undefined && this.getAvailable()) {
             await this.startTrip();
         }
         await this.updateFromDb();
@@ -124,6 +140,7 @@ export default class SimulationScooter extends Scooter {
             this.setCharge(this.getCharge() - 0.3);
             await this.simulateMovement();
             await this.sendReport();
+            console.log('Current leg duration: ', duration);
             setTimeout(() => this.simulateTrip(), duration);
         } catch (e) {
             await this.endTrip();
@@ -134,7 +151,15 @@ export default class SimulationScooter extends Scooter {
     possibleToContinue(): boolean {
         const routeResponse = this.getRoute();
         const route = routeResponse.features[0]?.geometry?.coordinates;
-        return !(this.getCharge() < 0.4 || this.getAvailable() || !this.getEnabled() || this.routeIndex > route.length);
+        console.log('Route index, ', this.routeIndex);
+        console.log('Route length, ', route.length);
+        return !(this.getCharge() < 0.4 || this.getAvailable() || !this.getEnabled() || this.routeIndex >= route.length);
+    }
+
+    async idle() {
+        const duration = Math.random() * (70000 - 50000) + 50000;
+        await this.sendReport();
+        setTimeout(() => this.idle(), duration);
     }
 
     // async initiateRoute() {
@@ -166,10 +191,4 @@ export default class SimulationScooter extends Scooter {
     //         return;
     //     }
     // }
-
-    async idle() {
-        const duration = Math.random() * (70000 - 50000) + 50000;
-        await this.sendReport();
-        setTimeout(() => this.idle(), duration);
-    }
 }
