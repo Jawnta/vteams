@@ -36,7 +36,8 @@ CREATE PROCEDURE trip_add(
 )
 BEGIN
     INSERT INTO trip (user_id, scooter_id, start_position)
-    VALUES (u_id, s_id, ST_GeomFromGeoJSON(t_start_position));
+    VALUES (u_id, s_id, ST_GeomFromGeoJSON(t_start_position))
+    RETURNING id;
 END
 ;;
 
