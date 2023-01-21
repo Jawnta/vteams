@@ -50,6 +50,7 @@ export default class Pool {
             // }
             //
             // this.scooters[scooter.getId()] = scooter;
+            res = res.sort((a, b) => 0.5 - Math.random());
             for (const s of res) {
                 const scooter = new SimulationScooter(
                     s.id,
@@ -75,8 +76,6 @@ export default class Pool {
                 this.scooters[scooter.getId()] = scooter;
                 await timer(1200);
             }
-            //     check if modulo 2/3 and set initiate or idle based on that
-            //     if idle, set longer timer interval than if initiated with route
         } else {
             throw new Error('res not of type array');
         }

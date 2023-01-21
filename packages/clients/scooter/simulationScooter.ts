@@ -13,6 +13,11 @@ export default class SimulationScooter extends Scooter {
             headers: {'Content-Type': 'application/json'}
         }
         const response = await fetch(`http://localhost:3000/scooters/${scooterId}`, requestOptions);
+        if (!response.ok) {
+            console.log('GETSELFFROMDB CRASH');
+            console.log('THIS, ', this);
+            throw new Error(response.statusText);
+        }
         return response.json();
     }
 
@@ -51,6 +56,9 @@ export default class SimulationScooter extends Scooter {
         };
         const response = await fetch(`http://localhost:3000/scooters/${this.getId()}`, requestOptions);
         if (!response.ok) {
+            console.log('SENDREPORT CRASH');
+            console.log('THIS, ', this);
+            console.log('DATA, ', data);
             throw new Error(response.statusText);
         }
     }
@@ -85,6 +93,9 @@ export default class SimulationScooter extends Scooter {
             }
             const response = await fetch(`http://localhost:3000/trips`, requestOptions);
             if (!response.ok) {
+                console.log('START TRIP CRASH');
+                console.log('THIS, ', this);
+                console.log('DATA, ', data);
                 throw new Error(response.statusText);
             }
             const result = await response.json();
@@ -104,7 +115,6 @@ export default class SimulationScooter extends Scooter {
 
     async endTrip() {
         const data = {
-            scooter_id: this.getId(),
             stop_position: this.getLastPosition()
         }
         const requestOptions = {
@@ -113,8 +123,11 @@ export default class SimulationScooter extends Scooter {
             body: JSON.stringify(data)
         }
         const tripId = this.tripId;
-        const response = await fetch(`http://localhost:3000/trips/${tripId}`, requestOptions);
+        const response = await fetch(`http://localhost:3000/trips/${tripId}/end`, requestOptions);
         if (!response.ok) {
+            console.log('END TRIP CRASH');
+            console.log('THIS, ', this);
+            console.log('DATA, ', data);
             throw new Error(response.statusText);
         }
         console.log("Trip ended");
@@ -131,13 +144,16 @@ export default class SimulationScooter extends Scooter {
             await this.startTrip();
         }
         await this.updateFromDb();
-        if (!this.possibleToContinue()) {
+        if (this.notPossibleToContinue()) {
             await this.endTrip();
             return;
         }
         try {
             const routeResponse = this.getRoute();
             let duration = routeResponse.features[0]?.properties?.segments[0]?.steps[this.routeIndex]?.duration;
+            if (isNaN(duration)) {
+                duration = 10;
+            }
             duration = duration * 1000;
             this.setCharge(this.getCharge() - 0.3);
             await this.simulateMovement();
@@ -150,12 +166,12 @@ export default class SimulationScooter extends Scooter {
         }
     }
 
-    possibleToContinue(): boolean {
+    notPossibleToContinue(): boolean {
         const routeResponse = this.getRoute();
         const route = routeResponse.features[0]?.geometry?.coordinates;
         console.log('Route index, ', this.routeIndex);
         console.log('Route length, ', route.length);
-        return !(this.getCharge() < 0.4 || this.getAvailable() || !this.getEnabled() || this.routeIndex >= route.length);
+        return this.getCharge() < 0.4 || this.getAvailable() || !this.getEnabled() || this.routeIndex >= (route.length - 1);
     }
 
     async idle() {

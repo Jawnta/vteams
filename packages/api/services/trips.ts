@@ -96,6 +96,25 @@ export const trips = {
 
     /**
      *
+     * @param options.id required
+     * @param options.stop_position required
+     */
+    endTrip: async (options: { id: number; stop_position: string; }) => {
+        const tripDetails = [
+            options.id,
+            options.stop_position
+        ]
+        const conn = await fetchConn();
+        const sql = `CALL trip_stop(?, ?)`;
+        const res = await conn.query(sql, [...tripDetails]);
+        const endedTrip = res[0];
+        await conn.release();
+
+        return endedTrip;
+    },
+
+    /**
+     *
      * @param tripId The unique identifier of the trip
 
      */
