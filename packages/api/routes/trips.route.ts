@@ -23,7 +23,7 @@ router.post('/', async (req, res) => {
 
     try {
         const result = await trips.postTrips(tripData);
-        res.status(200).json(result);
+        return res.status(200).json(result);
     } catch (err) {
         return res.status(500).send({
             error: err || 'Something went wrong.',
@@ -53,6 +53,23 @@ router.put('/:tripId', async (req, res) => {
 
     try {
         const result = await trips.putTripId(trip);
+        res.status(200).json(result);
+    } catch (err) {
+        return res.status(500).send({
+            error: err || 'Something went wrong.',
+        });
+    }
+});
+
+router.put('/:tripId/end', async (req, res) => {
+    const tripId: number = +req.params.tripId;
+    const trip = {
+        id: tripId,
+        stop_position: req.body.stop_position
+    }
+
+    try {
+        const result = await trips.endTrip(trip);
         res.status(200).json(result);
     } catch (err) {
         return res.status(500).send({

@@ -1,4 +1,6 @@
 import karlskrona from "./karlskrona";
+import jonkoping from "./jonkoping";
+import stockholm from "./stockholm";
 
 function bbox(polygon: Array<Array<number>>): Array<number> {
     let longitude;
@@ -27,7 +29,9 @@ function bbox(polygon: Array<Array<number>>): Array<number> {
 }
 
 const bboxes = {
-    kna: bbox(karlskrona)
+    kna: bbox(karlskrona),
+    jkpg: bbox(jonkoping),
+    sthlm: bbox(stockholm)
 }
 
 export default bboxes;

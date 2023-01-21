@@ -1,6 +1,6 @@
 import express from 'express';
 import session from 'express-session';
-import * as dotenv from 'dotenv' 
+import * as dotenv from 'dotenv'
 dotenv.config()
 import cookieParser from 'cookie-parser';
 import log from 'morgan';
@@ -38,11 +38,12 @@ app.use(session({
     cookie: {
         sameSite: "lax"
     }
-    
+
 }))
 app.use(passport.initialize())
 app.use(passport.session())
 // require('./routes')(app); gammal
+// versions(app)
 routes(app);
 
 // catch 404
