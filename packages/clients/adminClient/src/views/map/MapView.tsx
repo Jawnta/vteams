@@ -35,6 +35,7 @@ const iconCsR = new L.Icon({
 
 export const MapView = ({...props}) => {
 
+
     const createScooterMarkers = () => {
 
         const markerList: { id: number; battery: number; charging: boolean; enabled: boolean; position: {coordinates: Array<Number>}; }[] = [];
@@ -89,9 +90,9 @@ export const MapView = ({...props}) => {
     };
 
     const createParkingZonePolygons = () => {
-        const polygonList: { id: string; cid: string; area: {coordinates: Array<Array<Number>>}; }[] = [];
+        const polygonList: { id: number; cid: number; area: {coordinates: Array<Array<Number>>}; }[] = [];
 
-        props.pzones.forEach((pz: { id: string; city_id: string; area: string; }) => {
+        props.pzones.forEach((pz: { id: number; city_id: number; area: string; }) => {
                 const area:{coordinates: Array<Array<Number>>} = JSON.parse(pz.area);
                 const data = {
                     id: pz.id,
@@ -105,20 +106,27 @@ export const MapView = ({...props}) => {
     };
 
 
-
     const createCzPolygonMarker = (data: { id: number; pid: number; area: { coordinates: Number[][]; }; }[]) => {
-        let latLongs: Array<Number[]> = [];
+        let latLongs: { id: number; pid: number; coords: Number[]; }[] = [];
         data.forEach(x => {
-            latLongs.push(x.area.coordinates[0]);
+            latLongs.push({
+                id: x.id,
+                pid: x.pid,
+                coords: x.area.coordinates[0]
+            });
 
         });
         return latLongs;
     };
 
-    const createPzPolygonMarker = (data: { id: string; cid: string; area: { coordinates: Number[][]; }}[]) => {
-        let latLongs: Array<Number[]> = [];
+    const createPzPolygonMarker = (data: { id: number; cid: number; area: { coordinates: Number[][]; }}[]) => {
+        let latLongs: { id: number; pid: number; coords: Number[]; }[] = [];
         data.forEach(x => {
-            latLongs.push(x.area.coordinates[0]);
+            latLongs.push({
+                id: x.id,
+                pid: x.cid,
+                coords: x.area.coordinates[0]
+            });
 
         });
         return latLongs;
@@ -194,6 +202,7 @@ export const MapView = ({...props}) => {
                                     onClick={
                                         async () => {
                                             await enableScooter(scooter.id);
+                                            !props.forceUpdate ? props.setForceUpdate(true) : props.setForceUpdate(false)
                                         }
                                     }>
                                     Activate
@@ -203,7 +212,7 @@ export const MapView = ({...props}) => {
                                         onClick={
                                             async () => {
                                                 await disableScooter(scooter.id);
-
+                                                !props.forceUpdate ? props.setForceUpdate(true) : props.setForceUpdate(false)
                                             }
                                             }
                                     >
@@ -232,19 +241,21 @@ export const MapView = ({...props}) => {
 
                     {
                         parkingZoneMarkers.map((pz) => (
-                            <Polygon pathOptions={purple} positions={pz}>
+                            <Polygon pathOptions={purple} positions={pz.coords}>
                                 <Popup>
-                                    test
+                                    Parkingzone: {pz.pid}
                                 </Popup>
+
                             </Polygon>
                         ))
                     }
 
                     {
+
                         chargingZoneMarkers.map((cz) => (
-                            <Polygon pathOptions={green} positions={cz}>
+                            <Polygon pathOptions={green} positions={cz.coords}>
                                 <Popup>
-                                    test
+                                    Chargingzone: {cz.pid}
                                 </Popup>
                             </Polygon>
                         ))

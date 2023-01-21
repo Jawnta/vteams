@@ -6,6 +6,9 @@ export const Map = () => {
     const [chargingStations, setChargingStations] = useState([]);
     const [chargingZones, setChargingZones] = useState([]);
     const [parkingZones, setParkingZones] = useState([]);
+    const [forceUpdate, setForceUpdate] = useState([true]);
+
+
     useEffect(() => {
         const getScooters = async () => {
 
@@ -32,7 +35,7 @@ export const Map = () => {
         getChargingStations().then(cs => setChargingStations(cs));
         getChargingZones().then(cz => setChargingZones(cz));
         getParkingZones().then(pz => setParkingZones(pz));
-    }, []);
+    }, [forceUpdate]);
 
 
     return (
@@ -42,6 +45,8 @@ export const Map = () => {
                 cstations={chargingStations}
                 czones={chargingZones}
                 pzones={parkingZones}
+                forceUpdate={forceUpdate}
+                setForceUpdate={setForceUpdate}
             />
 
         </div>
