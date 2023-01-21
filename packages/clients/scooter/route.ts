@@ -14,8 +14,8 @@ export default async function getRouteResponse(scooter: Scooter) {
 
 function getStartCoords(scooter: Scooter) {
     const lastPosition = JSON.parse(<string>scooter.getLastPosition()),
-        longitude = lastPosition.coordinates[0],
-        latitude = lastPosition.coordinates[1];
+        latitude = lastPosition.coordinates[0],
+        longitude = lastPosition.coordinates[1];
     return [longitude, latitude];
 }
 

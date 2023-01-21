@@ -33,7 +33,7 @@ export default class Pool {
         if (Array.isArray(res)) {
             const scooter = new SimulationScooter(
                 res[0].id,
-                res[0].available,
+                true,
                 res[0].enabled,
                 res[0].charge,
                 res[0].last_serviced,
@@ -43,7 +43,12 @@ export default class Pool {
                 res[0].is_charging,
                 res[0].city_id
             )
-            await scooter.simulateTrip();
+            if (scooter.getAvailable()) {
+                await scooter.simulateTrip();
+            } else {
+                await scooter.idle();
+            }
+
             this.scooters[scooter.getId()] = scooter;
             // for (const s of res) {
             //     const scooter = new SimulationScooter(
@@ -59,12 +64,16 @@ export default class Pool {
             //         s.city_id
             //     );
             //     if (scooter.getId() % 2 == 0) {
-            //         await scooter.initiateRoute();
+            //         if (scooter.getAvailable()) {
+            //             await scooter.simulateTrip();
+            //         } else {
+            //             await scooter.idle();
+            //         }
             //     } else {
             //         await scooter.idle();
             //     }
             //     this.scooters[scooter.getId()] = scooter;
-            //     await timer(500);
+            //     await timer(1200);
             // }
             //     check if modulo 2/3 and set initiate or idle based on that
             //     if idle, set longer timer interval than if initiated with route
