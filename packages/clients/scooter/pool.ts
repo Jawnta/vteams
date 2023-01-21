@@ -31,50 +31,50 @@ export default class Pool {
     async populate(res: ScooterInterface[]) {
         const timer = (ms: number | undefined) => new Promise(res => setTimeout(res, ms))
         if (Array.isArray(res)) {
-            const scooter = new SimulationScooter(
-                res[0].id,
-                true,
-                res[0].enabled,
-                res[0].charge,
-                res[0].last_serviced,
-                res[0].first_used,
-                res[0].distance_traveled,
-                res[0].last_position,
-                res[0].is_charging,
-                res[0].city_id
-            )
-            if (scooter.getAvailable()) {
-                await scooter.simulateTrip();
-            } else {
-                await scooter.idle();
-            }
-
-            this.scooters[scooter.getId()] = scooter;
-            // for (const s of res) {
-            //     const scooter = new SimulationScooter(
-            //         s.id,
-            //         s.available,
-            //         s.enabled,
-            //         s.charge,
-            //         s.last_serviced,
-            //         s.first_used,
-            //         s.distance_traveled,
-            //         s.last_position,
-            //         s.is_charging,
-            //         s.city_id
-            //     );
-            //     if (scooter.getId() % 2 == 0) {
-            //         if (scooter.getAvailable()) {
-            //             await scooter.simulateTrip();
-            //         } else {
-            //             await scooter.idle();
-            //         }
-            //     } else {
-            //         await scooter.idle();
-            //     }
-            //     this.scooters[scooter.getId()] = scooter;
-            //     await timer(1200);
+            // const scooter = new SimulationScooter(
+            //     res[0].id,
+            //     true,
+            //     res[0].enabled,
+            //     res[0].charge,
+            //     res[0].last_serviced,
+            //     res[0].first_used,
+            //     res[0].distance_traveled,
+            //     res[0].last_position,
+            //     res[0].is_charging,
+            //     res[0].city_id
+            // )
+            // if (scooter.getAvailable()) {
+            //     await scooter.simulateTrip();
+            // } else {
+            //     await scooter.idle();
             // }
+            //
+            // this.scooters[scooter.getId()] = scooter;
+            for (const s of res) {
+                const scooter = new SimulationScooter(
+                    s.id,
+                    s.available,
+                    s.enabled,
+                    s.charge,
+                    s.last_serviced,
+                    s.first_used,
+                    s.distance_traveled,
+                    s.last_position,
+                    s.is_charging,
+                    s.city_id
+                );
+                if (scooter.getId() % 2 == 0) {
+                    if (scooter.getAvailable()) {
+                        await scooter.simulateTrip();
+                    } else {
+                        await scooter.idle();
+                    }
+                } else {
+                    await scooter.idle();
+                }
+                this.scooters[scooter.getId()] = scooter;
+                await timer(1200);
+            }
             //     check if modulo 2/3 and set initiate or idle based on that
             //     if idle, set longer timer interval than if initiated with route
         } else {
