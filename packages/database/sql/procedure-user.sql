@@ -75,7 +75,11 @@ BEGIN
 START TRANSACTION;
     SELECT @trip:=id FROM trip WHERE user_id=u_id;
     SELECT id, amount INTO @i_id,@amount FROM invoice WHERE trip_id = @trip;
-    UPDATE user SET credit = credit + credit_add WHERE id = u_id;
+    UPDATE user 
+    SET 
+        credit = credit + credit_add,
+        enabled = IF(credit_add > @amount, 1, 0)
+    WHERE id = u_id;
     IF credit_add > @amount THEN
         UPDATE invoice
         SET payed = CURRENT_TIMESTAMP()
