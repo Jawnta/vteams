@@ -4,6 +4,8 @@ import ScooterInterface from "./interface/ScooterInterface";
 import getRouteResponse from "./route";
 
 export default class SimulationScooter extends Scooter {
+    protected tripId: number | undefined;
+
     async getSelfFromDb(): Promise<Array<ScooterInterface>> {
         const scooterId = this.getId();
         const requestOptions = {
@@ -85,7 +87,8 @@ export default class SimulationScooter extends Scooter {
             if (!response.ok) {
                 throw new Error(response.statusText);
             }
-            console.log(await response);
+            const result = await response.json();
+            this.tripId = result[0].id;
         }
     }
 
@@ -100,7 +103,6 @@ export default class SimulationScooter extends Scooter {
     }
 
     async endTrip() {
-        console.log("Trip ended");
         const data = {
             scooter_id: this.getId(),
             stop_position: this.getLastPosition()
@@ -110,11 +112,12 @@ export default class SimulationScooter extends Scooter {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
         }
-        // change link to be slash trip id
-        const response = await fetch(`http://localhost:3000/trips`, requestOptions);
+        const tripId = this.tripId;
+        const response = await fetch(`http://localhost:3000/trips/${tripId}`, requestOptions);
         if (!response.ok) {
             throw new Error(response.statusText);
         }
+        console.log("Trip ended");
         await this.idle();
     }
 
@@ -124,7 +127,6 @@ export default class SimulationScooter extends Scooter {
     }
 
     async simulateTrip() {
-        console.log(this);
         if (this.getRoute() === undefined && this.getAvailable()) {
             await this.startTrip();
         }
@@ -161,34 +163,4 @@ export default class SimulationScooter extends Scooter {
         await this.sendReport();
         setTimeout(() => this.idle(), duration);
     }
-
-    // async initiateRoute() {
-    //     if (this.route === undefined) {
-    //         await this.setRoute();
-    //     }
-    //     if (this.charge < 0.4) {
-    //         await this.idle();
-    //         // change to something more clear that maybe sends an exit msg or so
-    //     }
-    //     const dbScooter = await this.getSelfFromDb();
-    //     this.setChanges(dbScooter);
-    //     if (!this.getAvailable()) {
-    //         // send put to trip
-    //         await this.idle();
-    //     }
-    //     const routeResponse = this.getRoute();
-    //     console.log(this);
-    //     console.log(routeResponse);
-    //     this.setCharge(this.getCharge() - 0.3);
-    //     try {
-    //         let duration = routeResponse.features[0]?.properties?.segments[0]?.steps[this.routeIndex]?.duration;
-    //         duration = duration * 1000;
-    //         await this.simulateMovement();
-    //         await this.sendReport();
-    //         setTimeout(() => this.initiateRoute(), duration);
-    //     } catch (e) {
-    //         await this.idle();
-    //         return;
-    //     }
-    // }
 }
