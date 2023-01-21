@@ -131,7 +131,8 @@ CREATE PROCEDURE trip_stop(
 BEGIN
     UPDATE trip
     SET stop_position  = ST_GeomFromGeoJSON(stop_position),
-        stop_time      = CURRENT_TIMESTAMP()
+        stop_time      = CURRENT_TIMESTAMP(),
+        completed      = 1 
     WHERE id = t_id;
 END
 ;;

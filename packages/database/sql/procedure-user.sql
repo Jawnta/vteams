@@ -69,8 +69,26 @@ END
 ;;
 
 -- Get specific user
+-- GET /users/:userId
+CREATE PROCEDURE add_credit(u_id INT, credit_add INT)
+BEGIN
+START TRANSACTION;
+    SELECT @trip:=id FROM trip WHERE user_id=u_id;
+    SELECT id, amount INTO @i_id,@amount FROM invoice WHERE trip_id = @trip;
+    UPDATE user SET credit = credit + credit_add WHERE id = u_id;
+    IF credit_add > @amount THEN
+        UPDATE invoice
+        SET payed = CURRENT_TIMESTAMP()
+        WHERE id = @i_id;
+    END IF;
+    COMMIT;
+END
+;;
+
+-- Get specific user
 -- GET /users/:token
-CREATE PROCEDURE show_user_token(u_token VARCHAR(45)) READS SQL DATA BEGIN
+CREATE PROCEDURE show_user_token(u_token VARCHAR(45)) READS SQL DATA 
+BEGIN
 SELECT *
 FROM user
 WHERE token = u_token;
