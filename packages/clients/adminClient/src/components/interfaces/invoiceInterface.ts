@@ -4,5 +4,5 @@ export interface InvoiceInterface {
     trip_id: number;
     status: string;
     amount: number;
-    payed: boolean;
+    payed: Date;
 }

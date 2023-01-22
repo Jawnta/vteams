@@ -1,35 +1,36 @@
 FROM node:16-alpine as build
 ENV NODE_ENV production
+#############################
 WORKDIR /adminClient
 
-# COPY . .
-#
-# RUN npm install
+COPY . .
 
-#EXPOSE 1338
-
-# RUN npm run build
-#
-#
-# # Bundle static assets with nginx
-# FROM nginx:1.21.0-alpine as production
-# ENV NODE_ENV production
-# # Copy built assets from builder
-# COPY --from=build /adminClient/build /usr/share/nginx/html
-# # Add your nginx.conf
-# COPY nginx.conf /etc/nginx/conf.d/default.conf
-# # Expose port
-# EXPOSE 1338
-# # Home nginx
-# CMD ["nginx", "-g", "daemon off;"]
-
-# ÖVER ÄR FÖR PRODUCTION
-# FROM node:16-alpine
-
-WORKDIR /adminClient
-COPY package*.json ./
 RUN npm install
-# COPY . ./
+
 EXPOSE 1338
 
-ENTRYPOINT ["npm", "run", "dev"]
+RUN npm run build
+
+
+# Bundle static assets with nginx
+FROM nginx:1.21.0-alpine as production
+ENV NODE_ENV production
+# Copy built assets from builder
+COPY --from=build /adminClient/build /usr/share/nginx/html
+# Add your nginx.conf
+COPY nginx.conf /etc/nginx/conf.d/default.conf
+# Expose port
+EXPOSE 1338
+# Home nginx
+CMD ["nginx", "-g", "daemon off;"]
+
+# ÖVER ÄR FÖR PRODUCTION
+# NEDRE ÄR FÖR DEVELOPMENT
+
+# WORKDIR /adminClient
+# COPY package*.json ./
+# RUN npm install
+# # COPY . ./
+# EXPOSE 1338
+#
+# ENTRYPOINT ["npm", "run", "dev"]

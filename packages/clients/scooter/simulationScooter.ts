@@ -12,7 +12,7 @@ export default class SimulationScooter extends Scooter {
             method: 'GET',
             headers: {'Content-Type': 'application/json'}
         }
-        const response = await fetch(`http://localhost:3000/scooters/${scooterId}`, requestOptions);
+        const response = await fetch(`http://api:3000/scooters/${scooterId}`, requestOptions);
         if (!response.ok) {
             console.log('GETSELFFROMDB CRASH');
             console.log('THIS, ', this);
@@ -54,7 +54,7 @@ export default class SimulationScooter extends Scooter {
             headers: {'Content-Type': 'application/json'},
             body: JSON.stringify(data)
         };
-        const response = await fetch(`http://localhost:3000/scooters/${this.getId()}`, requestOptions);
+        const response = await fetch(`http://api:3000/scooters/${this.getId()}`, requestOptions);
         if (!response.ok) {
             console.log('SENDREPORT CRASH');
             console.log('THIS, ', this);
@@ -91,7 +91,7 @@ export default class SimulationScooter extends Scooter {
                 headers: {'Content-Type': 'application/json'},
                 body: JSON.stringify(data)
             }
-            const response = await fetch(`http://localhost:3000/trips`, requestOptions);
+            const response = await fetch(`http://api:3000/trips`, requestOptions);
             if (!response.ok) {
                 console.log('START TRIP CRASH');
                 console.log('THIS, ', this);
@@ -105,7 +105,7 @@ export default class SimulationScooter extends Scooter {
 
     async getEligibleUser() {
         const userId = Math.floor(Math.random() * (999 - 1) + 1);
-        const response = await fetch(`http://localhost:3000/users/${userId}`);
+        const response = await fetch(`http://api:3000/users/${userId}`);
         const result = await response.json();
         if (result.enabled === false) {
             await this.getEligibleUser();
@@ -123,7 +123,7 @@ export default class SimulationScooter extends Scooter {
             body: JSON.stringify(data)
         }
         const tripId = this.tripId;
-        const response = await fetch(`http://localhost:3000/trips/${tripId}/end`, requestOptions);
+        const response = await fetch(`http://api:3000/trips/${tripId}/end`, requestOptions);
         if (!response.ok) {
             console.log('END TRIP CRASH');
             console.log('THIS, ', this);

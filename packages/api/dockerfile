@@ -9,4 +9,8 @@ RUN npm install passport-google-oauth20
 COPY . ./
 
 ENTRYPOINT [ "npm" ]
+<<<<<<< HEAD
 CMD [ "run", "start" ]
+=======
+CMD [ "run", "start" ]
+>>>>>>> 6a3e7cc6ccf3f50b790b8df6b56c5670f49d2c8e
