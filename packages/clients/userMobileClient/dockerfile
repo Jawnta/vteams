@@ -5,7 +5,8 @@ FROM node:16-buster-slim
 # defaults to production, compose overrides this to development on build and run
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
-
+ENV LOCALHOST_IP ""
+RUN hostname -i > LOCALHOST_IP
 # default to port 19006 for node, and 19001 and 19002 (tests) for debug
 ARG PORT=19006
 ENV PORT $PORT
