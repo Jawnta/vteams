@@ -1,17 +1,16 @@
 import React from "react";
 import { Text } from "react-native";
-import ScooterInterface from "../../interfaces/ScooterPost";
+import ScooterInterface from "../../interfaces/ScooterPre";
 import ScooterParseInterface from "../../interfaces/ScooterPost";
 import { Marker, Callout, } from 'react-native-maps';
 import { useEffect, useState } from "react";
 import { getScooters } from "../../helperFunctions/apiCalls";
 
 export default function Scooters( {setSelectedScooter}: any): any {
-    const [scooters, setScooters] = useState<ScooterParseInterface[]>()
+    const [scooters, setScooters] = useState<ScooterParseInterface[]| any>()
     const [markers, setMarkers] = useState([]);
     async function parseCoordinates(scooterList:ScooterInterface[]) {
         scooterList.forEach(scooter => {
-            //@ts-ignore
             scooter.last_position = JSON.parse(scooter.last_position)
         });
         setScooters(scooterList)

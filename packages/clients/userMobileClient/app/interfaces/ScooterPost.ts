@@ -9,7 +9,7 @@ interface ScooterParseInterface {
     last_position: {
         type: string;
         coordinates: [number, number];
-    };
+    }
     is_charging: boolean;
     city_id: string;
 }

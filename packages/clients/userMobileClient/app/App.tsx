@@ -63,7 +63,7 @@ export default function App() {
 		<Tab.Navigator 
 		        screenOptions={({ route }) => ({
 					tabBarIcon: ({ focused, color, size }) => {
-					  let iconName;
+					  let iconName: any;
 		  
 					  if (route.name === 'Profil') {
 						iconName = focused
@@ -80,7 +80,6 @@ export default function App() {
 					  }
 		  
 					  // You can return any component that you like here!
-					  //@ts-ignore
 					  return <Ionicons name={iconName} size={size} color={color} />;
 					},
 					tabBarActiveTintColor: 'tomato',
