@@ -2,12 +2,8 @@ import ProfileInterface from "../interfaces/Profile"
 import startTripInterface from "../interfaces/startTrip";
 import StropTripInterface from "../interfaces/StopTrip";
 import {API_URL } from '@env'
-// const apiUrl = 'http://192.168.1.234:8080'
-// const apiUrl = 'http://192.168.1.234:3000'
-//@ts-ignore
-
 const apiUrl = API_URL
-// const apiUrl = Constants.expoConfig.extra.apiUrl;
+
 console.log("Url som används till api:", apiUrl)
 export async function getUserDataFromApi(token: string) {
     const result = await fetch(`${apiUrl}/users/token/${token}`)
