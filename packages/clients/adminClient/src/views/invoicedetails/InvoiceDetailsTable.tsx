@@ -39,12 +39,12 @@ export const InvoiceDetailsTable = ({...props}) => {
                                                                     <tbody>
                                                                     <tr>
                                                                         <td>Fee</td>
-                                                                        <td className="alignright">10:-</td>
+                                                                        <td className="alignright">{props.data.invoice.fee}:-</td>
                                                                     </tr>
 
                                                                     <tr>
                                                                         <td>Trip</td>
-                                                                        <td className="alignright">{`${props.data.invoice.amount - 10}:-`}</td>
+                                                                        <td className="alignright">{`${props.data.invoice.amount - props.data.invoice.fee}:-`}</td>
                                                                     </tr>
                                                                     <tr className="total">
                                                                         <td className="alignright" width="80%">Total

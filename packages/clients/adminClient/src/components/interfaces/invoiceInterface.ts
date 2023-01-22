@@ -5,4 +5,5 @@ export interface InvoiceInterface {
     status: string;
     amount: number;
     payed: Date;
+    fee: number;
 }
