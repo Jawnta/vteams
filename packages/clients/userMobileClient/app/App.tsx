@@ -15,8 +15,8 @@ import Ionicons from '@expo/vector-icons/Ionicons'
 
 const Tab = createBottomTabNavigator();
 export default function App() {
-	// //LOCALHOST GÅR INTE. MÅSTE ANGE IP.Ändra till env ÄNDRA FÖR PROD?
-	// const apiUrl = 'http://192.168.1.234:8080'
+	//LOCALHOST GÅR INTE. MÅSTE ANGE IP.Ändra till env ÄNDRA FÖR PROD?
+	const apiUrl = 'http://192.168.1.234:8080'
 
 	const [id, setId] = React.useState("")
 	const [user, setUser] = React.useState<User>()

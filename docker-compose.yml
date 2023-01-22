@@ -22,6 +22,7 @@ services:
         environment:
             - NODE_ENV=development
         restart: 'always'
+
     adminClient:
         image: 'admin_client'
         container_name: 'admin_client'
@@ -29,7 +30,10 @@ services:
         #     - WATCHPACK_POLLING=true
         ports:
             - '8880:1338'
+        depends_on:
+            - api
         build: './packages/clients/adminClient/'
+
     userClient:
         image: 'user_client'
         container_name: 'user_client'
@@ -48,6 +52,8 @@ services:
             - '19006:19006'
             - '19001:19001'
             - '19002:19002'
+        depends_on:
+            - api
         volumes:
             - './packages/clients/userMobileClient/app:/opt/app'
             - notused:/opt/userMobileClient/app/node_modules

@@ -5,8 +5,7 @@ FROM node:16-buster-slim
 # defaults to production, compose overrides this to development on build and run
 ARG NODE_ENV=production
 ENV NODE_ENV $NODE_ENV
-ENV LOCALHOST_IP ""
-RUN hostname -i > LOCALHOST_IP
+
 # default to port 19006 for node, and 19001 and 19002 (tests) for debug
 ARG PORT=19006
 ENV PORT $PORT
@@ -14,13 +13,19 @@ EXPOSE $PORT 19001 19002
 
 RUN mkdir /opt/app
 WORKDIR /opt/app
+ARG API_URL=$(hostname -i)
+RUN echo $API_URL
 ENV PATH /opt/app/.bin:$PATH
 COPY ./app/package.json ./
-
+COPY ./app/.env ./
+RUN echo "API_URL=$API_URL:8080" > ./.env
+RUN IP=$(hostname -i) && \
+    echo "TEST=http://192.168.1.234:3000" > /.env
 
 RUN npm install && npm install -g expo-cli
 RUN npm install @expo/ngrok@^4.1.0
 RUN npm install -g @expo/ngrok@^4.1.0
+
 
 ENTRYPOINT [ "npm", "run" ]
 CMD ["tunnel"]
