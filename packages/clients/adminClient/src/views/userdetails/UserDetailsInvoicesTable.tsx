@@ -9,7 +9,7 @@ export const UserDetailsInvoicesTable = ({...props}) => {
 
     let invoice = {};
     const navigate = useNavigate();
-    const navigateUserDetails = (id: number, billed: Date, trip_id: number, amount: number, payed: boolean) =>{
+    const navigateUserDetails = (id: number, billed: Date, trip_id: number, amount: number, payed: Date) =>{
         invoice = {
             id: id,
             billed: billed,
@@ -40,7 +40,7 @@ export const UserDetailsInvoicesTable = ({...props}) => {
                     <td>{dayjs(invoice.billed).format("YYYY-MM-DD").toString()}</td>
                     <td>{invoice.trip_id}</td>
                     <td>{invoice.amount}</td>
-                    <td>{invoice.payed}</td>
+                    <td>{dayjs(invoice.payed).format("YYYY-MM-DD").toString()}</td>
 
                 </tr>
             )

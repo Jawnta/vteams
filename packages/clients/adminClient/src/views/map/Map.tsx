@@ -37,6 +37,23 @@ export const Map = () => {
         getParkingZones().then(pz => setParkingZones(pz));
     }, [forceUpdate]);
 
+    useEffect( () => {
+        const getScooters = async () => {
+
+            const response = await fetch(`/scooters/`);
+            return await response.json();
+        };
+
+
+        const interval = setInterval(() => {
+            getScooters().then(s => setScooters(s));
+        }, 3000);
+
+
+        return () => clearInterval(interval);
+
+    },[]);
+
 
     return (
         <div className="map-wrapper">

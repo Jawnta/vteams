@@ -1,5 +1,6 @@
 FROM node:16-alpine as build
 ENV NODE_ENV production
+#############################
 WORKDIR /adminClient
 
 COPY . .
@@ -24,7 +25,7 @@ EXPOSE 1338
 CMD ["nginx", "-g", "daemon off;"]
 
 # ÖVER ÄR FÖR PRODUCTION
-# FROM node:16-alpine
+# NEDRE ÄR FÖR DEVELOPMENT
 
 # WORKDIR /adminClient
 # COPY package*.json ./
