@@ -9,13 +9,14 @@ export const UserDetailsInvoicesTable = ({...props}) => {
 
     let invoice = {};
     const navigate = useNavigate();
-    const navigateUserDetails = (id: number, billed: Date, trip_id: number, amount: number, payed: Date) =>{
+    const navigateUserDetails = (id: number, billed: Date, trip_id: number, amount: number, payed: Date, fee: number) =>{
         invoice = {
             id: id,
             billed: billed,
             trip_id: trip_id,
             amount: amount,
-            payed: payed
+            payed: payed,
+            fee: fee
 
         };
         navigate('/invoiceDetails',{state: {invoice: invoice, user: props.user}});
@@ -33,7 +34,8 @@ export const UserDetailsInvoicesTable = ({...props}) => {
                         invoice.billed,
                         invoice.trip_id,
                         invoice.amount,
-                        invoice.payed
+                        invoice.payed,
+                        invoice.fee
                     )}
                 }>
                     <td>{invoice.id}</td>
