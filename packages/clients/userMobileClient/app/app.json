@@ -1,8 +1,12 @@
 {
     "expo": {
         "name": "app",
-        "slug": "app",
+        "slug": "snalak",
+        "scheme": "app",
         "version": "1.0.0",
+        "extra": {
+            "apiUrl": "process.env.API_URL"
+          },
         "orientation": "portrait",
         "icon": "./assets/icon.png",
         "userInterfaceStyle": "light",
