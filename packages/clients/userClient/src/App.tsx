@@ -1,5 +1,4 @@
 import React, {useState, useEffect} from 'react';
-import logo from './logo.svg';
 import './css/App.css';
 import Login from './components/login';
 import getCookie from './helperFunc/cookie';

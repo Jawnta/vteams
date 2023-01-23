@@ -16,10 +16,10 @@ async function authenticateUser(request: any, accessToken: any, refreshToken: an
             token: profile.id as string
     };
         const newUser = await users.postUsers(userDetails);
-        return done(null, newUser);
+        return done(null, await newUser);
     }
-    console.log(profile)
-    return done(null, user);
+  
+    return done(null, await user);
 };
 
 const GoogleStrategy = passportGoogle.Strategy;
