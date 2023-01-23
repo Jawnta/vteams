@@ -1,5 +1,6 @@
 import {UserInterface} from '../interfaces/userInterface';
 import {fetchConn} from "../db/dbConnection";
+import { addFundsInterface } from '../interfaces/addFundsInterface';
 
 export const users = {
     /**
@@ -19,7 +20,6 @@ export const users = {
 
     /**
      *
-
      * @param options.creditCurrent credit balance
      * @param options.email required
      * @param options.enabled required Returns false if user is disabled
@@ -49,6 +49,25 @@ export const users = {
         await conn.release();
 
         return newUser;
+    },
+    /**
+     *
+     * @param options.funds credit balance
+     * @param options.user_id requiredThe unique identifier of a user
+     */
+    postFunds: async (options: addFundsInterface) => {
+
+        const userDetails = [
+            options.user_id,
+            options.funds,
+        ]
+        const conn = await fetchConn();
+        const sql = `CALL add_credit(?, ?)`;
+        const res = await conn.query(sql, [... userDetails]);
+        const newFunds = res[0];
+        await conn.release();
+
+        return newFunds;
     },
 
     /**

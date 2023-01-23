@@ -26,17 +26,22 @@ function AddFunds({...props}) {
  
         
 
-    async function addFundsToUser(fund:number) {
-        
+    async function addFundsToUser(fundsToAdd:number) {
+        console.log(fundsToAdd)
+        const data ={
+            user_id: props.user.id,
+            funds: fundsToAdd
+        }
+
         const requestOptions = {
-            method: "PUT",
+            method: "POST",
             headers: {"Content-Type": "application/json"},
-            body: JSON.stringify(fund),
+            body: JSON.stringify(data),
         };
         try{
             // LÄGGER TILL TEMPORÄR LÄNK TILLS VI HAR EN TRANSAKTION
             const response = await fetch(`http://localhost:8080/users/${props.user.id}/funds`, requestOptions);
-            setTempFund(fund)
+            setTempFund(fundsToAdd)
         } catch (error) {
             console.error(error);
           }

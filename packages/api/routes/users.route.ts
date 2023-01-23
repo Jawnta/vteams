@@ -2,6 +2,7 @@ import express from 'express';
 import {users} from '../services/users';
 const router = express.Router();
 import {UserInterface} from '../interfaces/userInterface';
+import { addFundsInterface } from '../interfaces/addFundsInterface';
 
 router.get('/', async (req, res) => {
     try {
@@ -22,6 +23,22 @@ router.post('/', async (req, res) => {
 
     try {
         const result = await users.postUsers(userData);
+        res.status(200).json(result);
+    } catch (err) {
+        return res.status(500).send({
+            error: err || 'Something went wrong.',
+        });
+    }
+});
+
+router.post('/:userId/funds', async (req, res) => {
+    const userData: addFundsInterface = req.body;
+    if (!userData.user_id || !userData.funds) {
+        return res.sendStatus(400);
+    }
+
+    try {
+        const result = await users.postFunds(userData);
         res.status(200).json(result);
     } catch (err) {
         return res.status(500).send({
