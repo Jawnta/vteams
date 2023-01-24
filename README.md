@@ -21,4 +21,4 @@
   
 Kom ihåg att ha en fungerande version av Docker installerad på din dator för att kunna använda docker-compose kommandot.
 
-För att stänga ner projektet, kör docker-compose down.
+För att stänga ner projektet, kör ```docker-compose down```.
