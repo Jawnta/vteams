@@ -8,9 +8,9 @@ Klona detta repository genom att köra git clone https://github.com/Jawnta/vteam
 
 Navigera till projektmappen via terminalen och kör npm install för att installera alla beroenden.
 
-Skapa en .env fil i packages/api mappen med följande innehåll:
-GOOGLE_CLIENT_SECRET=""
-GOOGLE_CLIENT_ID=""
+Skapa en .env fil i packages/api mappen med följande innehåll:  
+GOOGLE_CLIENT_SECRET=""  
+GOOGLE_CLIENT_ID=""  
 Skapa en .env fil i packages/clients/userMoblieClient mappen med följande innehåll:
 
 API_URL=http://[Localhost ip]:8080
