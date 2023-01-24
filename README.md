@@ -1,7 +1,7 @@
 # Snålåk (vteams)
 
 
-# Getting Started
+## Getting Started
 
 Följ dessa steg för att komma igång med projektet:
 
