@@ -9,12 +9,12 @@
 2. Navigera till projektmappen via terminalen och kör npm install för att installera alla beroenden.
 
 3. Skapa en .env fil i packages/api mappen med följande innehåll:  
-- GOOGLE_CLIENT_SECRET=""  
-- GOOGLE_CLIENT_ID=""  
+- ```GOOGLE_CLIENT_SECRET=""```  
+- ```GOOGLE_CLIENT_ID=""```
 
 4. Skapa en .env fil i packages/clients/userMoblieClient mappen med följande innehåll:
 
-- API_URL=http://[Localhost ip]:8080
+- ```API_URL=http://[Localhost ip]:8080```
 
 5. Ersätt [secret och ID] och [Localhost ip] med din egen information
 6. Kör docker-compose up -d för att starta projektet.
