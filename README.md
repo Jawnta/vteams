@@ -16,7 +16,7 @@
 
 - ```API_URL=http://[Localhost ip]:8080```
 
-5. Ersätt [secret och ID] och [Localhost ip] med din egen information
+5. Ersätt ```[secret och ID]``` och ```[Localhost ip]``` med din egen information
 6. Kör docker-compose up -d för att starta projektet.
   
 Kom ihåg att ha en fungerande version av Docker installerad på din dator för att kunna använda docker-compose kommandot.
