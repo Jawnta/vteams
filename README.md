@@ -17,9 +17,7 @@ API_URL=http://[Localhost ip]:8080
 
 Ersätt [secret och ID] och [Localhost ip] med din egen information
 När detta är klart kör docker-compose up -d för att starta projektet.
-
-Om allt går bra, borde du nu kunna nå projektet genom att öppna webbläsaren och gå till http://localhost:3000/.
-
+  
 Kom ihåg att ha en fungerande version av Docker installerad på din dator för att kunna använda docker-compose kommandot.
 
 För att stänga ner projektet, kör docker-compose down
